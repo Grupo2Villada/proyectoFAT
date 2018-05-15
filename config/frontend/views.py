@@ -16,7 +16,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from datetime import datetime, timedelta
 from django.utils import timezone
-
+from controlAsistencia.models import *
+from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
@@ -41,19 +42,24 @@ def logout_user(request):
     logout(request)
     return redirect('/')
 
-def register_p(request):
+def register_user(request):
     error_user = False
+    error_email = False
     error_pass = False
     username = ""
+    email = ""
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
-        sec_pass = request.POST['seccond_pass']
+        sec_pass = request.POST['sec_password']
+        email = request.POST['email']
         if User.objects.filter(username=username).exists():
             error_user = True
+        if User.objects.filter(email=email).exists():
+            error_email = True
         if password == sec_pass:
-            user = User.objects.create_user(username, password)
-            return redirect('/')
+            user = User.objects.create_user(username, email, password)
+            return redirect('index')
         else:
             error_pass = True
-    return render(request, 'registration.html', {'page':page, 'error_user':error_user, 'error_email':error_email, 'error_pass':error_pass, 'user':username, 'email':email})
+    return render(request, 'base.html', {'error_user':error_user, 'error_email':error_email, 'error_pass':error_pass, 'user':username, 'email':email})

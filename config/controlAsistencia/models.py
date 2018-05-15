@@ -36,6 +36,7 @@ class Person(models.Model):
 	last_name = models.CharField(max_length=25)
 	birthday = models.DateField()
 	phone = models.CharField(max_length=15,blank=True, null=True)
+	email = models.CharField(max_length=40,blank=False, null=True)
 
 	class Meta:
 		abstract = True

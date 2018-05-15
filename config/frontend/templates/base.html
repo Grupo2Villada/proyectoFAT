@@ -143,7 +143,7 @@ body {
         
       </div>
       <div class="modal-footer">
-        <a href="#modal-register">Don't have account? Sign up.</a>
+        <a href="#modal-register" data-dismiss="modal" data-toggle="modal">Don't have an account? Sign up.</a>
       </div>
     </div>
   </div>
@@ -157,19 +157,23 @@ body {
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
       <div class="modal-body">
-        <form action="#" method="POST">
+        <form action="{% url 'register' %}" method="POST">
             {% csrf_token %}
           <div class="form-group">
             <i class="glyphicon glyphicon-user"></i>
          <input type="text" name="username" class="form-control" placeholder="Username" required="required">
           </div>
           <div class="form-group">
+            <i class="glyphicon glyphicon-envelope"></i>
+         <input type="email" name="email" class="form-control" placeholder="Email" required="required">
+          </div>
+          <div class="form-group">
             <i class="glyphicon glyphicon-lock"></i>
             <input type="password" name="password" class="form-control" placeholder="Password" required="required">         
           </div>
            <div class="form-group">
-            <i class="glyphicon glyphicon-user"></i>
-         <input type="text" name="sec_password" class="form-control" placeholder="Confirm password" required="required">
+            <i class="glyphicon glyphicon-lock"></i>
+         <input type="password" name="sec_password" class="form-control" placeholder="Confirm password" required="required">
           </div>
           <div class="form-group">
             <input type="submit" class="btn btn-primary btn-block btn-lg" value="Register">
