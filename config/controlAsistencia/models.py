@@ -13,9 +13,9 @@ STATUS_CHOICES = (
 
 )
 DIVISION_CHOICES = (
-    ('A', "A"),
-    ('B', "B"),
-    ('C', "C"),
+    (0, "A"),
+    (1, "B"),
+    (3, "C"),
 
 )
 
@@ -27,6 +27,14 @@ YEAR_CHOICES = (
     (5, "Quinto"),
     (6, "Sexto"),
     (7, "Septimo"),
+
+)
+
+PERCENTAGE_CHOICES = (
+    (0.25, "1/4"),
+    (0.5, "1/2"),
+    (0.75, "3/4"),
+    (float(1), "1"),
 
 )
 
@@ -43,10 +51,10 @@ class Person(models.Model):
 
 class Year(models.Model):
 	year_number = models.IntegerField(choices=YEAR_CHOICES)
-	division = models.CharField(choices=DIVISION_CHOICES, max_length= 1)
+	division = models.IntegerField(choices=DIVISION_CHOICES, max_length=1)
 
 class Preceptor(Person):
-	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	user = models.OneToOneField(settings.AUTH_USER_MODEL)
 	internal_tel = models.IntegerField(blank=True, null=True)
 	year = models.ManyToManyField(Year)
 
@@ -67,7 +75,8 @@ class Student(Person):
 class Absence(models.Model):
 	justified = models.BooleanField(default=False)
 	date = models.DateField(auto_now=True)
-	percentage = models.FloatField(blank=True, null=True)
+	time = models.TimeField()
+	percentage = models.FloatField(choices=PERCENTAGE_CHOICES)
 	student = models.ForeignKey(Student)
 
 class Parent(Person):
