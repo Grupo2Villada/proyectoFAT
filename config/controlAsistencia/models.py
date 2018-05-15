@@ -38,6 +38,12 @@ PERCENTAGE_CHOICES = (
 
 )
 
+ORIGIN_CHOICES = (
+    (0, "Llegada tarde"),
+    (1, "Retiro anticipado"),
+
+)
+
 
 class Person(models.Model):
 	first_name = models.CharField(max_length=12)
@@ -73,6 +79,7 @@ class Student(Person):
 
 
 class Absence(models.Model):
+	origin = models.IntegerField(choices=ORIGIN_CHOICES)
 	justified = models.BooleanField(default=False)
 	date = models.DateField(auto_now=True)
 	time = models.TimeField()
