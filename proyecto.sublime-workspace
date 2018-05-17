@@ -23,6 +23,24 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "config/config/settings.py",
+			"settings":
+			{
+				"buffer_size": 3205,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/controlAsistencia/views.py",
+			"settings":
+			{
+				"buffer_size": 288,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -76,7 +94,11 @@
 	},
 	"expanded_folders":
 	[
-		"/home/julian/proyectoFAT"
+		"/home/julian/proyectoFAT",
+		"/home/julian/proyectoFAT/config",
+		"/home/julian/proyectoFAT/config/config",
+		"/home/julian/proyectoFAT/config/controlAsistencia",
+		"/home/julian/proyectoFAT/config/frontend"
 	],
 	"file_history":
 	[
@@ -138,8 +160,67 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "config/config/settings.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3205,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2259,
+								2259
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 756.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "config/controlAsistencia/views.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 288,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								288,
+								288
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],

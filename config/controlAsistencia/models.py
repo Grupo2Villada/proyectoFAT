@@ -13,9 +13,9 @@ STATUS_CHOICES = (
 
 )
 DIVISION_CHOICES = (
-    (0, "A"),
-    (1, "B"),
-    (3, "C"),
+    ("a", "A"),
+    ("b", "B"),
+    ("c", "C"),
 
 )
 
@@ -48,7 +48,6 @@ ORIGIN_CHOICES = (
 class Person(models.Model):
 	first_name = models.CharField(max_length=12)
 	last_name = models.CharField(max_length=25)
-	birthday = models.DateField()
 	phone = models.CharField(max_length=15,blank=True, null=True)
 	email = models.CharField(max_length=40,blank=False, null=True)
 
@@ -57,7 +56,7 @@ class Person(models.Model):
 
 class Year(models.Model):
 	year_number = models.IntegerField(choices=YEAR_CHOICES)
-	division = models.IntegerField(choices=DIVISION_CHOICES, max_length=1)
+	division = models.CharField(choices=DIVISION_CHOICES, max_length=1)
 
 class Preceptor(Person):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL)
@@ -69,6 +68,7 @@ class Student(Person):
 	#legajo = Student tag
 	student_tag = models.IntegerField()
 	list_number = models.IntegerField()
+	birthday = models.DateField()
 	address = models.CharField(max_length=50)
 	neighbourhood = models.CharField(max_length=50)
 	city = models.CharField(max_length=50,blank=False, null=False)
