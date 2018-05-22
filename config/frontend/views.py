@@ -57,3 +57,5 @@ def register_p(request):
         else:
             error_pass = True
     return render(request, 'registration.html', {'page':page, 'error_user':error_user, 'error_email':error_email, 'error_pass':error_pass, 'user':username, 'email':email})
+
+
