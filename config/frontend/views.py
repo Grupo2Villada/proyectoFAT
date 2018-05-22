@@ -16,7 +16,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from datetime import datetime, timedelta
 from django.utils import timezone
-
+from controlAsistencia.models import *
+from django.contrib.auth.models import User
+from controlAsistencia.forms import *
 
 # Create your views here.
 def index(request):
@@ -41,21 +43,29 @@ def logout_user(request):
     logout(request)
     return redirect('/')
 
-def register_p(request):
-    error_user = False
-    error_pass = False
-    username = ""
+def register_user(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        sec_pass = request.POST['seccond_pass']
-        if User.objects.filter(username=username).exists():
-            error_user = True
-        if password == sec_pass:
-            user = User.objects.create_user(username, password)
-            return redirect('/')
-        else:
-            error_pass = True
-    return render(request, 'registration.html', {'page':page, 'error_user':error_user, 'error_email':error_email, 'error_pass':error_pass, 'user':username, 'email':email})
-
-
+        form = PreceptorForm(request.POST)
+        if form.is_valid():
+            post = form.instance
+            username = request.POST['username']
+            password = request.POST['password']
+            sec_pass = request.POST['sec_password']
+            email = request.POST['email']
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            if password == sec_pass:
+                user = User.objects.create_user(username, email, password)
+                user.is_active = False
+                user.first_name = first_name
+                user.last_name = last_name
+                if (user.save()):
+                    print "user"
+                preceptor = Preceptor(user=user,internal_tel=post.internal_tel,year=year)
+                if(preceptor.save()):
+                    print "preceptor"
+                if(post.save()):
+                    print "save(?"
+    else:
+        form = PreceptorForm()
+    return render(request, 'base.html', {'form':form})

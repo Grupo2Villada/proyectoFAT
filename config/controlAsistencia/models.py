@@ -13,9 +13,9 @@ STATUS_CHOICES = (
 
 )
 DIVISION_CHOICES = (
-    ('A', "A"),
-    ('B', "B"),
-    ('C', "C"),
+    ("a", "A"),
+    ("b", "B"),
+    ("c", "C"),
 
 )
 
@@ -30,30 +30,39 @@ YEAR_CHOICES = (
 
 )
 
+PERCENTAGE_CHOICES = (
+    (0.25, "1/4"),
+    (0.5, "1/2"),
+    (0.75, "3/4"),
+    (float(1), "1"),
 
-class Person(models.Model):
-	first_name = models.CharField(max_length=12)
-	last_name = models.CharField(max_length=25)
-	birthday = models.DateField()
-	phone = models.CharField(max_length=15,blank=True, null=True)
+)
 
-	class Meta:
-		abstract = True
+ORIGIN_CHOICES = (
+    (0, "Llegada tarde"),
+    (1, "Retiro anticipado"),
+
+)
 
 class Year(models.Model):
 	year_number = models.IntegerField(choices=YEAR_CHOICES)
-	division = models.CharField(choices=DIVISION_CHOICES, max_length= 1)
+	division = models.CharField(choices=DIVISION_CHOICES, max_length=1)
 
-class Preceptor(Person):
-	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+class Preceptor(models.Model):
+	user = models.OneToOneField(settings.AUTH_USER_MODEL)
 	internal_tel = models.IntegerField(blank=True, null=True)
 	year = models.ManyToManyField(Year)
 
-class Student(Person):
+	def __str__(self):
+		return "{} {}".format(self.user.first_name, self.user.last_name)
+
+class Student(models.Model):
+	first_name = models.CharField(max_length=12)
+	last_name = models.CharField(max_length=25)
 	dni = models.IntegerField()
-	#legajo = Student tag
 	student_tag = models.IntegerField()
 	list_number = models.IntegerField()
+	birthday = models.DateField()
 	address = models.CharField(max_length=50)
 	neighbourhood = models.CharField(max_length=50)
 	city = models.CharField(max_length=50,blank=False, null=False)
@@ -62,14 +71,19 @@ class Student(Person):
 	status = models.CharField(choices=STATUS_CHOICES, max_length= 1)
 	food_obvs = models.CharField(max_length=50)
 
+	def __str__(self):
+		return "{} {}".format(self.first_name, self.last_name)
+
 
 class Absence(models.Model):
+	origin = models.IntegerField(choices=ORIGIN_CHOICES)
 	justified = models.BooleanField(default=False)
 	date = models.DateField(auto_now=True)
-	percentage = models.FloatField(blank=True, null=True)
+	time = models.TimeField()
+	percentage = models.FloatField(choices=PERCENTAGE_CHOICES)
 	student = models.ForeignKey(Student)
 
-class Parent(Person):
+class Parent(models.Model):
 	dni = models.IntegerField()
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	childs = models.ManyToManyField(Student)
