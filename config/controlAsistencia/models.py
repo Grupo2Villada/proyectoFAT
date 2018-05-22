@@ -51,6 +51,7 @@ class Person(models.Model):
 	phone = models.CharField(max_length=15,blank=True, null=True)
 	email = models.CharField(max_length=40,blank=False, null=True)
 
+
 	class Meta:
 		abstract = True
 
@@ -63,7 +64,13 @@ class Preceptor(Person):
 	internal_tel = models.IntegerField(blank=True, null=True)
 	year = models.ManyToManyField(Year)
 
+	def __str__(self):
+		rta = self.first_name+" "+self.last_name
+	return rta
+
 class Student(Person):
+	first_name = models.CharField(max_length=12)
+	last_name = models.CharField(max_length=25)
 	dni = models.IntegerField()
 	#legajo = Student tag
 	student_tag = models.IntegerField()
