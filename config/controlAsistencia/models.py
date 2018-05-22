@@ -13,9 +13,9 @@ STATUS_CHOICES = (
 
 )
 DIVISION_CHOICES = (
-    (0, "A"),
-    (1, "B"),
-    (3, "C"),
+    ("a", "A"),
+    ("b", "B"),
+    ("c", "C"),
 
 )
 
@@ -46,7 +46,7 @@ ORIGIN_CHOICES = (
 
 class Year(models.Model):
 	year_number = models.IntegerField(choices=YEAR_CHOICES)
-	division = models.IntegerField(choices=DIVISION_CHOICES, max_length=1)
+	division = models.CharField(choices=DIVISION_CHOICES, max_length=1)
 
 class Preceptor(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL)
@@ -56,10 +56,13 @@ class Preceptor(models.Model):
 	def __str__(self):
 		return "{} {}".format(self.user.first_name, self.user.last_name)
 
-class Student(models.Model):
+class Student(Person):
+	first_name = models.CharField(max_length=12)
+	last_name = models.CharField(max_length=25)
 	dni = models.IntegerField()
 	student_tag = models.IntegerField()
 	list_number = models.IntegerField()
+	birthday = models.DateField()
 	address = models.CharField(max_length=50)
 	neighbourhood = models.CharField(max_length=50)
 	city = models.CharField(max_length=50,blank=False, null=False)
@@ -67,6 +70,9 @@ class Student(models.Model):
 	preceptor = models.ManyToManyField(Preceptor)
 	status = models.CharField(choices=STATUS_CHOICES, max_length= 1)
 	food_obvs = models.CharField(max_length=50)
+
+	def __str__(self):
+		return "{} {}".format(self.first_name, self.last_name)
 
 
 class Absence(models.Model):
