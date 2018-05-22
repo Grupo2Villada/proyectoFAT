@@ -44,29 +44,20 @@ ORIGIN_CHOICES = (
 
 )
 
-
-class Person(models.Model):
-	first_name = models.CharField(max_length=12)
-	last_name = models.CharField(max_length=25)
-	birthday = models.DateField()
-	phone = models.CharField(max_length=15,blank=True, null=True)
-	email = models.CharField(max_length=40,blank=False, null=True)
-
-	class Meta:
-		abstract = True
-
 class Year(models.Model):
 	year_number = models.IntegerField(choices=YEAR_CHOICES)
 	division = models.IntegerField(choices=DIVISION_CHOICES, max_length=1)
 
-class Preceptor(Person):
+class Preceptor(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL)
 	internal_tel = models.IntegerField(blank=True, null=True)
 	year = models.ManyToManyField(Year)
 
-class Student(Person):
+	def __str__(self):
+		return "{} {}".format(self.user.first_name, self.user.last_name)
+
+class Student(models.Model):
 	dni = models.IntegerField()
-	#legajo = Student tag
 	student_tag = models.IntegerField()
 	list_number = models.IntegerField()
 	address = models.CharField(max_length=50)
@@ -86,7 +77,7 @@ class Absence(models.Model):
 	percentage = models.FloatField(choices=PERCENTAGE_CHOICES)
 	student = models.ForeignKey(Student)
 
-class Parent(Person):
+class Parent(models.Model):
 	dni = models.IntegerField()
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	childs = models.ManyToManyField(Student)
