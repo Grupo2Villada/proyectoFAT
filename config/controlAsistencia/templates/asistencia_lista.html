@@ -34,11 +34,12 @@ Asistencia
 function ausente(id){
   $.ajax({
     type:"POST",
-    url:"{% url 'ausente' year.id %}",
+    url:"{% url 'ausente' %}",
     data:{
       'csrfmiddlewaretoken': '{{csrf_token}}',
       student : id,
-      registro : "{{ registro.id }}"
+      registro : "{{ registro.id }}",
+
     },
     success:function(results){
       $("#btn-"+id).remove()

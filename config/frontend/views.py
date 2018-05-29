@@ -26,11 +26,6 @@ def index(request):
 	results={}
 	preceptor = Preceptor.objects.get(user=request.user)
 	results['years'] = preceptor.getYear()
-	today_date = datetime.datetime.today()
-	try:
-		registro = Registro.objects.get(date=today_date)
-	except Registro.DoesNotExist:
-		registro = Registro.objects.create(date=today_date)
 	return render(request, 'main.html', results)
 
 def prueba(request):
@@ -39,7 +34,13 @@ def prueba(request):
 def list_render(request, id):
 	results={}
 	year = Year.objects.get(id=id)
+	preceptor = Preceptor.objects.get(user=request.user)
 	results['students'] = year.getStudents()
+	today_date = datetime.datetime.today()
+	try:
+		registro = Registro.objects.get(date=today_date, preceptor=preceptor, year=year)
+	except Registro.DoesNotExist:
+		registro = Registro.objects.create(date=today_date, preceptor=preceptor, year=year)
 	return render(request, 'asistencia_lista.html', results)
 
 def login_user(request):
@@ -88,16 +89,16 @@ def register_user(request):
 		form = PreceptorForm()
 	return render(request, 'base.html', {'form': form})
 
-def ausente(request, id_year):
+def ausente(request):
+	print "ausente"
 	if request.method == "POST":
-		year = Year.objects.get(id=id_year)
 		today_date = datetime.datetime.today()
-		registro = Registro.objects.get(date=today_date, preceptor=request.user, year=year)
+		preceptor = Preceptor.objects.get(user=request.user)
 		student = Student.objects.get(id=request.POST['student'])
-		currentTime = datetime.datetime.now().strftime('%H:%M:%S') 
-		print currentTime
+		year= Student.objects.get(id=request.POST['student']).year
+		registro = Registro.objects.get(date=today_date, preceptor=preceptor, year=year)
 		try:
 			Relation.objects.get(registro=registro,student=student)
 		except Relation.DoesNotExist:
-			relation=Relation.objects.create(registro=registro, student=student, percentage=0.5, origin=0)
+			relation=Relation.objects.create(registro=registro, student=student, percentage=1, origin=0)
 	return HttpResponse("ok")
