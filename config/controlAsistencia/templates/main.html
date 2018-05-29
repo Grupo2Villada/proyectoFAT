@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block imports %}
+{% endblock imports %}
+{% block title %}
+Menu
+{% endblock title %}			
+{% block navbar %}
+{% endblock navbar %}
+{% block body %}
+{% for year in years %}
+
+<div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+<div class="card-header">Curso</div>
+<div class="card-body">
+  <h5 class="card-title">{{ year|upper }}</h5>
+  <a href="{% url 'list' year.id %}" class="btn btn-primary">Tomar lista</a>
+</div>
+
+
+{% endfor %}		
+{% endblock body %}

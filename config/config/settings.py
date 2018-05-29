@@ -79,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'proyectoFAT',
-        'USER':'root',
-        'PASSWORD':'qwerty1234',
+        'USER':'asistencia',
+        'PASSWORD':'asistenciapass',
         'HOST':'localhost',
 
     }

@@ -4,4 +4,5 @@ from .models import *
 class PreceptorForm(ModelForm):
 	class Meta:	
 		model = Preceptor
-		fields = ['internal_tel', 'year']
+		fields = '__all__'
+		exclude = ['user']	

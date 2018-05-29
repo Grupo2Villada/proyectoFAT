@@ -8,4 +8,6 @@ from .models import *
 admin.site.register(Preceptor)
 admin.site.register(Year)
 admin.site.register(Student)
-admin.site.register(Absence)
+admin.site.register(Registro)
+admin.site.register(Relation)
+
