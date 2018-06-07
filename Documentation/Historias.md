@@ -4,30 +4,60 @@
 
 ### Tareas Generales
 * Configurar settings iniciales, requeriments y dependencias
+> Crear requirement.txt en el cual se anoten todos los programas,dependencias y librerias necesarias para que el proyecto funcione
 * Crear Base de Datos
+> Seguir manual de django admin y cumplir con los requerimientos tomados con anterioridad
+* Crear grupo de usuarios segun cargo y funcion
+> Grupo de directivos
+> Grupo de preceptores
+> Grupo de administrativos
+> Grupo de secretaria
+> Grupo de alumnos 
 
 ### COMO usuario QUIERO poder loguearme PARA usar los servicios
 * Html base
+> footer 
+> Navbar 
+> background color (light-blue)
 * Html login
+> Usar html base y agregar
+> Label usuario
+> Label contraseña
+> Button inciar sesion
 * Funcion LogIn
+> Mostrar error si el usuario o contraseña son incorrectos 
+> Si todos los datos son validos re direcciona a la pagina index.html con los permisos habilitados segun el usuario que se logueo
 * Funcion LogOut
+> Salir de la pagina donde se encuentra en ingresar al login.html
 * Urls
+> Setear correctamente las urls y patterns como indica el manual de django 
 
 ## Desde Django Admin
 ### COMO directivo QUIERO tener funciones de preceptor
 * Registrar model en admin.py
-
+> Setear correctamente segun manual de django las funciones de preceptor y que las pueda hacer el grupo de directivos 
+ 
 ### COMO directivo QUIERO CRUD faltas sin limite de tiempo
 * Registrar model en admin.py
+> Setear correctamente segun manual de django las funciones estrictamente necesarias como directivo con el respectivo permiso necesario 
+> Habilitar buttons cuando se inicie sesion como directivo 
+
 
 ### COMO directivo QUIERO C.R.U.D. users PARA administrar personas
 * Registrar model en admin.py
+> Setear permisos 
+> Habilitar formulario en html para poder realizar dichas funciones 
 
 ### COMO preceptor QUIERO guardar faltas
 * html con cursos por preceptor
+> Habilitar html cuando se inicie sesion como preceptor y mostrar los cursos que tiene a cargo 
 * html con alumnos por curso
+> Crear html que tenga distribucion por cursos y a su ves que muestre que alumno esta matriculado en cada curso especificamente 
 * view guardado faltas
+> java script si se hace click desaparece 
+> No se pueden colocar 2 faltas a la misma persona
 * ajax guardado faltas
+> cuando se hace click en el button de ausente se debe guardar en la base de datos 
 * urls(una con id de curso)
 -----------
 # Sprint 2
