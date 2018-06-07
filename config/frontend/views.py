@@ -50,7 +50,7 @@ def login_user(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-	return redirect('/')
+	return redirect('index')
 
 def logout_user(request):
 	logout(request)
@@ -65,29 +65,25 @@ def register_user(request):
 		email = request.POST['email']
 		first_name = request.POST['first_name']
 		last_name = request.POST['last_name']
-		if password == sec_pass:
+		if form.is_valid():	
+			if password == sec_pass:
 				print "password match"
 				user = User.objects.create_user(username, email, password)
 				user.is_active = True
 				user.first_name = first_name
 				user.last_name = last_name
 				user.save()
-				login(request, user)
-				print request.user.id
-		if form.is_valid():
-			print "form valid"
-			post = form.save(commit=False)
-			post.user = request.user
-			post.save()
-			preceptor = Preceptor(user=user,internal_tel=post.internal_tel)
-			preceptor.save()
-			preceptor.year=post.year
-			preceptor.save()
-			
-			return redirect('asistencia_lista.html')
+				print "form"
+				post = form.save(commit=False) 
+				post.user = user
+				preceptor = Preceptor(user=user,internal_tel=post.internal_tel)
+				preceptor.save()
+				preceptor.year=post.year
+				preceptor.save()
+			return redirect('/')
 	else:
 		form = PreceptorForm()
-	return render(request, 'base.html', {'form': form})
+	return render(request, 'register.html', {'form': form})
 
 def ausente(request):
 	print "ausente"
@@ -102,3 +98,6 @@ def ausente(request):
 		except Relation.DoesNotExist:
 			relation=Relation.objects.create(registro=registro, student=student, percentage=1, origin=0)
 	return HttpResponse("ok")
+
+def main(request):
+	return render(request, 'index.html')

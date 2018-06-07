@@ -59,7 +59,7 @@ class Year(models.Model):
 class Preceptor(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
 	internal_tel = models.IntegerField(blank=True)
-	year = models.ManyToManyField(Year, related_name='preceptores')
+	year = models.ManyToManyField(Year,blank=True,related_name='preceptores')
 
 	def getYear(self):
 		results = self.year.all()

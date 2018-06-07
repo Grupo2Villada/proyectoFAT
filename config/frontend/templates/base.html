@@ -11,6 +11,7 @@
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     {% block imports %}
   {% endblock imports %}
 <style type="text/css">
@@ -107,10 +108,14 @@ body {
     <div class="navbar-header">
       <a class="navbar-brand navbar1" href="#">Asistencia</a>
     </div>
+
     {% if user.is_authenticated %}
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" class="glyphicon navbar1" data-toggle="modal">Welcome {{user.username|title}}</a></li>
-        <li><a href="{% url 'logout' %}" class="glyphicon glyphicon-log-in navbar1" data-toggle="modal">Logout</a></li>
+        <li><a href="#" class="glyphicon navbar1">Welcome {{user.username|title}}</a></li>
+        <li><a href="{% url 'logout' %}" class="glyphicon glyphicon-log-in navbar1">Logout</a></li>
+        {% if request.user.is_staff %}
+        <li><a href="{% url 'register' %}" class="glyphicon navbar1">Register</a></li>
+        {% endif %}
       </ul>
     {% endif %}
   </div>
