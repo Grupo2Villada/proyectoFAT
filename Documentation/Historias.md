@@ -3,8 +3,8 @@
 # Sprint 1
 
 ### Tareas Generales
--Configurar settings iniciales, requeriments y dependencias
--Crear Base de Datos
+⋅⋅* Configurar settings iniciales, requeriments y dependencias
+⋅⋅* Crear Base de Datos
 
 ### COMO usuario QUIERO poder loguearme PARA usar los servicios
 >Html base
