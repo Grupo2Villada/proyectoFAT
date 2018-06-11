@@ -1,8 +1,6 @@
-from django.forms import ModelForm
 from .models import *
-
-class PreceptorForm(ModelForm):
-	class Meta:	
-		model = Preceptor
-		fields = '__all__'
-		exclude = ['user']	
+from django import forms
+class PreceptorForm(forms.Form):
+	internal_tel = forms.IntegerField(label='Internal tel')
+	year = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=[
+	(year.pk, year) for year in Year.objects.all()])

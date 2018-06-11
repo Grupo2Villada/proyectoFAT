@@ -74,16 +74,21 @@ def register_user(request):
 				user.last_name = last_name
 				user.save()
 				print "form"
-				post = form.save(commit=False) 
-				post.user = user
-				preceptor = Preceptor(user=user,internal_tel=post.internal_tel)
+				internal_tel= form.cleaned_data.get("internal_tel")
+				year= form.cleaned_data.get("year")
+				print year
+				preceptor = Preceptor(user=user,internal_tel=internal_tel)	
 				preceptor.save()
-				preceptor.year=post.year
-				preceptor.save()
+				test(preceptor,year)
 			return redirect('/')
 	else:
 		form = PreceptorForm()
 	return render(request, 'register.html', {'form': form})
+
+def test(preceptor,year):
+	print preceptor.user
+	for i in year:
+		preceptor.year.add(i)
 
 def ausente(request):
 	print "ausente"
