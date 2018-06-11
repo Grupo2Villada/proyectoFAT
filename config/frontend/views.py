@@ -79,16 +79,12 @@ def register_user(request):
 				print year
 				preceptor = Preceptor(user=user,internal_tel=internal_tel)	
 				preceptor.save()
-				test(preceptor,year)
+				for i in year:
+					preceptor.year.add(i)
 			return redirect('/')
 	else:
 		form = PreceptorForm()
 	return render(request, 'register.html', {'form': form})
-
-def test(preceptor,year):
-	print preceptor.user
-	for i in year:
-		preceptor.year.add(i)
 
 def ausente(request):
 	print "ausente"
