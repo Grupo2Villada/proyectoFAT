@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block imports %}
+{% endblock imports %}
+{% block title %}
+Administrar
+{% endblock title %}            
+{% block navbar %}
+{% endblock navbar %}
+{% block style %}
+{% endblock style %}
+{% block body %}
+<div>
+<a style="width:150px" href="{% url 'register' %}" class="btn btn-primary btn-block btn-lg">Registrar</a><br>
+<a style="width:150px" href="{% url 'create_year' %}" class="btn btn-primary btn-block btn-lg">Crear Año</a>
+</div class="container">
+{% endblock body %}

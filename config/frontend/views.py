@@ -115,3 +115,6 @@ def ausente(request):
 
 def index(request):
 	return render(request, 'index.html')
+
+def manage(request):
+	return render(request, 'manage.html')
