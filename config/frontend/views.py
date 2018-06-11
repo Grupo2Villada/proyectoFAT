@@ -86,6 +86,17 @@ def register_user(request):
 		form = PreceptorForm()
 	return render(request, 'register.html', {'form': form})
 
+def create_year(request):
+	if request.method == "POST":
+		form = YearForm(request.POST)
+		if form.is_valid():	
+			post = form.save(commit=False)
+			year = Year(year_number=post.year_number,division=post.division)
+			year.save()
+			return redirect('/')
+	else:
+		form = YearForm()
+	return render(request, 'create_year.html', {'form': form})
 def ausente(request):
 	print "ausente"
 	if request.method == "POST":

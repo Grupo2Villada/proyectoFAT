@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^login/', login_user, name="login"),
     url(r'^logout/', logout_user, name="logout"),
     url(r'^register/', register_user, name="register"),
+    url(r'^create_year/', create_year, name="create_year"),
     url(r'^ausente/', ausente, name="ausente"),
     url(r'^index/', index, name="index")
 ]
