@@ -3,7 +3,7 @@ from django.contrib import admin
 from .views import *
 
 urlpatterns = [
-    url(r'^$', main, name="main"),
+    url(r'^$', index, name="index"),
     url(r'^prueba/', prueba, name="prueba"),
     url(r'^list/(?P<id>\d+)/$', list_render, name="list"),
     url(r'^login/', login_user, name="login"),
@@ -11,5 +11,5 @@ urlpatterns = [
     url(r'^register/', register_user, name="register"),
     url(r'^create_year/', create_year, name="create_year"),
     url(r'^ausente/', ausente, name="ausente"),
-    url(r'^index/', index, name="index")
+    url(r'^main/', main, name="main")
 ]

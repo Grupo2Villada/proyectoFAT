@@ -22,7 +22,7 @@ from controlAsistencia.forms import *
 import datetime
 
 # Create your views here.
-def index(request):
+def main(request):
 	results={}
 	preceptor = Preceptor.objects.get(user=request.user)
 	results['years'] = preceptor.getYear()
@@ -50,7 +50,7 @@ def login_user(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-	return redirect('index')
+	return redirect('main')
 
 def logout_user(request):
 	logout(request)
@@ -97,6 +97,8 @@ def create_year(request):
 	else:
 		form = YearForm()
 	return render(request, 'create_year.html', {'form': form})
+
+
 def ausente(request):
 	print "ausente"
 	if request.method == "POST":
@@ -111,5 +113,5 @@ def ausente(request):
 			relation=Relation.objects.create(registro=registro, student=student, percentage=1, origin=0)
 	return HttpResponse("ok")
 
-def main(request):
+def index(request):
 	return render(request, 'index.html')
