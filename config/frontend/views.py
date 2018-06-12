@@ -120,10 +120,11 @@ def create_student(request):
 			post=form.save(commit=False)
 			student = Student(first_name= post.first_name ,last_name= post.last_name, dni=post.dni , student_tag=post.student_tag ,list_number=post.list_number, birthday=post.birthday, address=post.address, neighbourhood=post.neighbourhood, city=post.city, year=post.year, status=post.status, food_obvs=post.food_obvs)
 			student.save()
+			print "#############################"
 		return redirect('/')
 	else:
 		form = StudentForm()
-	return render(request, 'crear_alumnos.html', {'form': form})
+	return render(request, 'create_student.html', {'form': form})
 
 def index(request):
 	return render(request, 'index.html')

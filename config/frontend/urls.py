@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^register/', register_user, name="register"),
     url(r'^create_year/', create_year, name="create_year"),
     url(r'^ausente/', ausente, name="ausente"),
-    url(r'^create_student/', create_student, name="create_student")
+    url(r'^create_student/', create_student, name="create_student"),
     url(r'^main/', main, name="main"),
-    url(r'^manage/', manage, name="manage")
+    url(r'^manage/', manage, name="manage"),
 ]

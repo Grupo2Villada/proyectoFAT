@@ -88,11 +88,10 @@ Asistencia
 				<form action="{% url 'create_student' %}" method="POST">
 					{% csrf_token %}
 					<div class="form-group">
-					<span>Year:</span>
 					{{form}}
 					</div>
 					<div class="form-group">
-						<input type="submit" class="btn btn-primary btn-block btn-lg" value="Create year">
+						<input type="submit" class="btn btn-primary btn-block btn-lg" value="Create student">
 					</div>
 				</form>				
 	</div>
