@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block imports %}
+{% endblock imports %}
+{% block title %}
+Update preceptor
+{% endblock title %}            
+{% block navbar %}
+{% endblock navbar %}
+{% block style %}
+{% endblock style %}
+{% block body %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Preceptores</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for preceptor in preceptors%}
+    <tr>
+      <td>
+        {{ preceptor }}
+      </td>
+      <td>
+        <button class="btn btn-flat">Editar</button>
+      </td>
+  </tr>
+
+  {% endfor %}          
+  </tbody>
+</table>
+    </div>
+    <div class="col">
+      2 of 2
+    </div>
+  </div>
+
+
+{% endblock body %}

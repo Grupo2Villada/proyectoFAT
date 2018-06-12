@@ -131,3 +131,7 @@ def index(request):
 
 def manage(request):
 	return render(request, 'manage.html')
+
+def update_preceptor(request):
+	preceptors=Preceptor.objects.all()
+	return render(request,'update_preceptor.html',{ 'preceptors':preceptors })
