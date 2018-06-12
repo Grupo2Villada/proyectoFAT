@@ -103,13 +103,15 @@ def ausente(request):
 def main(request):
 	return render(request, 'index.html')
 
-def createStudents(request):
+def create_student(request):
 	if request.method == "POST":
-		form = CRStudentsForm(request.POST)
+		form = StudentForm(request.POST)
 		if form.is_valid():
-
+			post=form.save(commit=False)
+			student = Student(first_name= post.first_name ,last_name= post.last_name, dni=post.dni , student_tag=post.student_tag ,list_number=post.list_number, birthday=post.birthday, address=post.address, neighbourhood=post.neighbourhood, city=post.city, year=post.year, status=post.status, food_obvs=post.food_obvs)
+			student.save()
 		return redirect('/')
 	else:
-		form = CRStudentsForm()
+		form = StudentForm()
 	return render(request, 'crear_alumnos.html', {'form': form})
 
