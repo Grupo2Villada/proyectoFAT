@@ -22,7 +22,7 @@ from controlAsistencia.forms import *
 import datetime
 
 # Create your views here.
-def index(request):
+def main(request):
 	results={}
 	preceptor = Preceptor.objects.get(user=request.user)
 	results['years'] = preceptor.getYear()
@@ -50,7 +50,7 @@ def login_user(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-	return redirect('index')
+	return redirect('main')
 
 def logout_user(request):
 	logout(request)
@@ -86,6 +86,19 @@ def register_user(request):
 		form = PreceptorForm()
 	return render(request, 'register.html', {'form': form})
 
+def create_year(request):
+	if request.method == "POST":
+		form = YearForm(request.POST)
+		if form.is_valid():	
+			post = form.save(commit=False)
+			year = Year(year_number=post.year_number,division=post.division)
+			year.save()
+			return redirect('/')
+	else:
+		form = YearForm()
+	return render(request, 'create_year.html', {'form': form})
+
+
 def ausente(request):
 	print "ausente"
 	if request.method == "POST":
@@ -100,9 +113,6 @@ def ausente(request):
 			relation=Relation.objects.create(registro=registro, student=student, percentage=1, origin=0)
 	return HttpResponse("ok")
 
-def main(request):
-	return render(request, 'index.html')
-
 def create_student(request):
 	if request.method == "POST":
 		form = StudentForm(request.POST)
@@ -115,3 +125,8 @@ def create_student(request):
 		form = StudentForm()
 	return render(request, 'crear_alumnos.html', {'form': form})
 
+def index(request):
+	return render(request, 'index.html')
+
+def manage(request):
+	return render(request, 'manage.html')

@@ -114,7 +114,7 @@ body {
         <li><a href="#" class="glyphicon navbar1">Welcome {{user.username|title}}</a></li>
         <li><a href="{% url 'logout' %}" class="glyphicon glyphicon-log-in navbar1">Logout</a></li>
         {% if request.user.is_staff %}
-        <li><a href="{% url 'register' %}" class="glyphicon navbar1">Register</a></li>
+        <li><a href="{% url 'manage' %}" class="glyphicon navbar1">Administrar</a></li>
         {% endif %}
       </ul>
     {% endif %}
