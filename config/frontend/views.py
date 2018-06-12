@@ -102,3 +102,14 @@ def ausente(request):
 
 def main(request):
 	return render(request, 'index.html')
+
+def createStudents(request):
+	if request.method == "POST":
+		form = CRStudentsForm(request.POST)
+		if form.is_valid():
+
+		return redirect('/')
+	else:
+		form = CRStudentsForm()
+	return render(request, 'crear_alumnos.html', {'form': form})
+
