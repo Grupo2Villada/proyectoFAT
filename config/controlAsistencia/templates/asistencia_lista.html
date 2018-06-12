@@ -1,55 +1,202 @@
-{% extends 'base.html' %}
+{%extends "base.html"%}
+{%block title%} Asistencia
+{%endblock title%}
 {% block imports %}
+<head>
+<link rel="stylesheet" href="celular.css">
+<link rel="stylesheet" type="text/css" href="materialize_config.css">
+</head>
+
+    {%load static%}
 {% endblock imports %}
-{% block title %}
-Asistencia
-{% endblock title %}            
-{% block navbar %}
-{% endblock navbar %}
-{% block body %}
 
+{% block style %}
 
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Students</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for student in students %}
-    <tr>
-      <td>
-        {{ student }}
-      </td>
-      <td>
-        <button id="btn-{{ student.id }}" class="btn btn-flat" onclick="ausente({{ student.id }})">Ausente</button>
-      </td>
-  </tr>
-
-  {% endfor %}          
-  </tbody>
-</table>
-<script>
-function ausente(id){
-  $.ajax({
-    type:"POST",
-    url:"{% url 'ausente' %}",
-    data:{
-      'csrfmiddlewaretoken': '{{csrf_token}}',
-      student : id,
-      registro : "{{ registro.id }}",
-
-    },
-    success:function(results){
-      $("#btn-"+id).remove()
-    },
-    error:function(request, status, error){
-    $("body").html(request.responseText);
+    
+    .subtitulo{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 300%;   
+        width: 700px;     
     }
-  });
+    .titulo{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 400%;
+    }
+    body {
+        background-color: powderblue;
+    }
 
+    .lista {
+        width: 700px
+    }
+    .botonPresente {
+        width: 233.33px;
+        height: 75px;
+        background-color: green;
+        position: relative;
+        right: 60px;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 250%;
+        border: 2px solid green;
+        border-radius: 12px;
+
+
+    }
+    .botonAusente {
+        width: 233.33px;
+        height: 75px;
+        background-color: red;
+        position: relative;
+        left: 60px;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 250%;
+        border: 2px solid red;
+        border-radius: 12px;
+
+    }
+    .divlista{
+        position: relative;
+        top: 90px;
+    }
+    .hola{
+        height:247px; 
+        width:100%;
+    }
+
+    .hola{
+        overflow:hidden; 
+        overflow-y:scroll;
+    }
+
+@media only screen and (max-width: 720px) {
+
+    body.celular{
+        background-color: deepskyblue;
+        font-family: cursive,fantasy,monospace,sans-serif,serif,inherit;
+        font-size: 50%;
+        color: blanchedalmond !important;
+    }
+    h1{
+        color:black !important;
+    }
+    .subtitulo{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 150%;   
+        width: 100%;     
+    }
+    .titulo{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 200%;
+    }
+    body {
+        background-color: powderblue;
+    }
+
+    .lista {
+        width: 100%;
+    }
+    .botonPresente {
+        width: 150%;
+        height: 13.5%;
+        background-color: green;
+        position: relative;
+        right: 57%;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 150%;
+        border: 2px solid green;
+        border-radius: 12px;
+
+
+    }
+    .botonAusente {
+        width: 150%;
+        height: 13.5%;
+        background-color: red;
+        position: relative;
+        footer: 100%;
+        left: 10%;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 150%;
+        border: 2px solid red;
+        border-radius: 12px;
+
+    }
+    .divlista{
+        position: relative;
+        top: 45px;
+    }
+    .hola{
+        height:247px; 
+        width:100%;
+    }
+
+    .hola{
+        overflow:hidden; 
+        overflow-y:scroll;
+    }
 }
 
+
+{% endblock style %}
+
+
+{% block bod %}
+<div class="container" style="border-top-width: 0px;margin-top: -62px;">
+    <div class="container divlista">
+        <center>
+            <div class="container titulo">
+                <strong class="aria-label">asassas</strong>
+            </div>
+        </center>
+        <center>
+            <div class="subtitulo">
+                <pre class="subtitulo">ss</pre>
+            </div>
+        </center>
+        <center>
+            <lista>
+                <div onscroll="" class="container lista">
+                    <ul class="list-group hola">
+                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-success hide-on-large-only">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                        <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                    </ul>
+                </div>
+            </lista>
+        </center>
+        <center>
+            <div class="container" role="group" aria-label="...">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success botonPresente">Presente</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-danger botonAusente">Ausente</button>
+                </div>
+            </div>
+        </center>
+    </div>
+</div>
+
+
+{% endblock bod %}
+<script>
+
 </script>
-{% endblock body %}
+</html>
