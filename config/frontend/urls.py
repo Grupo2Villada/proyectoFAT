@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^main/', main, name="main"),
     url(r'^manage/', manage, name="manage"),
     url(r'^update_preceptor/', update_preceptor, name="update_preceptor"),
+    url(r'^update/', update, name="update"),
+
 ]

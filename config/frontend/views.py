@@ -67,16 +67,13 @@ def register_user(request):
 		last_name = request.POST['last_name']
 		if form.is_valid():	
 			if password == sec_pass:
-				print "password match"
 				user = User.objects.create_user(username, email, password)
 				user.is_active = True
 				user.first_name = first_name
 				user.last_name = last_name
 				user.save()
-				print "form"
 				internal_tel= form.cleaned_data.get("internal_tel")
 				year= form.cleaned_data.get("year")
-				print year
 				preceptor = Preceptor(user=user,internal_tel=internal_tel)	
 				preceptor.save()
 				for i in year:
@@ -100,7 +97,6 @@ def create_year(request):
 
 
 def ausente(request):
-	print "ausente"
 	if request.method == "POST":
 		today_date = datetime.datetime.today()
 		preceptor = Preceptor.objects.get(user=request.user)
@@ -118,9 +114,8 @@ def create_student(request):
 		form = StudentForm(request.POST)
 		if form.is_valid():
 			post=form.save(commit=False)
-			student = Student(first_name= post.first_name ,last_name= post.last_name, dni=post.dni , student_tag=post.student_tag ,list_number=post.list_number, birthday=post.birthday, address=post.address, neighbourhood=post.neighbourhood, city=post.city, year=post.year, status=post.status, food_obvs=post.food_obvs)
+			student = Student(first_name = post.first_name ,last_name = post.last_name, dni=post.dni , student_tag=post.student_tag ,list_number=post.list_number, birthday=post.birthday, address=post.address, neighbourhood=post.neighbourhood, city=post.city, year=post.year, status=post.status, food_obvs=post.food_obvs)
 			student.save()
-			print "#############################"
 		return redirect('/')
 	else:
 		form = StudentForm()
@@ -131,6 +126,21 @@ def index(request):
 
 def manage(request):
 	return render(request, 'manage.html')
+
+def update(request):
+	if request.method == "POST":
+		form = PreceptorForm(request.POST)
+		if form.is_valid():
+			print "valid"
+			internal_tel= form.cleaned_data.get("internal_tel")
+			preceptor_id= form.cleaned_data.get("preceptor_id")
+			Preceptor.objects.filter(id=preceptor_id).update(internal_tel=internal_tel)
+		return redirect('/')
+	else:
+		id=request.GET.get('preceptor')
+		preceptor = Preceptor.objects.get(id=id)
+		form = PreceptorForm(initial={'preceptor_id':id,'internal_tel':preceptor.internal_tel})
+	return render(request,'update.html',{'form':form, 'id':id })
 
 def update_preceptor(request):
 	preceptors=Preceptor.objects.all()
