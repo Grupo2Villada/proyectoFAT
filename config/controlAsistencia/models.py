@@ -65,6 +65,11 @@ class Preceptor(models.Model):
 		results = self.year.all()
 		return results
 
+	def getYearid(self):
+		results = self.year.all().values_list('id', flat=True)
+		return results
+
+
 	def __str__(self):
 		return "{} {}".format(self.user.first_name, self.user.last_name)
 

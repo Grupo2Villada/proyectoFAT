@@ -131,16 +131,28 @@ def update(request):
 	if request.method == "POST":
 		form = PreceptorForm(request.POST)
 		if form.is_valid():
-			print "valid"
+			years=[]
 			internal_tel= form.cleaned_data.get("internal_tel")
+			year= form.cleaned_data.get("year")	
 			preceptor_id= form.cleaned_data.get("preceptor_id")
-			Preceptor.objects.filter(id=preceptor_id).update(internal_tel=internal_tel)
+			preceptor=Preceptor.objects.filter(id=preceptor_id)
+			preceptor_year=Preceptor.objects.get(id=preceptor_id)
+			preceptor_year.getYear().delete()
+			print preceptor_year
+			for i in year:
+				preceptor_year.year.add(i)
+			preceptor.update(internal_tel=internal_tel)
 		return redirect('/')
 	else:
+		years = []
 		id=request.GET.get('preceptor')
 		preceptor = Preceptor.objects.get(id=id)
-		form = PreceptorForm(initial={'preceptor_id':id,'internal_tel':preceptor.internal_tel})
-	return render(request,'update.html',{'form':form, 'id':id })
+		qs_year = preceptor.getYearid()
+		for i in qs_year:
+			years.append(i)
+		print years
+		form = PreceptorForm(initial={'preceptor_id':id,'internal_tel':preceptor.internal_tel, 'year':years})
+	return render(request,'update.html',{'form':form, 'id':id})
 
 def update_preceptor(request):
 	preceptors=Preceptor.objects.all()

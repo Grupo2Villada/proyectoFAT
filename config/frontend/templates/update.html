@@ -1,5 +1,7 @@
 <form action="{% url 'update' %}" method="POST">  
   {% csrf_token %}
-{{form}}
+{{form.internal_tel}}
+{{form.year}}
+{{form.preceptor_id.as_hidden}}
   <input type="submit" class="btn btn-primary btn-block btn-lg" value="Update">
 </form>
