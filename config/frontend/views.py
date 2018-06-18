@@ -114,7 +114,7 @@ def index(request):
 def manage(request):
 	return render(request, 'manage.html')
 
-def update(request):
+def update_preceptor(request):
 	if request.method == "POST":
 		form = PreceptorUpdateForm(request.POST)
 		if form.is_valid():
@@ -151,8 +151,27 @@ def update(request):
 			years.append(i)
 		form = PreceptorUpdateForm(initial={'preceptor_id':id,'internal_tel':preceptor.internal_tel, 'year':years})
 		results["form"]= form
-	return render(request,'update.html', results)
+	return render(request,'update_preceptor.html', results)
 
-def update_preceptor(request):
+def preceptor_list(request):
 	preceptors=Preceptor.objects.all()
-	return render(request,'update_preceptor.html',{ 'preceptors':preceptors })
+	return render(request,'preceptor_list.html',{ 'preceptors':preceptors })
+
+def student_list(request):
+	students=Student.objects.all()
+	return render(request,'student_list.html',{ 'students':students })
+
+def update_student(request):
+	if request.method == "POST":
+		form = StudentForm(request.POST)
+		if form.is_valid():
+			pass
+		return redirect('/')
+	else:
+		results= {}
+		id=request.GET.get('student')
+		results["id"] = id
+		student = Student.objects.get(id=id)
+		form = StudentForm(initial={'first_name':student.first_name, 'last_name':student.last_name, 'dni':student.dni, 'student_tag':student.student_tag, 'list_number':student.list_number, 'birthday':student.birthday, 'address':student.address, 'neighbourhood':student.neighbourhood, 'city':student.city, 'year':student.year, 'status':student.status,'food_obvs':student.food_obvs})
+		results["form"]= form
+	return render(request,'update_student.html', results)

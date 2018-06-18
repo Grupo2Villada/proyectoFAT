@@ -11,8 +11,8 @@ Administrar
 {% block body %}
 <div>
 <a style="width:150px" href="{% url 'register' %}" class="btn btn-primary btn-block btn-lg">Registrar</a><br>
-<a style="width:150px" href="{% url 'create_year' %}" class="btn btn-primary btn-block btn-lg">Crear Año</a>
 <a style="width:150px" href="{% url 'create_student' %}" class="btn btn-primary btn-block btn-lg">Crear Estudiante</a>
-<a style="width:150px" href="{% url 'update_preceptor' %}" class="btn btn-primary btn-block btn-lg">Modificar preceptor</a>
+<a style="width:150px" href="{% url 'preceptor_list' %}" class="btn btn-primary btn-block btn-lg">Modificar preceptores</a>
+<a style="width:150px" href="{% url 'student_list' %}" class="btn btn-primary btn-block btn-lg">Modificar Estudiantes</a>
 </div class="container">
 {% endblock body %}

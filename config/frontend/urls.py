@@ -13,7 +13,8 @@ urlpatterns = [
     url(r'^create_student/', create_student, name="create_student"),
     url(r'^main/', main, name="main"),
     url(r'^manage/', manage, name="manage"),
+    url(r'^preceptor_list/', preceptor_list, name="preceptor_list"),
     url(r'^update_preceptor/', update_preceptor, name="update_preceptor"),
-    url(r'^update/', update, name="update"),
-
+    url(r'^student_list/', student_list, name="student_list"),
+    url(r'^update_student/', update_student, name="update_student"),
 ]

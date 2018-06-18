@@ -1,0 +1,6 @@
+<form action="{% url 'update_student' %}" method="POST">  
+  {% csrf_token %}
+<div class="form-group">
+{{form}}
+  <input type="submit" class="btn btn-primary btn-block btn-lg" value="Update">
+</form>
