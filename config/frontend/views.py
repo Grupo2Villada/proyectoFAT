@@ -129,7 +129,7 @@ def manage(request):
 
 def update(request):
 	if request.method == "POST":
-		form = PreceptorForm(request.POST)
+		form = PreceptorUpdateForm(request.POST)
 		if form.is_valid():
 			years=[]
 			internal_tel= form.cleaned_data.get("internal_tel")
@@ -162,7 +162,7 @@ def update(request):
 		qs_year = preceptor.getYearid()
 		for i in qs_year:
 			years.append(i)
-		form = PreceptorForm(initial={'preceptor_id':id,'internal_tel':preceptor.internal_tel, 'year':years})
+		form = PreceptorUpdateForm(initial={'preceptor_id':id,'internal_tel':preceptor.internal_tel, 'year':years})
 		results["form"]= form
 	return render(request,'update.html', results)
 
