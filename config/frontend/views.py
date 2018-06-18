@@ -138,21 +138,33 @@ def update(request):
 			preceptor=Preceptor.objects.filter(id=preceptor_id)
 			preceptor_year=Preceptor.objects.get(id=preceptor_id)
 			preceptor_year.year.clear()
-			print preceptor_year
+			# if request.POST["username"]!= preceptor_year.user.username: probar performance
+			preceptor_year.user.username = request.POST["username"]
+			preceptor_year.user.first_name = request.POST["first_name"]
+			preceptor_year.user.last_name = request.POST["last_name"]
+			preceptor_year.user.email = request.POST["email"]
+			preceptor_year.user.save()
+
 			for i in year:
 				preceptor_year.year.add(i)
 			preceptor.update(internal_tel=internal_tel)
 		return redirect('/')
 	else:
 		years = []
+		results= {}
 		id=request.GET.get('preceptor')
+		results["id"] = id
 		preceptor = Preceptor.objects.get(id=id)
+		results["username"]= preceptor.user.username
+		results["first_name"]= preceptor.user.first_name
+		results["last_name"]= preceptor.user.last_name
+		results["email"]= preceptor.user.email
 		qs_year = preceptor.getYearid()
 		for i in qs_year:
 			years.append(i)
-		print years
 		form = PreceptorForm(initial={'preceptor_id':id,'internal_tel':preceptor.internal_tel, 'year':years})
-	return render(request,'update.html',{'form':form, 'id':id})
+		results["form"]= form
+	return render(request,'update.html', results)
 
 def update_preceptor(request):
 	preceptors=Preceptor.objects.all()
