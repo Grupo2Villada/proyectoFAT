@@ -137,7 +137,7 @@ def update(request):
 			preceptor_id= form.cleaned_data.get("preceptor_id")
 			preceptor=Preceptor.objects.filter(id=preceptor_id)
 			preceptor_year=Preceptor.objects.get(id=preceptor_id)
-			preceptor_year.getYear().delete()
+			preceptor_year.year.clear()
 			print preceptor_year
 			for i in year:
 				preceptor_year.year.add(i)
