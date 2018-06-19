@@ -24,10 +24,12 @@ import datetime
 # Create your views here.
 def main(request):
 	results={}
-	preceptor = Preceptor.objects.get(user=request.user)
-	results['years'] = preceptor.getYear()
-	return render(request, 'main.html', results)
-
+	try:
+		preceptor = Preceptor.objects.get(user=request.user)
+		results['years'] = preceptor.getYear()
+		return render(request, 'main.html', results)
+	except:
+		return render(request, 'main.html')
 def prueba(request):
 	 return render(request, 'prueba.html')
 
@@ -100,8 +102,21 @@ def create_student(request):
 	if request.method == "POST":
 		form = StudentForm(request.POST)
 		if form.is_valid():
-			post=form.save(commit=False)
-			student = Student(first_name = post.first_name ,last_name = post.last_name, dni=post.dni , student_tag=post.student_tag ,list_number=post.list_number, birthday=post.birthday, address=post.address, neighbourhood=post.neighbourhood, city=post.city, year=post.year, status=post.status, food_obvs=post.food_obvs)
+			print "valid"
+			first_name= form.cleaned_data.get("first_name")
+			last_name= form.cleaned_data.get("last_name")
+			student_tag= form.cleaned_data.get("student_tag")
+			list_number= form.cleaned_data.get("list_number")
+			birthday= form.cleaned_data.get("birthday")
+			address= form.cleaned_data.get("address")
+			dni= form.cleaned_data.get("dni")
+			neighbourhood= form.cleaned_data.get("neighbourhood")
+			city= form.cleaned_data.get("city")
+			yearqs= form.cleaned_data.get("year")
+			status= form.cleaned_data.get("status")
+			food_obvs= form.cleaned_data.get("food_obvs")
+			year= Year.objects.get(id=yearqs)
+			student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
 			student.save()
 		return redirect('/')
 	else:
@@ -169,28 +184,25 @@ def update_student(request):
 		if form.is_valid():
 			print "valid"
 			first_name= form.cleaned_data.get("first_name")
-			student_id = Student.objects.get(dni=dni)
-			id=student_id.id
-			print id
-			student=Student.objects.filter(id=id)
+			dni= form.cleaned_data.get("dni")
+			student=Student.objects.filter(dni=dni)
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
 			list_number= form.cleaned_data.get("list_number")
 			birthday= form.cleaned_data.get("birthday")
 			address= form.cleaned_data.get("address")
-			dni= form.cleaned_data.get("dni")
 			neighbourhood= form.cleaned_data.get("neighbourhood")
 			city= form.cleaned_data.get("city")
 			year= form.cleaned_data.get("year")
 			status= form.cleaned_data.get("status")
 			food_obvs= form.cleaned_data.get("food_obvs")
-			student.update(first_name=first_name, last_name=last_name, dni=dni, student_tag=student_tag, list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, city=city, year=year, status=status, food_obvs=food_obvs)
+			student.update(first_name=first_name, last_name=last_name, student_tag=student_tag, list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, city=city, year=year, status=status, food_obvs=food_obvs)
 		return redirect('/')
 	else:
 		results= {}
-		id=request.GET.get('student')
-		results["id"] = id
-		student = Student.objects.get(id=id)
+		dni=request.GET.get('student')
+		results["dni"] = dni
+		student = Student.objects.get(dni=dni)
 		print student.status
 		form = StudentForm(initial={'first_name':student.first_name, 'last_name':student.last_name, 'dni':student.dni, 'student_tag':student.student_tag, 'list_number':student.list_number, 'birthday':student.birthday, 'address':student.address, 'neighbourhood':student.neighbourhood, 'city':student.city, 'year':student.year.id, 'status':student.status,'food_obvs':student.food_obvs})
 		results["form"]= form

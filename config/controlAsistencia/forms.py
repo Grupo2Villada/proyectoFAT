@@ -26,6 +26,6 @@ class StudentForm(forms.Form):
 	address = forms.CharField(max_length=50)
 	neighbourhood = forms.CharField(max_length=50)
 	city = forms.CharField(max_length=50)
-	year = forms.MultipleChoiceField(widget=forms.SelectMultiple, choices=[(year.pk, year) for year in Year.objects.all()])
-	status = forms.MultipleChoiceField(widget=forms.SelectMultiple, choices=STATUS_CHOICES)
+	year = forms.ChoiceField(widget=forms.Select, choices=[(year.pk, year) for year in Year.objects.all()])
+	status = forms.ChoiceField(widget=forms.Select, choices=STATUS_CHOICES)
 	food_obvs = forms.CharField(max_length=50)
