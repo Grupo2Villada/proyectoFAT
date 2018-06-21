@@ -13,7 +13,7 @@ Update student
 <div class="container">
   <div class="row">
     <div class="col">
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names/age..." title="Type in a name">
 
       <table class="table" id="myTable">
   <thead>
@@ -26,6 +26,8 @@ Update student
     <tr>
       <td>
         {{ student }}
+        -
+        {{ student.getAge }}
       </td>
       <td>
         <button id="btn-{{ student.id }}" class="btn btn-flat" onclick="form_update({{ student.dni }})">Editar</button>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from datetime import date
 from django.conf import settings
 from django.db import models
 from itertools import chain
@@ -89,6 +89,11 @@ class Student(models.Model):
 
 	def __str__(self):
 		return "{} {}".format(self.first_name, self.last_name)
+
+	def getAge(self):
+		today = date.today()
+		born=self.birthday
+		return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 class Parent(models.Model):
 	dni = models.IntegerField()

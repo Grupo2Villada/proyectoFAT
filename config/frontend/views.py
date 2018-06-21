@@ -102,7 +102,6 @@ def create_student(request):
 	if request.method == "POST":
 		form = StudentForm(request.POST)
 		if form.is_valid():
-			print "valid"
 			first_name= form.cleaned_data.get("first_name")
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
@@ -177,12 +176,9 @@ def student_list(request):
 	return render(request,'student_list.html',{ 'students':students })
 
 def update_student(request):
-	print "view"
 	if request.method == "POST":
-		print "post"
 		form = StudentForm(request.POST)
 		if form.is_valid():
-			print "valid"
 			first_name= form.cleaned_data.get("first_name")
 			dni= form.cleaned_data.get("dni")
 			student=Student.objects.filter(dni=dni)
@@ -203,7 +199,7 @@ def update_student(request):
 		dni=request.GET.get('student')
 		results["dni"] = dni
 		student = Student.objects.get(dni=dni)
-		print student.status
+		age = student.getAge()
 		form = StudentForm(initial={'first_name':student.first_name, 'last_name':student.last_name, 'dni':student.dni, 'student_tag':student.student_tag, 'list_number':student.list_number, 'birthday':student.birthday, 'address':student.address, 'neighbourhood':student.neighbourhood, 'city':student.city, 'year':student.year.id, 'status':student.status,'food_obvs':student.food_obvs})
 		results["form"]= form
 	return render(request,'update_student.html', results)
