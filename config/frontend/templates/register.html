@@ -77,9 +77,16 @@ Asistencia
 		display: inline-block;
 		margin: 100px auto;
 	}
+
+
+
+    .div_size{
+        min_height: 100px !important !important;
+    } 
 {% endblock style %}
 {% block body %}
-<div class="modal-dialog modal-login">
+
+<div class="div_size modal-dialog modal-login">
 		<div class="modal-content">
 			<div class="modal-header">				
 				<h4 class="modal-title">Member Sign up</h4>
@@ -104,8 +111,14 @@ Asistencia
 						<input type="email" name="email" class="form-control" placeholder="Email" required="required">	
 					</div>
 					<div class="form-group">
-					{{ form }}
+					    <label for="exampleFormControlSelect1"></label>
+                            <select placeholder="Year" class="form-control" id="exampleFormControlSelect1">
+                                <option value= {{ form.year }}></option>
+                            </select>
 					</div>
+                    <div class="form-group">
+                        {{ form.year }}
+                    </div>
 					<div class="form-group">
 						<i class="fa fa-lock"></i>
 						<input type="password" name="password" class="form-control" placeholder="Password" required="required">					
@@ -117,6 +130,7 @@ Asistencia
 					<div class="form-group">
 						<input type="submit" class="btn btn-primary btn-block btn-lg" value="Register">
 					</div>
-				</form>				
+                    
+				</form>	
 	</div>
 {% endblock body %}

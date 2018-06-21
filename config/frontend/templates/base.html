@@ -106,7 +106,7 @@ body {
   <nav class="navbar navbar-inverse ">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand navbar1" href="#">Asistencia</a>
+      <a class="navbar-brand navbar1" href="#">{% block titulo %}Asistencia{% endblock titulo %}</a>
     </div>
 
     {% if user.is_authenticated %}
@@ -120,6 +120,10 @@ body {
     {% endif %}
   </div>
 </nav> 
+
+
+
+{% block lista %}{% endblock lista %}
 {% block body %}
 {% endblock body %}
 </body>

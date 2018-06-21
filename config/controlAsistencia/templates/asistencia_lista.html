@@ -100,9 +100,9 @@
         height: 13.5%;
         background-color: green;
         position: relative;
-        right: 57%;
+        right: 30%;
         font-family: 'Times New Roman', Times, serif;
-        font-size: 150%;
+        font-size: 160%;
         border: 2px solid green;
         border-radius: 12px;
 
@@ -114,9 +114,9 @@
         background-color: red;
         position: relative;
         footer: 100%;
-        left: 10%;
+        left: 30%;
         font-family: 'Times New Roman', Times, serif;
-        font-size: 150%;
+        font-size: 160%;
         border: 2px solid red;
         border-radius: 12px;
 
@@ -134,17 +134,20 @@
         overflow:hidden; 
         overflow-y:scroll;
     }
+    .margen1{
+        margin-top: 10%;
+}
 }
 
 
 {% endblock style %}
 
-
+{% block lista %}
 {% block bod %}
 <div class="container" style="border-top-width: 0px;margin-top: -62px;">
     <div class="container divlista">
         <center>
-            <div class="container titulo">
+            <div class="container titulo margen1">
                 <strong class="aria-label">asassas</strong>
             </div>
         </center>
@@ -155,8 +158,8 @@
         </center>
         <center>
             <lista>
-                <div onscroll="" class="container lista">
-                    <ul class="list-group hola">
+                <div class="container lista" >
+                    <ul class="list-group hola" style="margin-bottom: 30px">
                         <li class="list-group-item">Vestibulum at eros</li>
                         <li class="list-group-item list-group-item-success hide-on-large-only">Vestibulum at eros</li>
                         <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
@@ -193,9 +196,9 @@
         </center>
     </div>
 </div>
-
-
 {% endblock bod %}
+{% endblock lista %}
+
 <script>
 
 </script>
