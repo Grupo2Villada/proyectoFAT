@@ -85,7 +85,7 @@ class Student(models.Model):
 	city = models.CharField(max_length=50,blank=False, null=False)
 	year = models.ForeignKey(Year)
 	status = models.CharField(choices=STATUS_CHOICES, max_length= 1)
-	food_obvs = models.CharField(max_length=50)
+	food_obvs = models.CharField(max_length=50, null=True, blank=True)
 
 	def __str__(self):
 		return "{} {}".format(self.first_name, self.last_name)
