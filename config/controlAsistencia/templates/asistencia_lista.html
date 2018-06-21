@@ -23,7 +23,7 @@ Asistencia
         {{ student }}
       </td>
       <td>
-        <button id="btn-{{ student.id }}" class="btn btn-flat" onclick="ausente({{ student.id }})">Ausente</button>
+        <button id="btn-{{ student.dni }}" class="btn btn-flat" onclick="ausente({{ student.dni }})">Ausente</button>
       </td>
   </tr>
 
@@ -31,18 +31,18 @@ Asistencia
   </tbody>
 </table>
 <script>
-function ausente(id){
+function ausente(dni){
   $.ajax({
     type:"POST",
     url:"{% url 'ausente' %}",
     data:{
       'csrfmiddlewaretoken': '{{csrf_token}}',
-      student : id,
+      student : dni,
       registro : "{{ registro.id }}",
 
     },
     success:function(results){
-      $("#btn-"+id).remove()
+      $("#btn-"+dni).remove()
     },
     error:function(request, status, error){
     $("body").html(request.responseText);

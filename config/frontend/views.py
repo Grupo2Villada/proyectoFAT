@@ -52,7 +52,10 @@ def login_user(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-	return redirect('main')
+			return redirect('main')
+		else:
+			return render(request, 'index.html')
+
 
 def logout_user(request):
 	logout(request)
@@ -89,8 +92,8 @@ def ausente(request):
 	if request.method == "POST":
 		today_date = datetime.datetime.today()
 		preceptor = Preceptor.objects.get(user=request.user)
-		student = Student.objects.get(id=request.POST['student'])
-		year= Student.objects.get(id=request.POST['student']).year
+		student = Student.objects.get(dni=request.POST['student'])
+		year= Student.objects.get(dni=request.POST['student']).year
 		registro = Registro.objects.get(date=today_date, preceptor=preceptor, year=year)
 		try:
 			Relation.objects.get(registro=registro,student=student)

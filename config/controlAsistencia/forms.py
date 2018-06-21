@@ -28,4 +28,4 @@ class StudentForm(forms.Form):
 	city = forms.CharField(max_length=50)
 	year = forms.ChoiceField(widget=forms.Select, choices=[(year.pk, year) for year in Year.objects.all()])
 	status = forms.ChoiceField(widget=forms.Select, choices=STATUS_CHOICES)
-	food_obvs = forms.CharField(max_length=50)
+	food_obvs = forms.CharField(required=False)
