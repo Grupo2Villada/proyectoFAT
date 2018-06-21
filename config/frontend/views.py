@@ -173,7 +173,7 @@ def preceptor_list(request):
 	return render(request,'preceptor_list.html',{ 'preceptors':preceptors })
 
 def student_list(request):
-	students=Student.objects.all()
+	students=Student.objects.all().order_by('last_name')
 	return render(request,'student_list.html',{ 'students':students })
 
 def update_student(request):
