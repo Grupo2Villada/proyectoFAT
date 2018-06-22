@@ -77,8 +77,8 @@ class Student(models.Model):
 	first_name = models.CharField(max_length=12)
 	last_name = models.CharField(max_length=25)
 	dni = models.PositiveIntegerField(primary_key=True)
-	student_tag = models.IntegerField()
-	list_number = models.IntegerField()
+	student_tag = models.PositiveIntegerField()
+	list_number = models.PositiveIntegerField()
 	birthday = models.DateField()
 	address = models.CharField(max_length=50)
 	neighbourhood = models.CharField(max_length=50)
@@ -96,7 +96,7 @@ class Student(models.Model):
 		return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 class Parent(models.Model):
-	dni = models.IntegerField()
+	dni = models.PositiveIntegerField()
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	childs = models.ManyToManyField(Student,related_name='parents')
 	address = models.CharField(max_length=50)
