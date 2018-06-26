@@ -17,4 +17,7 @@ urlpatterns = [
     url(r'^update_preceptor/', update_preceptor, name="update_preceptor"),
     url(r'^student_list/', student_list, name="student_list"),
     url(r'^update_student/', update_student, name="update_student"),
+    url(r'^late_arrival/', late_arrival, name="late_arrival"),
+    url(r'^late/(?P<id>\d+)/$', late_render, name="late"),
+
 ]

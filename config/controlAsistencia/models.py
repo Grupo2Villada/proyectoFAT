@@ -111,6 +111,10 @@ class Registro(models.Model):
 	def __str__(self):
 		return "{}".format(self.date)
 
+	def getRelations(self):
+		results=Relation.objects.filter(registro=self)
+		return results
+
 class Relation(models.Model):
 	registro = models.ForeignKey(Registro, on_delete=models.CASCADE)
 	student = models.ForeignKey(Student, on_delete=models.CASCADE)

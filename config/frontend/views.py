@@ -206,3 +206,25 @@ def update_student(request):
 		form = StudentForm(initial={'first_name':student.first_name, 'last_name':student.last_name, 'dni':student.dni, 'student_tag':student.student_tag, 'list_number':student.list_number, 'birthday':student.birthday, 'address':student.address, 'neighbourhood':student.neighbourhood, 'city':student.city, 'year':student.year.id, 'status':student.status,'food_obvs':student.food_obvs})
 		results["form"]= form
 	return render(request,'update_student.html', results)
+
+def late_arrival(request):
+	print "lolo"
+	if request.method == "POST":
+		absence_time = Relation.objects.get(id=request.POST['absence'])
+		print absence_time.registro.date
+		print "hoy "+ datetime.datetime.today()
+		absence_q = Relation.objects.filter(id=request.POST['absence'])
+		absence_q.update(percentage=0.5)
+		
+	return HttpResponse("hola")
+
+def late_render(request, id):
+	results={}
+	year = Year.objects.get(id=id)
+	preceptor = Preceptor.objects.get(user=request.user)
+	students = year.getStudents()
+	today_date = datetime.datetime.today()
+	registro = Registro.objects.get(date=today_date, preceptor=preceptor, year=year)
+	absence = registro.getRelations()
+	results['absences']=absence
+	return render(request, 'llegada_tarde.html', results)
