@@ -165,31 +165,39 @@
 -----------
 ## SPRINT 3
 
-
-### COMO preceptor QUIERO registrar llegadas tarde
+### COMO preceptor QUIERO registrar llegadas tardes -> 13sp
 * html llegada tarde
+> 
+>
+>
 
 * view llegada tarde
 
 * urls
+> Escribir urls siguiendo los protocolos de django 
 
-### COMO preceptor QUIERO retiros anticipados
+### COMO preceptor QUIERO retiros anticipados -> 13sp
 * html retiro anticipado
 
 * agregar porcentaje de falta con view de ausencia
 
 * urls
+> Escribir urls siguiendo los protocolos de django 
 
-### COMO preceptor QUIERO Justificar faltas dentro de 48 hs 
+### COMO preceptor QUIERO Justificar faltas dentro de 48 hs -> 5sp
 * html justificar falta
 
 * view justificar falta
 
 * urls
+> Escribir urls siguiendo los protocolos de django 
 
-### COMO directivo QUIERO tener permisos de preceptor
+### COMO directivo QUIERO tener permisos de preceptor -> 1sp
 
-### COMO directivo QUIERO modificar faltas sin limite de tiempo PARA poder justificarlas
+### COMO directivo QUIERO modificar faltas sin limite de tiempo PARA poder justificarlas -> 2sp
+
+### COMO tester QUIERO testear optimamente todos los sprints PARA que no haya errores atrasados -> 8sp
+
 -----------
 # Sprint 4
 
