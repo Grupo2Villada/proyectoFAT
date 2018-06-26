@@ -167,34 +167,40 @@
 
 ### COMO preceptor QUIERO registrar llegadas tardes -> 13sp
 * html llegada tarde
-> 
->
->
+> Mostrar todos los alumnos del curso del preceptor activo con su respectivo botón para demarcar la llegada tarde
+> Descartar alumnos marcados
 
 * view llegada tarde
+> Dependiendo de la hora y/o porcentaje el símbolo que tendrá el alumno en la falta
 
 * urls
 > Escribir urls siguiendo los protocolos de django 
 
 ### COMO preceptor QUIERO retiros anticipados -> 13sp
-* html retiro anticipado
+* html retiros anticipados
+> Mostrar todos los alumnos del curso del preceptor activo con su respectivo botón para demarcar el retiro anticipado tarde.
 
-* agregar porcentaje de falta con view de ausencia
+* view llegada tarde
+> Dependiendo de la hora y/o porcentaje el símbolo que tendrá el alumno en la falta.
 
 * urls
-> Escribir urls siguiendo los protocolos de django 
+> Escribir urls siguiendo los protocolos de django.
 
 ### COMO preceptor QUIERO Justificar faltas dentro de 48 hs -> 5sp
 * html justificar falta
+> Mostrar todos los alumnos del curso del preceptor activo que hayan faltado con su respectivo botón para justificar y en el caso que se pueda, adjuntar el justificativo.
 
 * view justificar falta
+> Cambiar el estado de la falta del día correspondiente del alumno a justificada.
 
 * urls
 > Escribir urls siguiendo los protocolos de django 
 
 ### COMO directivo QUIERO tener permisos de preceptor -> 1sp
+* Director podrá hacer todo lo demarcado anteriormente para el preceptor
 
 ### COMO directivo QUIERO modificar faltas sin limite de tiempo PARA poder justificarlas -> 2sp
+* Desde el mismo html que el preceptor justifica, que el directivo lo haga, pero sin límite de tiempo.
 
 ### COMO tester QUIERO testear optimamente todos los sprints PARA que no haya errores atrasados -> 8sp
 
