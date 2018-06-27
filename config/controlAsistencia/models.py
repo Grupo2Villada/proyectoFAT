@@ -40,8 +40,9 @@ PERCENTAGE_CHOICES = (
 )
 
 ORIGIN_CHOICES = (
-    (0, "Llegada tarde"),
-    (1, "Retiro anticipado"),
+    (0, "Falta"),
+    (1, "Llegada tarde"),
+    (2, "Retiro anticipado"),
 
 )
 
@@ -103,26 +104,17 @@ class Parent(models.Model):
 	neighbourhood = models.CharField(max_length=50)
 	city = models.CharField(max_length=50,blank=False, null=False)
 
-class Registro(models.Model):
+class Absence(models.Model):
 	date = models.DateField()
+	time = models.TimeField()
 	preceptor = models.ForeignKey(Preceptor)
 	year = models.ForeignKey(Year)
-
-	def __str__(self):
-		return "{}".format(self.date)
-
-	def getRelations(self):
-		results=Relation.objects.filter(registro=self)
-		return results
-
-class Relation(models.Model):
-	registro = models.ForeignKey(Registro, on_delete=models.CASCADE)
 	student = models.ForeignKey(Student, on_delete=models.CASCADE)
 	percentage = models.FloatField(choices=PERCENTAGE_CHOICES)
 	origin = models.IntegerField(choices=ORIGIN_CHOICES)
 	justified = models.BooleanField(default=False)	
 
 	def __str__(self):
-		return "{} {} {} {}".format(self.student, self.registro, self.percentage, self.justified)
+		return "{} {} {} {}".format(self.student, self.date, self.percentage, self.justified)
 
 

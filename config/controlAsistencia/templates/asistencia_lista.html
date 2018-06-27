@@ -38,7 +38,6 @@ function ausente(dni){
     data:{
       'csrfmiddlewaretoken': '{{csrf_token}}',
       student : dni,
-      registro : "{{ registro.id }}",
 
     },
     success:function(results){
