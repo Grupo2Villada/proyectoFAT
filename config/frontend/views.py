@@ -293,3 +293,15 @@ def early_render(request, id):
 				presentes.append(i)
 	results['students']= presentes
 	return render(request, 'retiro_anticipado.html', results)
+
+def justification_render(request, id):
+	results={}
+	year = Year.objects.get(id=id)
+	absences = Absence.objects.filter(year=year)
+	results['absences']= absences
+	return render(request, 'justificar_falta.html', results)
+
+def justify(request):
+	absence_q = Absence.objects.filter(id=request.POST['absence'])
+	absence_q.update(justified=True)
+	return HttpResponse("okk")

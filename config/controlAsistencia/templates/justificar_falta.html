@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block imports %}
+{% endblock imports %}
+{% block title %}
+Justificar Faltas
+{% endblock title %}            
+{% block navbar %}
+{% endblock navbar %}
+{% block body %}
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for absence in absences %}
+    <tr>
+      <td>
+        {{ absence.student }}
+        -
+        {{ absence.date }}
+
+      </td>
+      <td>
+        <button id="btn-{{ absence.id }}" class="btn btn-flat" onclick="ajax_justify({{ absence.id }})">Justificar</button>
+      </td>
+  </tr>
+
+  {% endfor %}          
+  </tbody>
+</table>
+<script>
+function ajax_justify(id){
+  $.ajax({
+    type:"POST",
+    url:"{% url 'justify' %}",
+    data:{
+      'csrfmiddlewaretoken': '{{csrf_token}}',
+      absence : id,
+    },
+    success:function(results){
+      $("#btn-"+id).remove()
+    },
+    error:function(request, status, error){
+    $("body").html(request.responseText);
+    }
+  });
+
+}
+
+</script>
+{% endblock body %}
