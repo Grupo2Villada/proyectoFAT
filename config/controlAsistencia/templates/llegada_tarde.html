@@ -2,7 +2,7 @@
 {% block imports %}
 {% endblock imports %}
 {% block title %}
-Asistencia
+Llegadas Tarde
 {% endblock title %}            
 {% block navbar %}
 {% endblock navbar %}
@@ -17,13 +17,16 @@ Asistencia
     </tr>
   </thead>
   <tbody>
-  {% for student in students %}
+  {% for absence in absences %}
     <tr>
       <td>
-        {{ student }}
+        {{ absence.student }}
+        -
+        {{ absence.date }}
+
       </td>
       <td>
-        <button id="btn-{{ student.dni }}" class="btn btn-flat" onclick="ausente({{ student.dni }})">Ausente</button>
+        <button id="btn-{{ absence.id }}" class="btn btn-flat" onclick="arrival({{ absence.id}})">Llegada tarde</button>
       </td>
   </tr>
 
@@ -31,14 +34,13 @@ Asistencia
   </tbody>
 </table>
 <script>
-function ausente(dni){
+function arrival(id){
   $.ajax({
     type:"POST",
-    url:"{% url 'ausente' %}",
+    url:"{% url 'late_arrival' %}",
     data:{
       'csrfmiddlewaretoken': '{{csrf_token}}',
-      student : dni,
-
+      absence : id,
     },
     success:function(results){
       $("#btn-"+dni).remove()

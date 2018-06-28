@@ -14,7 +14,6 @@ from django.contrib.auth.models import AnonymousUser
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from datetime import datetime, timedelta
 from django.utils import timezone
 from controlAsistencia.models import *
 from django.contrib.auth.models import User
@@ -30,19 +29,14 @@ def main(request):
 		return render(request, 'main.html', results)
 	except:
 		return render(request, 'main.html')
+
 def prueba(request):
 	 return render(request, 'prueba.html')
 
 def list_render(request, id):
 	results={}
 	year = Year.objects.get(id=id)
-	preceptor = Preceptor.objects.get(user=request.user)
 	results['students'] = year.getStudents()
-	today_date = datetime.datetime.today()
-	try:
-		registro = Registro.objects.get(date=today_date, preceptor=preceptor, year=year)
-	except Registro.DoesNotExist:
-		registro = Registro.objects.create(date=today_date, preceptor=preceptor, year=year)
 	return render(request, 'asistencia_lista.html', results)
 
 def login_user(request):
@@ -90,15 +84,15 @@ def register_user(request):
 
 def ausente(request):
 	if request.method == "POST":
-		today_date = datetime.datetime.today()
+		today_date = datetime.date.today()
+		today_time = datetime.datetime.now().time()
 		preceptor = Preceptor.objects.get(user=request.user)
 		student = Student.objects.get(dni=request.POST['student'])
 		year= Student.objects.get(dni=request.POST['student']).year
-		registro = Registro.objects.get(date=today_date, preceptor=preceptor, year=year)
 		try:
-			Relation.objects.get(registro=registro,student=student)
-		except Relation.DoesNotExist:
-			relation=Relation.objects.create(registro=registro, student=student, percentage=1, origin=0)
+			Absence.objects.get(date=today_date, preceptor=preceptor, year=year,student=student)
+		except Absence.DoesNotExist:
+			absence=Absence.objects.create(date=today_date,time=today_time, preceptor=preceptor, year=year, student=student, percentage=1, origin=0)
 	return HttpResponse("ok")
 
 def create_student(request):
@@ -206,3 +200,49 @@ def update_student(request):
 		form = StudentForm(initial={'first_name':student.first_name, 'last_name':student.last_name, 'dni':student.dni, 'student_tag':student.student_tag, 'list_number':student.list_number, 'birthday':student.birthday, 'address':student.address, 'neighbourhood':student.neighbourhood, 'city':student.city, 'year':student.year.id, 'status':student.status,'food_obvs':student.food_obvs})
 		results["form"]= form
 	return render(request,'update_student.html', results)
+
+def late_arrival(request):
+	if request.method == "POST":
+		absence_time = Absence.objects.get(id=request.POST['absence'])
+		""" PARA FUTURO CALCULO DE FALTAS
+
+		print "dia falta "+ str(absence_time.date)
+		print "hoy dia"+ str(datetime.date.today())
+		print "hora falta "+ str(absence_time.time)
+		print "hoy hora "+ str(datetime.datetime.now().time())
+		a = datetime.datetime.now().time()- absence_time.time
+		print "dif" + str(a)
+		"""
+		absence_q = Absence.objects.filter(id=request.POST['absence'])
+
+		now = datetime.datetime.now().time()
+		a9am = now.replace(hour=9, minute= 0 , second= 0) 
+		a10_30am = now.replace(hour=10, minute= 30 , second= 0) 
+		a12am = now.replace(hour=12, minute= 0 , second= 0) 
+		a15am = now.replace(hour=15, minute= 0 , second= 0) 
+
+		if now > a15am:
+			absence_q.update(percentage=1)
+			
+		elif now > a12am:
+			absence_q.update(percentage=0.75)
+
+		elif now > a10_30am:
+			absence_q.update(percentage=0.5)
+
+		elif now > a9am:
+			absence_q.update(percentage=0.25)
+
+		
+	return HttpResponse("hola")
+
+def late_render(request, id):
+	results={}
+	year = Year.objects.get(id=id)
+	preceptor = Preceptor.objects.get(user=request.user)
+	students = year.getStudents()
+	today_date = datetime.date.today()
+	print today_date
+	absences = Absence.objects.filter(date=today_date, preceptor=preceptor, year=year)
+	results['absences']= absences
+	return render(request, 'llegada_tarde.html', results)
