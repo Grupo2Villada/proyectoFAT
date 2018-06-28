@@ -216,21 +216,6 @@ i {
 			<p>Birthday:<span>*</span></p>
 			<span class="icon-case"><i class="fa fa-calendar"></i></span>
                 {{form.birthday}}
-                <select class="form-control" id="id_birthday_month" name="birthday_month">
-                {% for birthday_month in form.birthday.month %}
-                {{birthday_month}}
-                {% endfor %}
-                </select>
-                <select class="form-control" id="id_birthday_day" name="birthday_day">
-                {% for birthday_day in form.birthday.day %}
-                {{birthday_day}}
-                {% endfor %}
-                </select>
-                <select class="form-control" id="id_birthday_year" name="birthday_year">
-                
-                {{form.birthday}}
-                
-                </select>
 
                 <div class="validation"></div>
 			</div>
@@ -258,7 +243,7 @@ i {
             
 			<div class="form-group">
 			<p>Year:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-map-marker"></i></span>
+			<span class="icon-case"><i class="fa fa-institution"></i></span>
                 <select class="form-control year" id="id_year" name="year">
                 {% for year in form.year %}
                 {{year}}
@@ -269,7 +254,7 @@ i {
             
 			<div class="form-group">
 			<p>Status:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-map-marker"></i></span>
+			<span class="icon-case"><i class="fa fa-check"></i></span>
                <!-- {{form.status}}-->
                 
                 <select class="form-control year" id="id_status" name="status">
@@ -283,7 +268,7 @@ i {
         
 			<div class="form-group">
 			<p>food_obvs:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-map-marker"></i></span>
+			<span class="icon-case"><i class="fa fa-search"></i></span>
 				{{form.food_obvs}}
                 <div class="validation"></div>
 			</div>
