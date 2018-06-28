@@ -19,5 +19,7 @@ urlpatterns = [
     url(r'^update_student/', update_student, name="update_student"),
     url(r'^late_arrival/', late_arrival, name="late_arrival"),
     url(r'^late/(?P<id>\d+)/$', late_render, name="late"),
+    url(r'^early_retirement/', early_retirement, name="early_retirement"),
+    url(r'^early/(?P<id>\d+)/$', early_render, name="early"),
 
 ]

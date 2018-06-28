@@ -4,7 +4,6 @@ from django.forms import ModelForm
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.fields import DateField
 
-
 class PreceptorForm(forms.Form):
 	internal_tel = forms.IntegerField(label='Internal tel')
 	year = forms.MultipleChoiceField(widget=forms.SelectMultiple,choices=[

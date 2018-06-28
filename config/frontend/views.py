@@ -66,18 +66,21 @@ def register_user(request):
 		last_name = request.POST['last_name']
 		if form.is_valid():	
 			if password == sec_pass:
-				user = User.objects.create_user(username, email, password)
-				user.is_active = True
-				user.first_name = first_name
-				user.last_name = last_name
-				user.save()
-				internal_tel= form.cleaned_data.get("internal_tel")
-				year= form.cleaned_data.get("year")
-				preceptor = Preceptor(user=user,internal_tel=internal_tel)	
-				preceptor.save()
-				for i in year:
-					preceptor.year.add(i)
-			return redirect('/')
+				try :
+					User.objects.get(username = username)
+				except User.DoesNotExist:
+					user = User.objects.create_user(username, email, password)
+					user.is_active = True
+					user.first_name = first_name
+					user.last_name = last_name
+					user.save()
+					internal_tel= form.cleaned_data.get("internal_tel")
+					year= form.cleaned_data.get("year")
+					preceptor = Preceptor(user=user,internal_tel=internal_tel)	
+					preceptor.save()
+					for i in year:
+						preceptor.year.add(i)
+				return redirect('/')
 	else:
 		form = PreceptorForm()
 	return render(request, 'register.html', {'form': form})
@@ -112,8 +115,11 @@ def create_student(request):
 			status= form.cleaned_data.get("status")
 			food_obvs= form.cleaned_data.get("food_obvs")
 			year= Year.objects.get(id=yearqs)
-			student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
-			student.save()
+			try: 
+				Student.objects.get(dni=dni)
+			except Student.DoesNotExist:
+				student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
+				student.save()
 		return redirect('/')
 	else:
 		form = StudentForm()
@@ -242,7 +248,48 @@ def late_render(request, id):
 	preceptor = Preceptor.objects.get(user=request.user)
 	students = year.getStudents()
 	today_date = datetime.date.today()
-	print today_date
 	absences = Absence.objects.filter(date=today_date, preceptor=preceptor, year=year)
 	results['absences']= absences
 	return render(request, 'llegada_tarde.html', results)
+
+def early_retirement(request):
+	if request.method == "POST":
+		student = Student.objects.get(dni=request.POST['student'])
+		year = Year.objects.get(id=student.year.id)
+		preceptor = Preceptor.objects.get(user = request.user)
+		today_date = datetime.date.today()
+		now = datetime.datetime.now().time()
+		a9am = now.replace(hour=9, minute= 0 , second= 0) 
+		a12_30am = now.replace(hour=12, minute= 30 , second= 0) 
+		a15_20am = now.replace(hour=15, minute= 20 , second= 0) 
+
+		if now < a9am:
+			Absence.objects.create(percentage=0.75,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year)
+			
+		elif now < a12_30am:
+			Absence.objects.create(percentage=0.50,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year)
+
+		elif now < a15_20am:
+			Absence.objects.create(percentage=0.25,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year)
+
+		
+	return HttpResponse("hola")
+
+def early_render(request, id):
+	results={}
+	ausentes = []
+	presentes=[]
+	today_date = datetime.date.today()
+	year = Year.objects.get(id=id)
+	preceptor = Preceptor.objects.get(user=request.user)
+	students = year.getStudents()
+	faltas = Absence.objects.filter(date = today_date , percentage=1, student__year=year)
+	for i in faltas:
+		ausentes.append(i.student)
+
+	for i in students:
+		for j in ausentes:
+			if i!=j:
+				presentes.append(i)
+	results['students']= presentes
+	return render(request, 'retiro_anticipado.html', results)
