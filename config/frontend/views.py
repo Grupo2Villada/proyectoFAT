@@ -17,7 +17,10 @@ from django.db.models import Q
 from django.utils import timezone
 from controlAsistencia.models import *
 from django.contrib.auth.models import User
-from controlAsistencia.forms import *
+import sys
+if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
+    from controlAsistencia.forms import *
+
 import datetime
 from datetime import timedelta
 
@@ -26,7 +29,7 @@ def main(request):
 	results={}
 	try:
 		preceptor = Preceptor.objects.get(user=request.user)
-		results['years'] = preceptor.getYear()
+		results['years'] = preceptor.getYear().order_by('year_number','division')
 		return render(request, 'main.html', results)
 	except:
 		return render(request, 'main.html')
@@ -37,7 +40,7 @@ def prueba(request):
 def list_render(request, id):
 	results={}
 	year = Year.objects.get(id=id)
-	results['students'] = year.getStudents()
+	results['students'] = year.getStudents().order_by('last_name','first_name')
 	return render(request, 'asistencia_lista.html', results)
 
 def login_user(request):
