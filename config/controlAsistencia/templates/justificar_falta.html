@@ -2,7 +2,7 @@
 {% block imports %}
 {% endblock imports %}
 {% block title %}
-Llegadas Tarde
+Justificar Faltas
 {% endblock title %}            
 {% block navbar %}
 {% endblock navbar %}
@@ -13,19 +13,20 @@ Llegadas Tarde
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Students</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
   {% for absence in absences %}
     <tr>
       <td>
-        {{ absence.student.last_name | upper}},
-        {{ absence.student.first_name }}
+        {{ absence.student }}
+        -
+        {{ absence.date }}
 
       </td>
       <td>
-        <button id="btn-{{ absence.id }}" class="btn btn-flat" onclick="arrival({{ absence.id}})">Llegada tarde</button>
+        <button id="btn-{{ absence.id }}" class="btn btn-flat" onclick="ajax_justify({{ absence.id }})">Justificar</button>
       </td>
   </tr>
 
@@ -33,10 +34,10 @@ Llegadas Tarde
   </tbody>
 </table>
 <script>
-function arrival(id){
+function ajax_justify(id){
   $.ajax({
     type:"POST",
-    url:"{% url 'late_arrival' %}",
+    url:"{% url 'justify' %}",
     data:{
       'csrfmiddlewaretoken': '{{csrf_token}}',
       absence : id,

@@ -21,5 +21,10 @@ urlpatterns = [
     url(r'^late/(?P<id>\d+)/$', late_render, name="late"),
     url(r'^early_retirement/', early_retirement, name="early_retirement"),
     url(r'^early/(?P<id>\d+)/$', early_render, name="early"),
+    url(r'^justify/', justify, name="justify"),
+    url(r'^justification/(?P<id>\d+)/$', justification_render, name="justification"),
+
+
+    
 
 ]
