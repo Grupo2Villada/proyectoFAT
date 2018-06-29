@@ -19,6 +19,7 @@ from controlAsistencia.models import *
 from django.contrib.auth.models import User
 from controlAsistencia.forms import *
 import datetime
+from datetime import timedelta
 
 # Create your views here.
 def main(request):
@@ -248,7 +249,7 @@ def late_render(request, id):
 	preceptor = Preceptor.objects.get(user=request.user)
 	students = year.getStudents()
 	today_date = datetime.date.today()
-	absences = Absence.objects.filter(date=today_date, preceptor=preceptor, year=year)
+	absences = Absence.objects.filter(date=today_date, preceptor=preceptor, year=year).order_by('student__last_name','student__first_name')
 	results['absences']= absences
 	return render(request, 'llegada_tarde.html', results)
 
@@ -297,11 +298,21 @@ def early_render(request, id):
 def justification_render(request, id):
 	results={}
 	year = Year.objects.get(id=id)
-	absences = Absence.objects.filter(year=year)
-	results['absences']= absences
-	return render(request, 'justificar_falta.html', results)
+	if request.user.is_staff:
+		absences = Absence.objects.filter(year=year).order_by('date')
+		results['absences']= absences
+		return render(request, 'justificar_falta.html', results)
+	else:	
+		today_date = datetime.date.today()
+		n = 2
+		fecha = today_date - timedelta(days=n)
+		print fecha
+		absences = Absence.objects.filter(year=year,date__gte=fecha).order_by('date')
+		results['absences']= absences
+		return render(request, 'justificar_falta.html', results)
+
 
 def justify(request):
-	absence_q = Absence.objects.filter(id=request.POST['absence'])
-	absence_q.update(justified=True)
-	return HttpResponse("okk")
+		absence_q = Absence.objects.filter(id=request.POST['absence'])
+		absence_q.update(justified=True)
+		return HttpResponse("okk")

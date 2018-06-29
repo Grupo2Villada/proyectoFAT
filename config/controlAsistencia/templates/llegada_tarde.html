@@ -20,9 +20,8 @@ Llegadas Tarde
   {% for absence in absences %}
     <tr>
       <td>
-        {{ absence.student }}
-        -
-        {{ absence.date }}
+        {{ absence.student.last_name | upper}},
+        {{ absence.student.first_name }}
 
       </td>
       <td>
