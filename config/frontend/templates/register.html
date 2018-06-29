@@ -103,15 +103,11 @@ Asistencia
 						<i class="fa fa-lock"></i>
 						<input type="email" name="email" class="form-control" placeholder="Email" required="required">	
 					</div>
-					<div class="form-group">
-						<i class="fa fa-lock"></i>
-						{{ form.internal_tel.errors }}
-                        {{ form.internal_tel }}
-					</div>
-					<div class="form-group">
-						<i class="fa fa-lock"></i>
-						{{ form.year.errors }}
-                        {{ form.year }}
+					{{ form }}
+                        
+                        <select class="selectpicker">
+                            <option value="{{ form.year }}"></option>
+                        </select>
 					</div>
 					<div class="form-group">
 						<i class="fa fa-lock"></i>
@@ -122,7 +118,7 @@ Asistencia
 						<input type="password" name="sec_password" class="form-control" placeholder="Repeat password" required="required">	
 					</div>
 					<div class="form-group">
-						<input type="submit" class="btn btn-primary btn-block btn-lg" value="Register" disabled>
+						<input type="submit" class="btn btn-primary btn-block btn-lg" value="Register">
 					</div>
 				</form>				
 	</div>

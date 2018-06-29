@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from datetime import date
 from django.conf import settings
 from django.db import models
 from itertools import chain
@@ -40,8 +40,9 @@ PERCENTAGE_CHOICES = (
 )
 
 ORIGIN_CHOICES = (
-    (0, "Llegada tarde"),
-    (1, "Retiro anticipado"),
+    (0, "Falta"),
+    (1, "Llegada tarde"),
+    (2, "Retiro anticipado"),
 
 )
 
@@ -65,13 +66,18 @@ class Preceptor(models.Model):
 		results = self.year.all()
 		return results
 
+	def getYearid(self):
+		results = self.year.all().values_list('id', flat=True)
+		return results
+
+
 	def __str__(self):
 		return "{} {}".format(self.user.first_name, self.user.last_name)
 
 class Student(models.Model):
 	first_name = models.CharField(max_length=12)
 	last_name = models.CharField(max_length=25)
-	dni = models.IntegerField()
+	dni = models.CharField(max_length=8,primary_key=True)
 	student_tag = models.IntegerField()
 	list_number = models.IntegerField()
 	birthday = models.DateField()
@@ -80,10 +86,15 @@ class Student(models.Model):
 	city = models.CharField(max_length=50,blank=False, null=False)
 	year = models.ForeignKey(Year)
 	status = models.CharField(choices=STATUS_CHOICES, max_length= 1)
-	food_obvs = models.CharField(max_length=50)
+	food_obvs = models.CharField(max_length=50, null=True, blank=True)
 
 	def __str__(self):
 		return "{} {}".format(self.first_name, self.last_name)
+
+	def getAge(self):
+		today = date.today()
+		born=self.birthday
+		return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 class Parent(models.Model):
 	dni = models.IntegerField()
@@ -93,22 +104,17 @@ class Parent(models.Model):
 	neighbourhood = models.CharField(max_length=50)
 	city = models.CharField(max_length=50,blank=False, null=False)
 
-class Registro(models.Model):
+class Absence(models.Model):
 	date = models.DateField()
+	time = models.TimeField()
 	preceptor = models.ForeignKey(Preceptor)
 	year = models.ForeignKey(Year)
-
-	def __str__(self):
-		return "{}".format(self.date)
-
-class Relation(models.Model):
-	registro = models.ForeignKey(Registro, on_delete=models.CASCADE)
 	student = models.ForeignKey(Student, on_delete=models.CASCADE)
 	percentage = models.FloatField(choices=PERCENTAGE_CHOICES)
 	origin = models.IntegerField(choices=ORIGIN_CHOICES)
 	justified = models.BooleanField(default=False)	
 
 	def __str__(self):
-		return "{} {} {} {}".format(self.student, self.registro, self.percentage, self.justified)
+		return "{} {} {} {}".format(self.student, self.date, self.percentage, self.justified)
 
 

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block imports %}
+{% endblock imports %}
+{% block title %}
+Update preceptor
+{% endblock title %}            
+{% block navbar %}
+{% endblock navbar %}
+{% block style %}
+{% endblock style %}
+{% block body %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Preceptores</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for preceptor in preceptors%}
+    <tr>
+      <td>
+        {{ preceptor }}
+      </td>
+      <td>
+        <button id="btn-{{ preceptor.id }}" class="btn btn-flat" onclick="form_update({{ preceptor.id }})">Editar</button>
+      </td>
+  </tr>
+
+  {% endfor %}          
+  </tbody>
+</table>
+    </div>
+    <div id="card" class="col">
+
+    </div>
+  </div>
+</div>
+<script>
+function form_update(id){
+  $.ajax({
+    url:"{% url 'update_preceptor' %}",
+    data:{
+      preceptor : id,
+    },
+    success:function(results){
+      $("#card").html(results)
+    },
+    error:function(request, status, error){
+    	alert(request.responseText)
+    }
+  });
+}
+</script>
+{% endblock body %}

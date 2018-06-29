@@ -2,7 +2,7 @@
 {% block imports %}
 {% endblock imports %}
 {% block title %}
-Asistencia
+Justificar Faltas
 {% endblock title %}            
 {% block navbar %}
 {% endblock navbar %}
@@ -13,17 +13,20 @@ Asistencia
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Students</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-  {% for student in students %}
+  {% for absence in absences %}
     <tr>
       <td>
-        {{ student }}
+        {{ absence.student }}
+        -
+        {{ absence.date }}
+
       </td>
       <td>
-        <button id="btn-{{ student.dni }}" class="btn btn-flat" onclick="ausente({{ student.dni }})">Ausente</button>
+        <button id="btn-{{ absence.id }}" class="btn btn-flat" onclick="ajax_justify({{ absence.id }})">Justificar</button>
       </td>
   </tr>
 
@@ -31,17 +34,16 @@ Asistencia
   </tbody>
 </table>
 <script>
-function ausente(dni){
+function ajax_justify(id){
   $.ajax({
     type:"POST",
-    url:"{% url 'ausente' %}",
+    url:"{% url 'justify' %}",
     data:{
       'csrfmiddlewaretoken': '{{csrf_token}}',
-      student : dni,
-
+      absence : id,
     },
     success:function(results){
-      $("#btn-"+dni).remove()
+      $("#btn-"+id).remove()
     },
     error:function(request, status, error){
     $("body").html(request.responseText);

@@ -1,0 +1,52 @@
+<form action="{% url 'update_student' %}" method="POST">  
+  {% csrf_token %}
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	<input type="text" name="first_name" class="form-control" placeholder="Nombre" required="required" value="{{form.first_name.value}}">
+</div>
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	<input type="text" name="last_name" class="form-control" placeholder="Apellido" required="required" value="{{form.last_name.value}}">
+</div>
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	<input type="text" name="dni" class="form-control" placeholder="Dni" required="required" value="{{form.dni.value}}" readonly="readonly">
+</div>
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	<input type="text" name="student_tag" class="form-control" placeholder="Legajo" required="required" value="{{form.student_tag.value}}">
+</div>
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	<input type="text" name="list_number" class="form-control" placeholder="Numero de lista" required="required" value="{{form.list_number.value}}">
+</div>
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	{{form.birthday}}
+</div>
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	<input type="text" name="address" class="form-control" placeholder="Direccion" required="required" value="{{form.address.value}}">
+</div>
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	<input type="text" name="city" class="form-control" placeholder="Ciudad" required="required" value="{{form.city.value}}">
+</div>
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	<input type="text" name="neighbourhood" class="form-control" placeholder="Barrio" required="required" value="{{form.neighbourhood.value}}">
+</div>
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	{{form.year}}
+</div>
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	{{form.status}}
+</div>
+<div class="form-group">
+	<i class="fa fa-user"></i>
+	<input type="text" name="food_obvs" class="form-control" placeholder="Comida especial" value="{{form.food_obvs.value}}">
+</div>
+  <input type="submit" class="btn btn-primary btn-block btn-lg" value="Update">
+</form>

@@ -14,6 +14,10 @@ Menu
 <div class="card-body">
   <h5 class="card-title">{{ year|upper }}</h5>
   <a href="{% url 'list' year.id %}" class="btn btn-primary">Tomar lista</a>
+  <a href="{% url 'late' year.id %}" class="btn btn-primary">Llegadas tarde</a>
+  <a href="{% url 'early' year.id %}" class="btn btn-primary">Retiro Anticipado</a>
+  <a href="{% url 'justification' year.id %}" class="btn btn-primary">Justificar Faltas</a>
+</div>
 </div>
 
 

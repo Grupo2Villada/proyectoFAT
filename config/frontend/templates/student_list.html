@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block imports %}
+{% endblock imports %}
+{% block title %}
+Update student
+{% endblock title %}            
+{% block navbar %}
+{% endblock navbar %}
+{% block style %}
+{% endblock style %}
+{% block body %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names/age..." title="Type in a name">
+
+      <table class="table" id="myTable">
+  <thead>
+    <tr>
+      <th scope="col">Alumnos</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for student in students%}
+    <tr>
+      <td>
+        {{ student }}
+        -
+        {{ student.getAge }}
+      </td>
+      <td>
+        <button id="btn-{{ student.id }}" class="btn btn-flat" onclick="form_update({{ student.dni }})">Editar</button>
+      </td>
+  </tr>
+
+  {% endfor %}          
+  </tbody>
+</table>
+    </div>
+    <div id="card" class="col">
+
+    </div>
+  </div>
+</div>
+<script>
+function form_update(dni){
+  $.ajax({
+    url:"{% url 'update_student' %}",
+    data:{
+      student : dni,
+    },
+    success:function(results){
+      $("#card").html(results)
+    },
+    error:function(request, status, error){
+    	alert(request.responseText)
+    }
+  });
+}
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+{% endblock body %}

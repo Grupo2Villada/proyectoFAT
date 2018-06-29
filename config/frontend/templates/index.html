@@ -104,13 +104,7 @@ Asistencia
 						<input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">
 					</div>
 				</form>				
-				
 			</div>
-			{% if request.user.is_staff %}
-			<div class="modal-footer">
-				<a href="{% url 'register' %}">Don't have an account? Register</a>
-			</div>
-			{% endif %}
 		</div>
 	</div>
 {% endif %}
