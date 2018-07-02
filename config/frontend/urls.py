@@ -23,8 +23,8 @@ urlpatterns = [
     url(r'^early/(?P<id>\d+)/$', early_render, name="early"),
     url(r'^justify/', justify, name="justify"),
     url(r'^justification/(?P<id>\d+)/$', justification_render, name="justification"),
+    url(r'^send_email/', send_email, name="send_email"),
+    url(r'^pdf/', pdf, name="pdf"),
 
-
-    
 
 ]

@@ -20,6 +20,9 @@ from django.contrib.auth.models import User
 from controlAsistencia.forms import *
 import datetime
 from datetime import timedelta
+from django.core.mail import send_mail
+from reportlab.pdfgen import canvas
+
 
 # Create your views here.
 def main(request):
@@ -316,3 +319,16 @@ def justify(request):
 		absence_q = Absence.objects.filter(id=request.POST['absence'])
 		absence_q.update(justified=True)
 		return HttpResponse("okk")
+
+def send_email(request):
+	send_mail('probando', 'email test', 'test.asistencia@gmail.com', ['nikobazan@gmail.com',])
+	return HttpResponse("se mando")
+
+def pdf(request):
+	response = HttpResponse(content_type='controlAsistencia/pdf')
+	response['Content-Disposition'] = 'inline; filename="test.pdf"'
+	p = canvas.Canvas(response)
+	p.drawString(100, 100, "Hello world.")
+	p.showPage()
+	p.save()
+	return response
