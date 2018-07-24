@@ -20,7 +20,8 @@ Asistencia
   {% for student in students %}
     <tr>
       <td>
-        {{ student }}
+        {{ student.last_name|upper }},
+        {{ student.first_name }}
       </td>
       <td>
         <button id="btn-{{ student.dni }}" class="btn btn-flat" onclick="ausente({{ student.dni }})">Ausente</button>

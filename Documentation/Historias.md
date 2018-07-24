@@ -61,50 +61,151 @@
 * urls(una con id de curso)
 -----------
 # Sprint 2
-## Mejorar estetica de htmls de sprint 1
-## Correccion bugs
-
+---
+##### Mejorar estetica de htmls de sprint 1
+##### Correccion bugs
+---
 ### COMO directivo QUIERO C.R.U.D. users PARA administrar personas
+---
 * html con formulario para registrar
+---
+* Campo username
+> Validar cantidad minima de caracteres
+> Posibilidad de caracteres especiales 
+> imposibilidad de ser nulo 
+> indiferencia entre mayusculas o minusculas 
+* Campo firstname
+> Validar cantidad minima de caracteres
+> Posibilidad de caracteres especiales 
+> imposibilidad de nulidad 
+> Diferenciacion de mayusculas y minusculas
+> No detectar puntos, comas, etc 
+* Campo lastname
+> Validar cantidad minima de caracteres
+> Posibilidad de caracteres especiales 
+> imposibilidad de nulidad 
+> Diferenciacion de mayusculas y minusculas
+> No detectar puntos, comas, etc 
+> imposibilidad de ser nulo
+* Campo email
+> Diferencia entre mayusculas y minusculas
+> Deteccion obligatoria de  @gmail, @hotmail,@yaoo, @donbosco 
+> Deteccion obligatoria de .com, .org , .edu 
+> imposibilidad de ser nulo
+* Campo password 
+> Ocultar caracteres
+> Nivel minimo de seguridad (Cantidad de caracteres, tipo de caracteres, etc)
+> Diferenciacion entre mayusculas y minusculas 
+> imposibilidad de ser nulo
+* Campo repit password 
+> Ocultar caracteres
+> Validar que sea igual que el campo password
+> Diferenciacion entre mayusculas y minusculas 
+> imposibilidad de ser nulo
 * permiso para de staff para registrar
+> Abrir html register cuando el usuario tenga el permiso de directivo  
 * funcion render/register
+> Registrar el preceptor y renderizar el html 
 * urls
+> Escribir urls siguiendo los protocolos de django 
 * validación de datos
+> Comprobar que todos los campos cumplan con las especificaciones y tipo de datos 
 
-### COMO preceptor QUIERO Crear, administrar y mover alumnos PARA gestionar cursos
+### COMO preceptor QUIERO Crear, administrar y mover alumnos PARA gestionar alumnos 
 * html crear alumnos
+> Utilizar html base y agregar formulario que contenga los siguientes campos.
+* Campo firstname 
+> Validar cantidad minima de caracteres
+> Posibilidad de caracteres especiales 
+> imposibilidad de nulidad 
+> Diferenciacion de mayusculas y minusculas
+> No detectar puntos, comas, etc 
+* Campo lastname 
+> Validar cantidad minima de caracteres
+> Posibilidad de caracteres especiales 
+> imposibilidad de nulidad 
+> Diferenciacion de mayusculas y minusculas
+> No detectar puntos, comas, etc 
+* Campo dni 
+> Validar cantidad de caracteres y el tipo (numericos unicamente)
+> Eliminar puntos y tomar el dni sin numeros para guardarlo
+> imposibilidad de nulidad 
+* Campo student tag 
+> Validar cantidad de caracteres y el tipo (numericos unicamente)
+> Eliminar puntos y tomar el dni sin numeros para guardarlo
+> imposibilidad de nulidad 
+* Campo list_number
+> Validar el tipo de caracter (numerico unicamente)
+> imposibilidad de nulidad 
+* Campo birthday
+> Validar que el tipo de dato ingresado sea el valido  
+> imposibilidad de nulidad 
+* Campo address 
+> imposibilidad de nulidad 
+* Campo neighbourhood
+> imposibilidad de nulidad 
+* Campo city
+> Validar que la ciudad exista 
+> imposibilidad de nulidad 
+* Campo year
+> imposibilidad de nulidad 
+* Campo status
+> imposibilidad de nulidad 
+* Campo food_obvs
+> Posibilidad de nulidad 
 * html editar alumnos
+> Posibilidad de editar todos los datos que posee un alumno 
 * view crear alumnos
+> Clean code 
 * view editar alumnos
+> Clean code 
 * urls
+> Escribir urls siguiendo los protocolos de django 
 
-### COMO directivo QUIERO Crear, administrar cursos
-* html crear cursos
-* html editar cursos
-* view crear cursos
-* view editar cursos
-* urls
-
-### COMO preceptor QUIERO registrar llegadas tarde
-* html llegada tarde
-* view llegada tarde
-* urls
-
-### COMO preceptor QUIERO retiros anticipados
-* html retiro anticipado
-* agregar porcentaje de falta con view de ausencia
-* urls
-
-### COMO preceptor QUIERO Justificar faltas dentro de 48 hs 
-* html justificar falta
-* view justificar falta
-* urls
-
-### COMO directivo QUIERO tener permisos de preceptor
-
-### COMO directivo QUIERO modificar faltas sin limite de tiempo PARA poder justificarlas
 -----------
-# Sprint 3
+## SPRINT 3
+
+### COMO preceptor QUIERO registrar llegadas tardes -> 13sp
+* html llegada tarde
+> Mostrar todos los alumnos del curso del preceptor activo con su respectivo botón para demarcar la llegada tarde
+> Descartar alumnos marcados
+
+* view llegada tarde
+> Dependiendo de la hora y/o porcentaje el símbolo que tendrá el alumno en la falta
+
+* urls
+> Escribir urls siguiendo los protocolos de django 
+
+### COMO preceptor QUIERO retiros anticipados -> 13sp
+* html retiros anticipados
+> Mostrar todos los alumnos del curso del preceptor activo con su respectivo botón para demarcar el retiro anticipado tarde.
+
+* view llegada tarde
+> Dependiendo de la hora y/o porcentaje el símbolo que tendrá el alumno en la falta.
+
+* urls
+> Escribir urls siguiendo los protocolos de django.
+
+### COMO preceptor QUIERO Justificar faltas dentro de 48 hs -> 5sp
+* html justificar falta
+> Mostrar todos los alumnos del curso del preceptor activo que hayan faltado con su respectivo botón para justificar y en el caso que se pueda, adjuntar el justificativo.
+
+* view justificar falta
+> Cambiar el estado de la falta del día correspondiente del alumno a justificada.
+
+* urls
+> Escribir urls siguiendo los protocolos de django 
+
+### COMO directivo QUIERO tener permisos de preceptor -> 1sp
+* Director podrá hacer todo lo demarcado anteriormente para el preceptor
+
+### COMO directivo QUIERO modificar faltas sin limite de tiempo PARA poder justificarlas -> 2sp
+* Desde el mismo html que el preceptor justifica, que el directivo lo haga, pero sin límite de tiempo.
+
+### COMO tester QUIERO testear optimamente todos los sprints PARA que no haya errores atrasados -> 8sp
+
+-----------
+# Sprint 4
 
 ### COMO sistema QUIERO generar pdfs mensuales 
 ### COMO sistema QUIERO enviar mails
@@ -116,7 +217,7 @@
 ### COMO administración QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
 
 -----------------
-# Sprint 4
+# Sprint 5
 
 ### COMO comedor QUIERO recibir cantidad de alumnos presentes diarios PARA hacer la comida 
 
@@ -126,5 +227,3 @@
 
 ### COMO comedor QUIERO recibir especificaciones especiales de alumnos PARA hacer dietas especiales
 ------------
-
-
