@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, render, redirect
 from django.template import RequestContext
 from django.conf import settings
-from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import AnonymousUser
@@ -20,8 +19,9 @@ from django.contrib.auth.models import User
 from controlAsistencia.forms import *
 import datetime
 from datetime import timedelta
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from reportlab.pdfgen import canvas
+
 
 
 # Create your views here.
@@ -320,15 +320,15 @@ def justify(request):
 		absence_q.update(justified=True)
 		return HttpResponse("okk")
 
-def send_email(request):
-	send_mail('probando', 'email test', 'test.asistencia@gmail.com', ['nikobazan@gmail.com',])
-	return HttpResponse("se mando")
-
 def pdf(request):
-	response = HttpResponse(content_type='application/pdf')
-	response['Content-Disposition'] = 'inline; filename="test.pdf"'
-	p = canvas.Canvas(response)
-	p.drawString(100, 100, "Puto el que lee.")
+	p = canvas.Canvas(settings.MEDIA_ROOT + 'file_name.pdf')
+	p.drawString(250, 200, "Puto el que lee.")
 	p.showPage()
 	p.save()
-	return response
+	return HttpResponse("se creo")
+
+def send_email(request):
+	msg = EmailMessage('IMPORTANTE', 'Uvuwewe Onyetenwe Ugwemuwem Ossas', 'test.asistencia@gmail.com', ['juli.luna1999@gmail.com',])
+	msg.attach_file(settings.MEDIA_ROOT+'file_name.pdf')
+	msg.send()
+	return HttpResponse("se mando")
