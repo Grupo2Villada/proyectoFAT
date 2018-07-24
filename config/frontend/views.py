@@ -325,10 +325,10 @@ def send_email(request):
 	return HttpResponse("se mando")
 
 def pdf(request):
-	response = HttpResponse(content_type='controlAsistencia/pdf')
+	response = HttpResponse(content_type='application/pdf')
 	response['Content-Disposition'] = 'inline; filename="test.pdf"'
 	p = canvas.Canvas(response)
-	p.drawString(100, 100, "Hello world.")
+	p.drawString(100, 100, "Puto el que lee.")
 	p.showPage()
 	p.save()
 	return response
