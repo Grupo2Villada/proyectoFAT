@@ -7,17 +7,44 @@ Update preceptor
 {% block navbar %}
 {% endblock navbar %}
 {% block style %}
+.hola {
+  border-radius: 5px;
+  
+  width:100%;
+  margin: 2% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+.tr {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+.tr{
+  font-size: 18px;
+  background: #008bd2 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:left
+}
 {% endblock style %}
 {% block body %}
 
 <div class="container">
   <div class="row">
     <div class="col">
+        <div class="hola">
       <table class="table">
-  <thead>
-    <tr>
+  <thead class="tr">
+    <div class="">
+    <tr class="">
       <th scope="col">Preceptores</th>
     </tr>
+      </div>
   </thead>
   <tbody>
 {% for preceptor in preceptors%}
@@ -33,6 +60,7 @@ Update preceptor
   {% endfor %}          
   </tbody>
 </table>
+        </div>
     </div>
     <div id="card" class="col">
 
