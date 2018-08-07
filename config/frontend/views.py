@@ -17,16 +17,18 @@ from django.db.models import Q
 from django.utils import timezone
 from controlAsistencia.models import *
 from django.contrib.auth.models import User
-from controlAsistencia.forms import *
 import datetime
 from datetime import timedelta
+import sys
+if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
+	from controlAsistencia.forms import *
 
 # Create your views here.
 def main(request):
 	results={}
 	try:
 		preceptor = Preceptor.objects.get(user=request.user)
-		results['years'] = preceptor.getYear()
+		results['years'] = preceptor.getYear().order_by('year_number','division')
 		return render(request, 'main.html', results)
 	except:
 		return render(request, 'main.html')
@@ -37,7 +39,7 @@ def prueba(request):
 def list_render(request, id):
 	results={}
 	year = Year.objects.get(id=id)
-	results['students'] = year.getStudents()
+	results['students'] = year.getStudents().order_by('last_name','first_name')
 	return render(request, 'asistencia_lista.html', results)
 
 def login_user(request):
@@ -265,13 +267,13 @@ def early_retirement(request):
 		a15_20am = now.replace(hour=15, minute= 20 , second= 0) 
 
 		if now < a9am:
-			Absence.objects.create(percentage=0.75,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year)
+			Absence.objects.create(percentage=0.75,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year, justified=True)
 			
 		elif now < a12_30am:
-			Absence.objects.create(percentage=0.50,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year)
+			Absence.objects.create(percentage=0.50,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year, justified=True)
 
 		elif now < a15_20am:
-			Absence.objects.create(percentage=0.25,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year)
+			Absence.objects.create(percentage=0.25,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year, justified=True)
 
 		
 	return HttpResponse("hola")
@@ -280,26 +282,43 @@ def early_render(request, id):
 	results={}
 	ausentes = []
 	presentes=[]
+
 	today_date = datetime.date.today()
 	year = Year.objects.get(id=id)
 	preceptor = Preceptor.objects.get(user=request.user)
 	students = year.getStudents()
-	faltas = Absence.objects.filter(date = today_date , percentage=1, student__year=year)
+	faltas1 = Absence.objects.filter(date = today_date , percentage=1, student__year=year) 
+	faltas2 = Absence.objects.filter(date = today_date, student__year=year, origin = 2)  
+	faltas = faltas1 | faltas2
+
 	for i in faltas:
 		ausentes.append(i.student)
+	print ausentes
+	print students
+	print presentes
 
-	for i in students:
-		for j in ausentes:
-			if i!=j:
-				presentes.append(i)
-	results['students']= presentes
+	# for i in ausentes:
+	# 	for j in students:
+	# 		if i!=j:
+
+	# 			presentes.append(j)
+	# for i in ausentes:
+	# 	for j in students:
+	# 		if 
+	presentes = list(set(students)-set(ausentes))
+	print presentes
+	if (ausentes==[]):
+		results['students']= students
+	else:
+		results['students']= presentes
+
 	return render(request, 'retiro_anticipado.html', results)
 
 def justification_render(request, id):
 	results={}
 	year = Year.objects.get(id=id)
 	if request.user.is_staff:
-		absences = Absence.objects.filter(year=year).order_by('date')
+		absences = Absence.objects.filter(year=year, justified=False).order_by('date')
 		results['absences']= absences
 		return render(request, 'justificar_falta.html', results)
 	else:	

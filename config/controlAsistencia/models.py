@@ -59,7 +59,7 @@ class Year(models.Model):
 
 class Preceptor(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
-	internal_tel = models.IntegerField(blank=True)
+	internal_tel = models.PositiveIntegerField(blank=True)
 	year = models.ManyToManyField(Year,blank=True,related_name='preceptores')
 
 	def getYear(self):
@@ -75,11 +75,11 @@ class Preceptor(models.Model):
 		return "{} {}".format(self.user.first_name, self.user.last_name)
 
 class Student(models.Model):
-	first_name = models.CharField(max_length=12)
+	first_name = models.CharField(max_length=25)
 	last_name = models.CharField(max_length=25)
-	dni = models.CharField(max_length=8,primary_key=True)
-	student_tag = models.IntegerField()
-	list_number = models.IntegerField()
+	dni = models.PositiveIntegerField(primary_key=True)
+	student_tag = models.PositiveIntegerField()
+	list_number = models.PositiveIntegerField()
 	birthday = models.DateField()
 	address = models.CharField(max_length=50)
 	neighbourhood = models.CharField(max_length=50)
