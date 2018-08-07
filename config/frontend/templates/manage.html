@@ -7,15 +7,18 @@ Administrar
 {% block navbar %}
 {% endblock navbar %}
 {% block style %}
-a {
-   width: 150px;
-}
+
+    .a {
+        width: 300px;
+
+      }
+
 {% endblock style %}
 {% block body %}
-<div>
-<a href="{% url 'register' %}" class="btn btn-primary btn-block btn-lg">Registrar</a>
-<a href="{% url 'create_student' %}" class="btn btn-primary btn-block btn-lg">Crear Estudiante</a>
-<a href="{% url 'preceptor_list' %}" class="btn btn-primary btn-block btn-lg">Modificar preceptores</a>
-<a href="{% url 'student_list' %}" class="btn btn-primary btn-block btn-lg">Modificar Estudiantes</a>
+<div style="margin-left: 8px">
+<a style="margin-top: 8px;" href="{% url 'register' %}" class="btn btn-primary btn-block btn-lg a">Registrar</a>
+<a href="{% url 'create_student' %}" class="btn btn-primary btn-block btn-lg a">Crear Estudiante</a>
+<a href="{% url 'preceptor_list' %}" class="btn btn-primary btn-block btn-lg a">Modificar preceptores</a>
+<a href="{% url 'student_list' %}" class="btn btn-primary btn-block btn-lg a">Modificar Estudiantes</a>
 </div>
 {% endblock body %}
