@@ -7,20 +7,56 @@ Update student
 {% block navbar %}
 {% endblock navbar %}
 {% block style %}
+  .hola {
+  border-radius: 5px;
+  
+  width:100%;
+  margin: 2% auto;
+  margin-left:-5px ;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+.tr {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+.tr{
+  font-size: 18px;
+  background: #008bd2 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:left
+}
+input {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #eee;
+  margin-bottom: 15px;
+  width: 93%;
+  height: 40px;
+  float: left;
+  padding: 0px 15px;
+}
 {% endblock style %}
 {% block body %}
 
 <div class="container">
   <div class="row">
     <div class="col">
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names/age..." title="Type in a name">
-
-      <table class="table" id="myTable">
-  <thead>
+<div class="hola">
+ <div class="tr">
+  <thead class="">
     <tr>
       <th scope="col">Alumnos</th>
     </tr>
-  </thead>
+  </thead>        
+    </div>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names/age..." title="Type in a name">
+      <table class="table" id="myTable">
   <tbody>
 {% for student in students%}
     <tr>
@@ -37,12 +73,19 @@ Update student
   {% endfor %}          
   </tbody>
 </table>
+        </div>
     </div>
     <div id="card" class="col">
 
+        
+        </div>
     </div>
   </div>
-</div>
+
+
+
+
+
 <script>
 function form_update(dni){
   $.ajax({

@@ -170,73 +170,73 @@ i {
 
 <form action="{% url 'update_student' %}" method="POST">  
   {% csrf_token %}
-	    <h1>Actualizar Alumno</h1>
+    <h1>Actualizar</h1>
     	<div class="padding_correction">
 			      <div class="form-group">
-			        <p>Nombre:<span>*</span></p>
+			        <p>Nombre:<span></span></p>
 			        <span class="icon-case"><i class="fa fa-user"></i></span>
 				        	<input type="text" name="first_name"  placeholder="Nombre" required="required" value="{{form.first_name.value}}">
                 <div class="validation"></div>
        </div> 
 
             <div class="form-group">
-            <p>Apellido:<span>*</span></p>
+            <p>Apellido:<span></span></p>
             <span class="icon-case"><i class="fa fa-user"></i></span>
 				<input type="text" name="last_name"  placeholder="Apellido" required="required" value="{{form.last_name.value}}">
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>Dni: <span>*</span></p>	
+			<p>Dni: <span></span></p>	
 			<span class="icon-case"><i class="fa fa-address-card"></i></span>
                 	<input type="text" name="dni"  placeholder="Dni" required="required" value="{{form.dni.value}}" readonly="readonly">
                 <div class="validation"></div>
 			</div>	
 
 			<div class="form-group">
-			<p>legajo:<span>*</span></p>
+			<p>legajo:<span></span></p>
 			<span class="icon-case"><i class="fa fa-at"></i></span>
 				<input type="text" name="student_tag"  placeholder="Legajo" required="required" value="{{form.student_tag.value}}">
                 <div class="validation"></div>
 			</div>
             
 			<div class="form-group">
-			<p>Numero de lista:<span>*</span></p>
+			<p>Numero de lista:<span></span></p>
 			<span class="icon-case"><i class="fa fa-at"></i></span>
 					<input type="text" name="list_number"  placeholder="Numero de lista" required="required" value="{{form.list_number.value}}">
                 <div class="validation"></div>
 			</div>
             
 			<div class="form-group">
-			<p>Nacimiento:<span>*</span></p>
+			<p>Nacimiento:<span></span></p>
 			<span class="icon-case"><i class="fa fa-institution"></i></span>
                {{form.birthday}}
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>Direccion:<span>*</span></p>
+			<p>Direccion:<span></span></p>
 			<span class="icon-case"><i class="fa fa-at"></i></span>
 	           <input type="text" name="address"  placeholder="Direccion" required="required" value="{{form.address.value}}">
                 <div class="validation"></div>
 			</div>
             
 			<div class="form-group">
-			<p>Ciudad:<span>*</span></p>
+			<p>Ciudad:<span></span></p>
 			<span class="icon-case"><i class="fa fa-at"></i></span>
 	           <input type="text" name="city" placeholder="Ciudad" required="required" value="{{form.city.value}}">
                 <div class="validation"></div>
 			</div>
             
 			<div class="form-group">
-			<p>Barrio:<span>*</span></p>
+			<p>Barrio:<span></span></p>
 			<span class="icon-case"><i class="fa fa-at"></i></span>
                 <input type="text" name="neighbourhood"  placeholder="Barrio" required="required" value="{{form.neighbourhood.value}}">
                 <div class="validation"></div>
 			</div>
             
 			<div class="form-group">
-			<p>Año:<span>*</span></p>
+			<p>Año:<span></span></p>
 			<span class="icon-case"><i class="fa fa-at"></i></span>
 	           <select class="year mdb-select" id="id_year" name="year" multiple>
                 {% for year in form.year %}
@@ -247,7 +247,7 @@ i {
 			</div>
             
 			<div class="form-group">
-			<p>Estatus:<span>*</span></p>
+			<p>Estatus:<span></span></p>
 			<span class="icon-case"><i class="fa fa-at"></i></span>
 	           <select class="form-control year" id="id_status" name="status">
                 {% for status in form.status %}
@@ -258,7 +258,7 @@ i {
 			</div>
         
 			<div class="form-group">
-			<p>Comida Especial:<span>*</span></p>
+			<p>Comida Especial:<span></span></p>
 			<span class="icon-case"><i class="fa fa-home"></i></span>
 				<input type="text" name="food_obvs"  placeholder="Comida especial" value="{{form.food_obvs.value}}">
                 <div class="validation"></div>
