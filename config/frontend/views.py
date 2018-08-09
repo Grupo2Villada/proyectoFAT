@@ -326,7 +326,7 @@ def justification_render(request, id):
 		n = 2
 		fecha = today_date - timedelta(days=n)
 		print fecha
-		absences = Absence.objects.filter(year=year,date__gte=fecha).order_by('date')
+		absences = Absence.objects.filter(year=year,date__gte=fecha, justified=False).order_by('date')
 		results['absences']= absences
 		return render(request, 'justificar_falta.html', results)
 
