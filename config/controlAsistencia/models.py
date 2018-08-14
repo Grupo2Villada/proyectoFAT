@@ -77,7 +77,7 @@ class Preceptor(models.Model):
 class Student(models.Model):
 	first_name = models.CharField(max_length=25)
 	last_name = models.CharField(max_length=25)
-	dni = models.PositiveIntegerField(primary_key=True)
+	dni = models.PositiveIntegerField()
 	student_tag = models.PositiveIntegerField()
 	list_number = models.PositiveIntegerField()
 	birthday = models.DateField()

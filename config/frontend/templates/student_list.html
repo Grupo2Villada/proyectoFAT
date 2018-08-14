@@ -30,7 +30,7 @@ Update student
         {{ student.getAge }}
       </td>
       <td>
-        <button id="btn-{{ student.id }}" class="btn btn-flat" onclick="form_update({{ student.dni }})">Editar</button>
+        <button id="btn-{{ student.id }}" class="btn btn-flat" onclick="form_update({{ student.id }})">Editar</button>
       </td>
   </tr>
 
@@ -44,11 +44,11 @@ Update student
   </div>
 </div>
 <script>
-function form_update(dni){
+function form_update(id){
   $.ajax({
     url:"{% url 'update_student' %}",
     data:{
-      student : dni,
+      id : id,
     },
     success:function(results){
       $("#card").html(results)
@@ -58,6 +58,7 @@ function form_update(dni){
     }
   });
 }
+
 function myFunction() {
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInput");

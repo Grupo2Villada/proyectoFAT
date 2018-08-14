@@ -16,6 +16,7 @@ class PreceptorUpdateForm(forms.Form):
 	(year.pk, year) for year in Year.objects.all()])
 
 class StudentForm(forms.Form):
+	id = forms.IntegerField(min_value=1)
 	first_name = forms.CharField(max_length=12)
 	last_name = forms.CharField(max_length=25)
 	dni = forms.IntegerField(max_value=99999999, min_value=1)

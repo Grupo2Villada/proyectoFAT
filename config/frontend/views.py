@@ -37,9 +37,35 @@ def prueba(request):
 	 return render(request, 'prueba.html')
 
 def list_render(request, id):
+	
+	#results['students'] = year.getStudents().order_by('last_name','first_name')
+
+
 	results={}
+	ausentes = []
+	presentes=[]
+
+	today_date = datetime.date.today()
 	year = Year.objects.get(id=id)
-	results['students'] = year.getStudents().order_by('last_name','first_name')
+	preceptor = Preceptor.objects.get(user=request.user)
+	students = year.getStudents()
+	faltas1 = Absence.objects.filter(date = today_date , percentage=1, student__year=year) 
+	faltas2 = Absence.objects.filter(date = today_date, student__year=year, origin = 2)  
+	faltas = faltas1 | faltas2
+
+	for i in faltas:
+		ausentes.append(i.student)
+	print ausentes
+	print students
+	print presentes
+	presentes = list(set(students)-set(ausentes))
+	print presentes
+	if (ausentes==[]):
+		results['students']= students
+	else:
+		results['students']= presentes
+
+
 	return render(request, 'asistencia_lista.html', results)
 
 def login_user(request):
@@ -185,9 +211,9 @@ def update_student(request):
 	if request.method == "POST":
 		form = StudentForm(request.POST)
 		if form.is_valid():
+			id=form.cleaned_data.get("id")
 			first_name= form.cleaned_data.get("first_name")
 			dni= form.cleaned_data.get("dni")
-			student=Student.objects.filter(dni=dni)
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
 			list_number= form.cleaned_data.get("list_number")
@@ -198,13 +224,14 @@ def update_student(request):
 			year= form.cleaned_data.get("year")
 			status= form.cleaned_data.get("status")
 			food_obvs= form.cleaned_data.get("food_obvs")
-			student.update(first_name=first_name, last_name=last_name, student_tag=student_tag, list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, city=city, year=year, status=status, food_obvs=food_obvs)
+			student=Student.objects.filter(id=id)
+			student.update(first_name=first_name, last_name=last_name, student_tag=student_tag, list_number=list_number, birthday=birthday, dni=dni,address=address, neighbourhood=neighbourhood, city=city, year=year, status=status, food_obvs=food_obvs)
 		return redirect('/')
 	else:
 		results= {}
-		dni=request.GET.get('student')
-		results["dni"] = dni
-		student = Student.objects.get(dni=dni)
+		id=request.GET.get('id')
+		results["id"] = id
+		student = Student.objects.get(id=id)
 		age = student.getAge()
 		form = StudentForm(initial={'first_name':student.first_name, 'last_name':student.last_name, 'dni':student.dni, 'student_tag':student.student_tag, 'list_number':student.list_number, 'birthday':student.birthday, 'address':student.address, 'neighbourhood':student.neighbourhood, 'city':student.city, 'year':student.year.id, 'status':student.status,'food_obvs':student.food_obvs})
 		results["form"]= form
