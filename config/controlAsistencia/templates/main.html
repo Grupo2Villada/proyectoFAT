@@ -16,12 +16,26 @@ Menu
 
 {% endblock style%}
 {% block body %}
+<div class="">
+
+<div>
+                <select class="form-control" id="id_year" name="year">
+                {% for year in years %}
+                <option>{{year}}</option>
+                {% endfor %} 
+                </select>
+    </div>
+</div>
 {% for year in years %}
 
+
 <div class="hola card text-white bg-secondary mb-3" style="max-width: 18rem;">
-{% for year in years %}
-<div class="card-header">Curso</div>
-{% endfor %}
+
+<div class="card-header">
+curso
+    
+</div>
+
 <div class="card-body">
   <h5 class="card-title">{{ year|upper }}</h5>
   <a href="{% url 'list' year.id %}" class="btn btn-primary">Tomar lista</a>
