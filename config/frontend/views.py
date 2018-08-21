@@ -320,12 +320,93 @@ def justify(request):
 		absence_q.update(justified=True)
 		return HttpResponse("okk")
 
-def pdf(request):
+"""def pdf(request):
 	p = canvas.Canvas(settings.MEDIA_ROOT + 'file_name.pdf')
 	p.drawString(250, 200, "Puto el que lee.")
 	p.showPage()
 	p.save()
 	return HttpResponse("se creo")
+	"""
+
+def pdf(request):
+	id_cont=request.GET['id']
+	filename="Contrato de CubanCloud_"+request.user.first_name+"_"+request.user.last_name+".pdf"
+	# Creamos el response
+	response=HttpResponse(content_type='application/pdf')
+	response['Content-Disposition']='attachment; filename="%s"' % filename
+	# Observa que ahora en vez de usar el nombre del archivo usamos el response
+	doc=SimpleDocTemplate(
+	    response,
+	    pagesize=letter,
+	    rightMargin=72,
+	    leftMargin=72,
+	    topMargin=2,
+	    bottomMargin=18,
+	)
+	Story=[]
+	im=Image(settings.MEDIA_ROOT + '/LogoCubanCloudPDF1.png', width=550, height=70)
+	Story.append(im)
+	styles=getSampleStyleSheet()
+	datos1=Paragraph('NOMBRE Y APELLIDO(S) DEL CLIENTE: '+request.user.first_name+' '+request.user.last_name,styles['Normal'])
+	datos2=Paragraph('NOMBRE DE USUARIO: '+request.user.username,styles['Normal'])
+	Story.append(datos1)
+	Story.append(datos2)
+	datos3=Paragraph('E-MAIL: '+request.user.email,styles['Normal'])
+	Story.append(datos3)
+	noContrato=Paragraph('NO. CONTRATO: '+str(id_cont),styles['Normal'])
+	Story.append(noContrato)
+	p=Image(settings.MEDIA_ROOT+'/espacioPDF.png',width=550, height=30)
+	Story.append(p)
+	encabezados=('Servicios Contratados', 'ID.Servicio', 'Plan', 'Precio')
+	lista_nombres=[]
+	for var in Servicio_Contratado.objects.filter(contrato_id=id_cont):
+	    lista_nombres.append((var.nombre, var.pk, str(var.plazo) + " días", var.precio))
+	lista_nombres.reverse()
+	detalle_orden=Table([encabezados] + lista_nombres,colWidths=[170,100,100,100])
+	# Aplicamos estilos a las celdas de la tabla
+	detalle_orden.setStyle(TableStyle(
+	    [
+	        ('GRID', (0, 0), (3, -1), 1, colors.dodgerblue),
+	        ('LINEBELOW', (0, 0), (-1, 0), 2, colors.darkblue),
+	        ('BACKGROUND', (0, 0), (-1, 0), colors.dodgerblue)
+	        # # La primera fila(encabezados) va a estar centrada
+	        # ('ALIGN', (0, 0), (0, 0), 'CENTER'),
+	        # # Los bordes de todas las celdas serán de color negro y con un grosor de 1
+	        # ('GRID', (0, 0), (-1, -1), 0, colors.transparent),
+	        # # El tamaño de las letras de cada una de las celdas será de 10
+	        # ('FONTSIZE', (0, 0), (0, 0), 10),
+	        ]
+	))
+	Story.append(detalle_orden)
+	p=Image(settings.MEDIA_ROOT + '/espacioPDF.png', width=550, height=30)
+	Story.append(p)
+	p=Paragraph('ACUERDOS DE NIVEL DE SERVICIOS',styles['Normal'])
+	Story.append(p)
+	encabezados=['No.', 'AsL']
+	lista_acl=[]
+	for var in Asl.objects.filter(generales=True):
+	    lista_acl.append((var.pk, var.descripcion))
+	lista_acl.reverse()
+	detalle_orden=Table([encabezados] + lista_acl,colWidths=[70,400,0])
+	# Aplicamos estilos a las celdas de la tabla
+	detalle_orden.setStyle(TableStyle(
+	    [
+	        ('GRID', (0, 0), (3, -1), 1, colors.dodgerblue),
+	        ('LINEBELOW', (0, 0), (-1, 0), 2, colors.darkblue),
+	        ('BACKGROUND', (0, 0), (-1, 0), colors.dodgerblue)
+	        # # La primera fila(encabezados) va a estar centrada
+	        # ('ALIGN', (0, 0), (0, 0), 'CENTER'),
+	        # # Los bordes de todas las celdas serán de color negro y con un grosor de 1
+	        # ('GRID', (0, 0), (-1, -1), 0, colors.transparent),
+	        # # El tamaño de las letras de cada una de las celdas será de 10
+	        # ('FONTSIZE', (0, 0), (0, 0), 10),
+
+	    ]
+	))
+	Story.append(detalle_orden)
+	doc.build(Story)
+	return response
+
 
 def send_email(request):
 	msg = EmailMessage('IMPORTANTE', 'Uvuwewe Onyetenwe Ugwemuwem Ossas', 'test.asistencia@gmail.com', ['juli.luna1999@gmail.com',])
