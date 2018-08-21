@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block imports %}
+  {% endblock imports %}
+<style type="text/css">
+   .navbar1{
+        color: white !important;
+    }
+    .modal-login {
+    color: #636363;
+    width: 350px;
+  }
+  .modal-login .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+  }
+  .modal-login .modal-header {
+    border-bottom: none;
+    position: relative;
+    justify-content: center;
+  }
+  .modal-login h4 {
+    text-align: center;
+    font-size: 26px;
+  }
+  .modal-login  .form-group {
+    position: relative;
+  }
+  .modal-login i {
+    position: absolute;
+    left: 13px;
+    top: 11px;
+    font-size: 18px;
+  }
+  .modal-login .form-control {
+    padding-left: 40px;
+  }
+  .modal-login .form-control:focus {
+    border-color: #00ce81;
+  }
+  .modal-login .form-control, .modal-login .btn {
+    min-height: 40px;
+    border-radius: 3px; 
+  }
+  .modal-login .hint-text {
+    text-align: center;
+    padding-top: 10px;
+  }
+  .modal-login .close {
+        position: absolute;
+    top: -5px;
+    right: -5px;
+  }
+  .modal-login .btn {
+    background: #00ce81;
+    border: none;
+    line-height: normal;
+  }
+  .modal-login .btn:hover, .modal-login .btn:focus {
+    background: #00bf78;
+  }
+  .modal-login .modal-footer {
+    background: #ecf0f1;
+    border-color: #dee4e7;
+    text-align: center;
+    margin: 0 -20px -20px;
+    border-radius: 5px;
+    font-size: 13px;
+    justify-content: center;
+  }
+  .modal-login .modal-footer a {
+    color: #999;
+  }
+  .position-login {
+    margin-right: auto !important;
+}
+.navbar-inverse {
+          background-color:#008bd2;
+          border:none;
+        }
+body {
+    background-color: lightblue;
+}
+    {% block style %}
+    {% endblock style %}
+</style>
+  <title>
+    {% block title %}
+    {% endblock title %}
+  </title>
+</head>
+<body>
+  <nav class="navbar navbar-inverse ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand navbar1" href="#">Asistencia</a>
+    </div>
+
+    {% if user.is_authenticated %}
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" class="glyphicon navbar1">Welcome {{user.username|title}}</a></li>
+        <li><a href="{% url 'logout' %}" class="glyphicon glyphicon-log-in navbar1">Logout</a></li>
+        {% if request.user.is_staff %}
+        <li><a href="{% url 'register' %}" class="glyphicon navbar1">Register</a></li>
+        {% endif %}
+      </ul>
+    {% endif %}
+  </div>
+</nav> 
+{% block body %}
+{% endblock body %}
+</body>
+</html>
