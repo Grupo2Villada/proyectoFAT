@@ -129,9 +129,12 @@ def ausente(request):
 	return HttpResponse("ok")
 
 def create_student(request):
+	print "entrando"
 	if request.method == "POST":
-		form = StudentForm(request.POST)
+		print " POST"
+		form = CreateStudentForm(request.POST)
 		if form.is_valid():
+			print "FORM valid"
 			first_name= form.cleaned_data.get("first_name")
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
@@ -147,12 +150,15 @@ def create_student(request):
 			year= Year.objects.get(id=yearqs)
 			try: 
 				Student.objects.get(dni=dni)
+				print "ya existe"
 			except Student.DoesNotExist:
 				student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
+				print "CREA3"
 				student.save()
+				print "GUARDA3"
 		return redirect('/')
 	else:
-		form = StudentForm()
+		form = CreateStudentForm()
 	return render(request, 'create_student.html', {'form': form})
 
 def index(request):
@@ -373,25 +379,26 @@ def export_users_xls(request):
 
     # Sheet header, first row
     row_num = 0
-
-    font_style = xlwt.XFStyle()
-    font_style.font.bold = True
+    style.font.bold = True
+    ws.col(0).width = int(20*256)
+    ws.col(1).width = int(20*256)
+    ws.col(2).width = int(20*256)
+    ws.col(3).width = int(20*256)
 
     #columns = ['Username', 'First name', 'Last name', 'Email address', ]
     columns = ['First name', 'Last name', 'Year', 'Division',]
-
     for col_num in range(len(columns)):
-        ws.write(row_num, col_num, columns[col_num], font_style)
+        ws.write(row_num, col_num, columns[col_num], style)
 
     # Sheet body, remaining rows
-    font_style = xlwt.XFStyle()
+    style = xlwt.XFStyle()
+    style.alignment.wrap = 1
     today_date = datetime.date.today()
     #rows = User.objects.all().values_list('username', 'first_name', 'last_name', 'email')
     rows = Absence.objects.filter(date=today_date).values_list('student__first_name', 'student__last_name', 'year__year_number', 'year__division')
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
-            ws.write(row_num, col_num, row[col_num], font_style)
-
+            ws.write(row_num, col_num, row[col_num], style)
     wb.save(response)
     return response
