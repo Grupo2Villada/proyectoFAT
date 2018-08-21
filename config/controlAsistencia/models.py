@@ -96,6 +96,10 @@ class Student(models.Model):
 		born=self.birthday
 		return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
+	def getYear(self):
+		results = self._meta.model.objects.all()
+		return results
+
 class Parent(models.Model):
 	dni = models.IntegerField()
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
