@@ -21,7 +21,10 @@ class StudentForm(forms.Form):
 	dni = forms.IntegerField()
 	student_tag = forms.IntegerField()
 	list_number = forms.IntegerField()
-	birthday = forms.DateField(widget = forms.SelectDateWidget(years=range(1900,2019)))
+	birthday = forms.DateField(widget=forms.TextInput(attrs=
+                                {
+                                    'class':'datepicker'
+                                }))
 	address = forms.CharField(max_length=50)
 	neighbourhood = forms.CharField(max_length=50)
 	city = forms.CharField(max_length=50)

@@ -1,0 +1,208 @@
+{%extends "base.html"%}
+{%block title%} Asistencia
+{%endblock title%}
+{% block imports %}
+
+    {%load static%}
+{% endblock imports %}
+
+{% block style %}
+
+    
+    .subtitulo{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 300%;   
+        width: 700px;     
+    }
+    .titulo{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 400%;
+    }
+    body {
+        background-color: powderblue;
+    }
+
+    .lista {
+        width: 700px
+    }
+    .botonPresente {
+        width: 233.33px;
+        height: 75px;
+        background-color: green;
+        position: relative;
+        right: 60px;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 250%;
+        border: 2px solid green;
+        border-radius: 12px;
+
+
+    }
+    .botonAusente {
+        width: 233.33px;
+        height: 75px;
+        background-color: red;
+        position: relative;
+        left: 60px;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 250%;
+        border: 2px solid red;
+        border-radius: 12px;
+
+    }
+    .divlista{
+        position: relative;
+        top: 90px;
+    }
+    .hola{
+        height:247px; 
+        width:100%;
+    }
+
+    .hola{
+        overflow:hidden; 
+        overflow-y:scroll;
+    }
+
+@media only screen and (max-width: 720px) {
+
+    body.celular{
+        background-color: deepskyblue;
+        font-family: cursive,fantasy,monospace,sans-serif,serif,inherit;
+        font-size: 50%;
+        color: blanchedalmond !important;
+    }
+    h1{
+        color:black !important;
+    }
+    .subtitulo{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 150%;   
+        width: 100%;     
+    }
+    .titulo{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 200%;
+    }
+    body {
+        background-color: powderblue;
+    }
+
+    .lista {
+        width: 100%;
+    }
+    .botonPresente {
+        width: 150%;
+        height: 13.5%;
+        background-color: green;
+        position: relative;
+        right: 57%;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 150%;
+        border: 2px solid green;
+        border-radius: 12px;
+
+
+    }
+    .botonAusente {
+        width: 150%;
+        height: 13.5%;
+        background-color: red;
+        position: relative;
+        footer: 100%;
+        left: 10%;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 150%;
+        border: 2px solid red;
+        border-radius: 12px;
+
+    }
+    .divlista{
+        position: relative;
+        top: 45px;
+    }
+    .hola{
+        height:247px; 
+        width:100%;
+    }
+
+    .hola{
+        overflow:hidden; 
+        overflow-y:scroll;
+    }
+}
+    body{
+        background-color: blue;
+}
+{% endblock style %}
+
+
+{% block bod %}
+<div>
+<div class="container" style="border-top-width: 0px;margin-top: -62px; background-color: red;">
+    <div class="container divlista">
+        <center>
+            <div class="container titulo">
+                <strong class="aria-label">asassas</strong>
+            </div>
+        </center>
+        <center>
+            <div class="subtitulo">
+                <pre class="subtitulo">ss</pre>
+            </div>
+        </center>
+        <center>
+            <lista>
+                <div onscroll="" class="container lista">
+                    <ul class="list-group hola">
+                        {% for student in students %}
+                        <li class="list-group-item">
+                            {{ student.last_name|upper }},
+                            {{ student.first_name }}
+                        </li>
+                        {% endfor %}
+                        {% if %}
+                        <li class="list-group-item list-group-item-danger hide-on-large-only">Vestibulum at eros</li>
+                        {% else %}
+                        <li class="list-group-item list-group-item-success">Vestibulum at eros</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </lista>
+        </center>
+        <center>
+            <div class="container" role="group" aria-label="...">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success botonPresente">Presente</button>
+                </div>
+                <div class="btn-group">
+                    <button id="btn-{{ student.dni }}" onclick="ausente({{ student.dni }})" type="button" class="btn btn-danger botonAusente">Ausente</button>
+                </div>
+            </div>
+        </center>
+    </div>
+</div>
+</div>
+<script>
+function ausente(dni){
+  $.ajax({
+    type:"POST",
+    url:"{% url 'ausente' %}",
+    data:{
+      'csrfmiddlewaretoken': '{{csrf_token}}',
+      student : dni,
+
+    },
+    success:function(results){
+      $("#btn-"+dni).remove()
+    },
+    error:function(request, status, error){
+    $("body").html(request.responseText);
+    }
+  });
+
+}
+
+</script>
+
+{% endblock bod %}

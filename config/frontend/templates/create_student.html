@@ -171,9 +171,6 @@ i {
 {% block body %}
  <form action="{% url 'create_student' %}" method="POST">
 	    <h1>Create Student</h1>
-	    
-    <div class="contentform">
-    	<div id="sendmessage"> Your message has been sent successfully. Thank you. </div>
 
        {% csrf_token %}
     	<div>
@@ -280,4 +277,16 @@ i {
 <button type="submit" class="bouton-contact" value="Create student">Create student</button>
 	
 </form>
+<script>
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2012",
+      format:'DD-MM-YYYY'
+        // You can put more options here.
+
+    });
+  });
+</script>
 {% endblock body %}

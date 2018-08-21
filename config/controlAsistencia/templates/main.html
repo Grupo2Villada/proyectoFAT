@@ -6,17 +6,29 @@ Menu
 {% endblock title %}			
 {% block navbar %}
 {% endblock navbar %}
+{% block style %}
+
+   .hola{
+       left=9px;
+       top=9px;
+   }
+
+
+{% endblock style%}
 {% block body %}
 {% for year in years %}
 
-<div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+<div class="hola card text-white bg-secondary mb-3" style="max-width: 18rem;">
+{% for year in years %}
 <div class="card-header">Curso</div>
+{% endfor %}
 <div class="card-body">
   <h5 class="card-title">{{ year|upper }}</h5>
   <a href="{% url 'list' year.id %}" class="btn btn-primary">Tomar lista</a>
   <a href="{% url 'late' year.id %}" class="btn btn-primary">Llegadas tarde</a>
   <a href="{% url 'early' year.id %}" class="btn btn-primary">Retiro Anticipado</a>
   <a href="{% url 'justification' year.id %}" class="btn btn-primary">Justificar Faltas</a>
+  <a href="*" class="btn btn-primary">Generar Excel</a>
 </div>
 </div>
 
