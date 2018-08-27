@@ -173,23 +173,23 @@ i {
 	    <h1>Actualizar Preceptor</h1>
     	<div class="padding_correction">
 			      <div class="form-group">
-			        <p>Username:<span></span></p>
+			        <p>Usuario:<span></span></p>
 			        <span class="icon-case"><i class="fa fa-user"></i></span>
-				        <input type="text" name="username" class="" placeholder="Username" required="required" value="{{username}}">
+				        <input type="text" name="username" class="" placeholder="Usuario" required="required" value="{{username}}">
                 <div class="validation"></div>
        </div> 
 
             <div class="form-group">
-            <p>First name:<span></span></p>
+            <p>Nombre:<span></span></p>
             <span class="icon-case"><i class="fa fa-user"></i></span>
-				<input type="text" name="first_name" class="" placeholder="First Name" required="required" value="{{first_name}}">
+				<input type="text" name="first_name" class="" placeholder="Nombre" required="required" value="{{first_name}}">
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>Last Name: <span></span></p>	
+			<p>Apellido: <span></span></p>	
 			<span class="icon-case"><i class="fa fa-address-card"></i></span>
-                <input type="text" name="last_name" class="" placeholder="Last Name" required="required" value="{{last_name}}">
+                <input type="text" name="last_name" class="" placeholder="Apellido" required="required" value="{{last_name}}">
                 <div class="validation"></div>
 			</div>	
 
@@ -201,7 +201,7 @@ i {
 			</div>
             
 			<div class="form-group">
-			<p>Year:<span></span></p>
+			<p>Curso:<span></span></p>
 			<span class="icon-case"><i class="fa fa-institution"></i></span>
                 <select class="year mdb-select" id="id_year" name="year" multiple>
                 {% for year in form.year %}
@@ -212,7 +212,7 @@ i {
 			</div>
         
 			<div class="form-group">
-			<p>Internal Tel:<span></span></p>
+			<p>Telefono interno:<span></span></p>
 			<span class="icon-case"><i class="fa fa-home"></i></span>
 				{{ form.internal_tel }}
                 <div class="validation"></div>
