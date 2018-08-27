@@ -173,29 +173,29 @@ i {
 {% block body %}    
     
      <form action="{% url 'register' %}" method="POST">
-	    <h1>Member Sign up</h1>
+	    <h1>Registro de preceptor</h1>
 	    
 
        {% csrf_token %}
     	<div style="padding-left: 12px">
 			      <div class="form-group">
-			        <p>Username:<span>*</span></p>
+			        <p>Usuario:<span>*</span></p>
 			        <span class="icon-case"><i class="fa fa-user"></i></span>
-				        <input type="text" name="username" class="" placeholder="Username" required="required">
+				        <input type="text" name="username" class="" placeholder="Usuario" required="required">
                 <div class="validation"></div>
        </div> 
 
             <div class="form-group">
-            <p>First name:<span>*</span></p>
+            <p>Nombre:<span>*</span></p>
             <span class="icon-case"><i class="fa fa-user"></i></span>
-				<input type="text" name="first_name" class="" placeholder="First Name" required="required">
+				<input type="text" name="first_name" class="" placeholder="Nombre" required="required">
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>Last Name: <span>*</span></p>	
+			<p>Apellido: <span>*</span></p>	
 			<span class="icon-case"><i class="fa fa-address-card"></i></span>
-                <input type="text" name="last_name" class="" placeholder="Last Name" required="required">
+                <input type="text" name="last_name" class="" placeholder="Apellido" required="required">
                 <div class="validation"></div>
 			</div>	
 
@@ -207,7 +207,7 @@ i {
 			</div>
             
 			<div class="form-group">
-			<p>Year:<span>*</span></p>
+			<p>Año:<span>*</span></p>
 			<span class="icon-case"><i class="fa fa-institution"></i></span>
                 <select class="year mdb-select" id="id_year" name="year" multiple>
                 {% for year in form.year %}
@@ -218,23 +218,23 @@ i {
 			</div>
         
 			<div class="form-group">
-			<p>Internal Tel:<span>*</span></p>
+			<p>Telefono interno:<span>*</span></p>
 			<span class="icon-case"><i class="fa fa-home"></i></span>
 				{{ form.internal_tel }}
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>Password:<span>*</span></p>
+			<p>Contraseña:<span>*</span></p>
 			<span class="icon-case"><i class="fa fa-lock"></i></span>
-				<input type="password" name="password" class="" placeholder="Password" required="required">	
+				<input type="password" name="password" class="" placeholder="Contraseña" required="required">	
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>Repeat Password:<span>*</span></p>
+			<p>Repetir Contraseña:<span>*</span></p>
 			<span class="icon-case"><i class="fa fa-lock"></i></span>
-                <input type="password" name="sec_password" class="" placeholder="Repeat password" required="required">
+                <input type="password" name="sec_password" class="" placeholder="Repetir Contraseña" required="required">
 
                 <div class="validation"></div>
 			</div>
@@ -244,7 +244,7 @@ i {
         
 	</div>
 
-<button type="submit" class="bouton-contact" value="Register">Create Preceptor</button>
+<button type="submit" class="bouton-contact" value="Register">Crear Preceptor</button>
 	
 </form>
 <!-- SCRIPTS -->
