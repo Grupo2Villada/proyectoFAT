@@ -21,6 +21,9 @@ import datetime
 from datetime import timedelta
 import sys
 import xlwt
+from django.db.models.functions import Concat
+from django.db.models.functions import Upper
+import calendar
 if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
 	from controlAsistencia.forms import *
 
@@ -65,8 +68,6 @@ def list_render(request, id):
 		results['students']= students
 	else:
 		results['students']= presentes
-
-
 	return render(request, 'asistencia_lista.html', results)
 
 def login_user(request):
@@ -129,12 +130,9 @@ def ausente(request):
 	return HttpResponse("ok")
 
 def create_student(request):
-	print "entrando"
 	if request.method == "POST":
-		print " POST"
-		form = CreateStudentForm(request.POST)
+		form = StudentForm(request.POST)
 		if form.is_valid():
-			print "FORM valid"
 			first_name= form.cleaned_data.get("first_name")
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
@@ -150,15 +148,12 @@ def create_student(request):
 			year= Year.objects.get(id=yearqs)
 			try: 
 				Student.objects.get(dni=dni)
-				print "ya existe"
 			except Student.DoesNotExist:
 				student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
-				print "CREA3"
 				student.save()
-				print "GUARDA3"
 		return redirect('/')
 	else:
-		form = CreateStudentForm()
+		form = StudentForm()
 	return render(request, 'create_student.html', {'form': form})
 
 def index(request):
@@ -371,34 +366,81 @@ def justify(request):
 		return HttpResponse("okk")
 
 def export_users_xls(request):
-    response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="users.xls"'
+	today_date = datetime.date.today()
+	response = HttpResponse(content_type='application/ms-excel')
+	response['Content-Disposition'] = 'attachment; filename="users.xls"'
 
-    wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Users')
+	wb = xlwt.Workbook(encoding='utf-8')
+	ws = wb.add_sheet('Users')
+	style1 = xlwt.XFStyle()
+	pattern = xlwt.Pattern()
+	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+	pattern.pattern_fore_colour = xlwt.Style.colour_map['yellow']
+	style1.pattern = pattern
 
-    # Sheet header, first row
-    row_num = 0
-    style.font.bold = True
-    ws.col(0).width = int(20*256)
-    ws.col(1).width = int(20*256)
-    ws.col(2).width = int(20*256)
-    ws.col(3).width = int(20*256)
+	borders= xlwt.Borders()
+	borders.left= 7
+	borders.right= 7
+	borders.top= 7
+	borders.bottom= 7
+	style1.borders = borders
 
-    #columns = ['Username', 'First name', 'Last name', 'Email address', ]
-    columns = ['First name', 'Last name', 'Year', 'Division',]
-    for col_num in range(len(columns)):
-        ws.write(row_num, col_num, columns[col_num], style)
+	# Sheet header, first row
+	row_num = 0
+	style1.font.bold = True
+	ws.col(0).width = int(20*256)
+	ws.col(1).width = int(20*256)
+	ws.col(2).width = int(20*50)
+	ws.col(3).width = int(20*95)
+	#columns = ['Username', 'First name', 'Last name', 'Email address',]
+	cantidadDias=calendar.monthrange(today_date.year,today_date.month)[1]
+	style3 = xlwt.XFStyle()
+	pattern = xlwt.Pattern()
+	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+	pattern.pattern_fore_colour = xlwt.Style.colour_map['yellow']
+	style3.pattern = pattern
+	style3.borders = borders
+	#MES CON 31 DIAS
+	if(cantidadDias==31):
+		columns = ['Apellido', 'Nombre', 'Año', 'Division']
+		for i in range(1,32):
+			columns.append(i)
+			for j in range(4,35):
+				ws.col(j).width = int(20*50)
+		for col_num in range(len(columns)):
+		    ws.write(row_num, col_num, columns[col_num], style3)
+	#MES CON 30 DIAS
+	elif(cantidadDias==30):
+		columns = ['Apellido', 'Nombre', 'Año', 'Division']
+		for i in range(1,31):
+			columns.append(i)
+			for j in range(4,34):
+				ws.col(j).width = int(20*50)
+		for col_num in range(len(columns)):
+		    ws.write(row_num, col_num, columns[col_num], style3)
+	#POR LAS DUDAS(FEBRERO)
+	else:
+		columns = ['Apellido', 'Nombre', 'Año', 'Division']
+		for i in range(1,29):
+			columns.append(i)
+			for j in range(4,32):
+				ws.col(j).width = int(20*50)
+		for col_num in range(len(columns)):
+		    ws.write(row_num, col_num, columns[col_num], style3)
 
-    # Sheet body, remaining rows
-    style = xlwt.XFStyle()
-    style.alignment.wrap = 1
-    today_date = datetime.date.today()
-    #rows = User.objects.all().values_list('username', 'first_name', 'last_name', 'email')
-    rows = Absence.objects.filter(date=today_date).values_list('student__first_name', 'student__last_name', 'year__year_number', 'year__division')
-    for row in rows:
-        row_num += 1
-        for col_num in range(len(row)):
-            ws.write(row_num, col_num, row[col_num], style)
-    wb.save(response)
-    return response
+	# Sheet body, remaining rows
+	style = xlwt.XFStyle()
+	style.borders = borders
+	style.alignment.wrap = 1
+	#rows = User.objects.all().values_list('username', 'first_name', 'last_name', 'email')
+	#rows = Absence.objects.filter(date=today_date).annotate(name=GroupConcat(Upper('student__last_name'),'student__first_name'))
+	#rows = Absence.objects.filter(date=today_date).values_list(Concat(Upper('student__last_name'),'student__first_name'))
+	# AUSENTES
+	#rows = Absence.objects.filter(date=today_date).values_list(Upper('student__last_name'),'student__first_name','year__year_number', 'year__division')
+	rows = Student.objects.filter(year__year_number=7,year__division="c").values_list(Upper('last_name'),'first_name','year__year_number', 'year__division')
+	for row in rows:
+	    row_num += 1
+	    for col_num in range(len(row)):
+	        ws.write(row_num, col_num, row[col_num], style)
+	wb.save(response)
+	return response
