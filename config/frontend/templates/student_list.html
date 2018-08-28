@@ -13,7 +13,7 @@ Update student
 <div class="container">
   <div class="row">
     <div class="col">
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names/age..." title="Type in a name">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por nombre/año..." title="Type in a name">
 
       <table class="table" id="myTable">
   <thead>
@@ -30,7 +30,7 @@ Update student
         {{ student.getAge }}
       </td>
       <td>
-        <button id="btn-{{ student.id }}" class="btn btn-flat" onclick="form_update({{ student.id }})">Editar</button>
+        <button id="btn-{{ student.id }}" class="btn btn-flat" onclick="form_update({{ student.dni }})">Editar</button>
       </td>
   </tr>
 
@@ -42,13 +42,25 @@ Update student
 
     </div>
   </div>
-</div>
+</div> 
+
+   
+  <select name="select" style="margin-left: 850px;">
+    <option>Orden A-Z</option>
+    <option>Orden Lugar Curso</option>
+
+  </select>
+
+
+
+
+
 <script>
-function form_update(id){
+function form_update(dni){
   $.ajax({
     url:"{% url 'update_student' %}",
     data:{
-      id : id,
+      student : dni,
     },
     success:function(results){
       $("#card").html(results)
@@ -58,7 +70,6 @@ function form_update(id){
     }
   });
 }
-
 function myFunction() {
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInput");
