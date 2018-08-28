@@ -207,14 +207,40 @@
 -----------
 # Sprint 4
 
-### COMO sistema QUIERO generar pdfs mensuales 
-### COMO sistema QUIERO enviar mails
-### COMO sistema QUIERO hacer un Backup PARA no perder los datos
+### Mejoras sprint planning
+* Mejorar estética tarjetas elección de curso
+* Cambiar la especifidad de la pestaña administrar
+* Sacar la necesidad de campos que no hacen falta, incluyendo la modificación de los htmls.
 
-### COMO secretaría QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
-### COMO preceptor QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
-### COMO directivo QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
-### COMO administración QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
+### COMO sistema QUIERO generar Excels 
+* View para generar un excel mensual
+> Generar un excel con nombres, fechas y faltas dependiendo a cada curso correspondientes al mes o día deseado.
+
+* Crear botón en la view necesaria para generar un excel por curso
+> Botón por curso que desprenda una selección de día o mes
+
+### COMO sistema QUIERO enviar mails
+* View para mandar el mail correspondiente al comedor
+> La view necesita recolectar el número de alumnos en el día y sus menús particulares para mandar esas especificaciones al comedor
+
+### COMO secretaría QUIERO recibir Excels mensuales PARA llevar registros de la gestión de los alumnos
+* View para mandar el mail correspondiente a secretaría
+> La view necesita recolectar el número de alumnos en el día para mandar esas especificaciones a secretaría
+
+### COMO preceptor QUIERO recibir Excels mensuales PARA llevar registros de la gestión de los alumnos
+* View para mandar el mail correspondiente al preceptor
+> La view necesita recolectar el número de alumnos en el día esas especificaciones al preceptor
+
+### COMO directivo QUIERO recibir Excels mensuales PARA llevar registros de la gestión de los alumnos
+* View para mandar el mail correspondiente al directivo
+> La view necesita recolectar el número de alumnos en el día esas especificaciones al directivo
+
+### COMO administración QUIERO recibir Excels mensuales PARA llevar registros de la gestión de los alumnos
+* View para mandar el mail correspondiente al administración
+> La view necesita recolectar el número de alumnos en el día esas especificaciones al administración
+
+* Html para elección de mail al que se mandan la cantidad de alumnos
+> Poder cambiar el mail predeterminado al cual se le manda el mail con los datos diarios
 
 -----------------
 # Sprint 5
