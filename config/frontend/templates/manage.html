@@ -9,13 +9,12 @@ Administrar
 {% block style %}
 {% endblock style %}
 {% block body %}
-<div  style="margin-top: 40px;" >
+<div  style="margin-top: 150px;" >
 <center>
-<a style="width:300px" href="{% url 'register' %}" class="btn btn-primary btn-block btn-lg">Registrar</a>
-<a style="width:300px" href="{% url 'create_student' %}" class="btn btn-primary btn-block btn-lg">Crear Estudiante</a>
-<a style="width:300px" href="{% url 'preceptor_list' %}" class="btn btn-primary btn-block btn-lg">Modificar preceptores</a>
-<a style="width:300px" href="{% url 'student_list' %}" class="btn btn-primary btn-block btn-lg">Modificar Estudiantes</a>
+<a style="width:500px; height:60px" href="{% url 'register' %}" class="btn btn-primary btn-block btn-lg">Registrar</a>
+<a style="width:500px; height:60px" href="{% url 'create_student' %}" class="btn btn-primary btn-block btn-lg">Crear Estudiante</a>
+<a style="width:500px; height:60px" href="{% url 'preceptor_list' %}" class="btn btn-primary btn-block btn-lg">Modificar preceptores</a>
+<a style="width:500px; height:60px" href="{% url 'student_list' %}" class="btn btn-primary btn-block btn-lg">Modificar Estudiantes</a>
 </center>	
 </div class="container">
 {% endblock body %}
-
