@@ -371,7 +371,7 @@ def export_users_xls(request):
 	response['Content-Disposition'] = 'attachment; filename="users.xls"'
 
 	wb = xlwt.Workbook(encoding='utf-8')
-	ws = wb.add_sheet('Users')
+	ws = wb.add_sheet('Users', cell_overwrite_ok=True)
 	style1 = xlwt.XFStyle()
 	pattern = xlwt.Pattern()
 	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
@@ -388,27 +388,27 @@ def export_users_xls(request):
 	# Sheet header, first row
 	row_num = 0
 	style1.font.bold = True
-	ws.col(0).width = int(20*256)
+	ws.col(0).width = int(20*265)
 	ws.col(1).width = int(20*256)
-	ws.col(2).width = int(20*50)
-	ws.col(3).width = int(20*95)
+	ws.col(2).width = int(20*70)
+	ws.col(3).width = int(20*105)
 	#columns = ['Username', 'First name', 'Last name', 'Email address',]
 	cantidadDias=calendar.monthrange(today_date.year,today_date.month)[1]
 	style3 = xlwt.XFStyle()
-	pattern = xlwt.Pattern()
-	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
-	pattern.pattern_fore_colour = xlwt.Style.colour_map['yellow']
-	style3.pattern = pattern
 	style3.borders = borders
 	#MES CON 31 DIAS
+	rows = Student.objects.filter(year__year_number=7,year__division="c").values_list(Upper('last_name'),'first_name','year__year_number', 'year__division')
+	cantidadAlumnos= rows.count()
 	if(cantidadDias==31):
 		columns = ['Apellido', 'Nombre', 'Año', 'Division']
 		for i in range(1,32):
 			columns.append(i)
 			for j in range(4,35):
 				ws.col(j).width = int(20*50)
+				for alumno in range(1,cantidadAlumnos+1):
+					ws.write(alumno,j,"P",style3)
 		for col_num in range(len(columns)):
-		    ws.write(row_num, col_num, columns[col_num], style3)
+		    ws.write(row_num, col_num, columns[col_num], style1)
 	#MES CON 30 DIAS
 	elif(cantidadDias==30):
 		columns = ['Apellido', 'Nombre', 'Año', 'Division']
@@ -416,8 +416,10 @@ def export_users_xls(request):
 			columns.append(i)
 			for j in range(4,34):
 				ws.col(j).width = int(20*50)
+				for alumno in range(1,cantidadAlumnos+1):
+					ws.write(alumno,j,"P")
 		for col_num in range(len(columns)):
-		    ws.write(row_num, col_num, columns[col_num], style3)
+		    ws.write(row_num, col_num, columns[col_num], style1)
 	#POR LAS DUDAS(FEBRERO)
 	else:
 		columns = ['Apellido', 'Nombre', 'Año', 'Division']
@@ -425,8 +427,10 @@ def export_users_xls(request):
 			columns.append(i)
 			for j in range(4,32):
 				ws.col(j).width = int(20*50)
+				for alumno in range(1,cantidadAlumnos+1):
+					ws.write(alumno,j,"P")
 		for col_num in range(len(columns)):
-		    ws.write(row_num, col_num, columns[col_num], style3)
+		    ws.write(row_num, col_num, columns[col_num], style1)
 
 	# Sheet body, remaining rows
 	style = xlwt.XFStyle()
@@ -437,10 +441,10 @@ def export_users_xls(request):
 	#rows = Absence.objects.filter(date=today_date).values_list(Concat(Upper('student__last_name'),'student__first_name'))
 	# AUSENTES
 	#rows = Absence.objects.filter(date=today_date).values_list(Upper('student__last_name'),'student__first_name','year__year_number', 'year__division')
-	rows = Student.objects.filter(year__year_number=7,year__division="c").values_list(Upper('last_name'),'first_name','year__year_number', 'year__division')
 	for row in rows:
 	    row_num += 1
 	    for col_num in range(len(row)):
 	        ws.write(row_num, col_num, row[col_num], style)
+	
 	wb.save(response)
 	return response
