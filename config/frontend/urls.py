@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^justify/', justify, name="justify"),
     url(r'^justification/(?P<id>\d+)/$', justification_render, name="justification"),
     url(r'^export/xls/$', export_users_xls, name='export_users_xls'),
+    url(r'^update/$', update, name='update'),
 ]
