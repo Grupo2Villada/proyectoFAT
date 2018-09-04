@@ -24,9 +24,6 @@ import xlwt
 from django.db.models.functions import Concat
 from django.db.models.functions import Upper
 import calendar
-import xlrd
-from xlrd import open_workbook
-from xlutils.copy import copy
 if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
 	from controlAsistencia.forms import *
 
@@ -370,8 +367,9 @@ def justify(request):
 
 def export_users_xls(request):
 	today_date = datetime.date.today()
+	month_name = datetime.date(today_date.year,today_date.month, 1).strftime('%B')
 	response = HttpResponse(content_type='application/ms-excel')
-	response['Content-Disposition'] = 'attachment; filename="users.xls"'
+	response['Content-Disposition'] = 'attachment; filename="'+month_name+'.xls"'
 
 	wb = xlwt.Workbook(encoding='utf-8')
 	ws = wb.add_sheet('Users', cell_overwrite_ok=True)
@@ -404,17 +402,14 @@ def export_users_xls(request):
 	rows = students.values_list(Upper('last_name'),'first_name','year__year_number', 'year__division')
 	cantidadAlumnos= rows.count()
 	ausencias = Absence.objects.filter(date__month = today_date.month, student__year__year_number=7,student__year__division="c" )
-	print ausencias
-
-
 	if(cantidadDias==31):
 		columns = ['Apellido', 'Nombre', 'Año', 'Division']
 		for i in range(1,32):
 			columns.append(i)
 			for j in range(4,35):
 				ws.col(j).width = int(20*50)
-			
-					
+				for alumno in range(1,cantidadAlumnos+1):
+					ws.write(alumno,j,"P",style3)
 		for col_num in range(len(columns)):
 		    ws.write(row_num, col_num, columns[col_num], style1)
 	#MES CON 30 DIAS
@@ -424,6 +419,9 @@ def export_users_xls(request):
 			columns.append(i)
 			for j in range(4,34):
 				ws.col(j).width = int(20*50)
+				for alumno in range(1,cantidadAlumnos+1):
+					for a in Absence.objects.filter(date__month = today_date.month):
+						ws.write(alumno,j,"P",style3)
 		for col_num in range(len(columns)):
 		    ws.write(row_num, col_num, columns[col_num], style1)
 	#POR LAS DUDAS(FEBRERO)
@@ -433,6 +431,11 @@ def export_users_xls(request):
 			columns.append(i)
 			for j in range(4,32):
 				ws.col(j).width = int(20*50)
+				for alumno in range(1,cantidadAlumnos+1):
+					#for a in Absence.objects.filter(date.month == today_date.month):
+					#	if (alumno__id == a__Student__id):
+					#		print "asdasd"
+					ws.write(alumno,j,"P",style3)
 		for col_num in range(len(columns)):
 		    ws.write(row_num, col_num, columns[col_num], style1)
 
@@ -449,14 +452,6 @@ def export_users_xls(request):
 	    row_num += 1
 	    for col_num in range(len(row)):
 	        ws.write(row_num, col_num, row[col_num], style)
+	
 	wb.save(response)
 	return response
-
-def update(self):
-	rb = open_workbook("/home/nicolas/Downloads/users.xls")
-	wb = copy(rb)
-
-	s = wb.get_sheet(0)
-	s.write(8,8,'A1')
-	wb.save('users.xls')
-	return HttpResponse("funciona")
