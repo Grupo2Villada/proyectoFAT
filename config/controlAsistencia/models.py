@@ -4,6 +4,7 @@ from datetime import date
 from django.conf import settings
 from django.db import models
 from itertools import chain
+from django.db.models.functions import Upper
 
 # Create your models here.
 STATUS_CHOICES = (
@@ -14,9 +15,9 @@ STATUS_CHOICES = (
 
 )
 DIVISION_CHOICES = (
-    ("a", "A"),
-    ("b", "B"),
-    ("c", "C"),
+    ("A", "A"),
+    ("B", "B"),
+    ("C", "C"),
 
 )
 
@@ -54,8 +55,8 @@ class Year(models.Model):
 		results = Student.objects.filter(year=self)
 		return results
 
-	def __str__(self):
-		return "{}-{}".format(self.year_number, self.division)
+	def __unicode__(self):
+		return "{}°{}".format(self.year_number,self.division)
 
 class Preceptor(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
@@ -99,6 +100,9 @@ class Student(models.Model):
 	def getYear(self):
 		results = self._meta.model.objects.all()
 		return results
+
+	def getAbsence(self):
+		return Absence.objects.filter(student=self)
 
 class Parent(models.Model):
 	dni = models.IntegerField()

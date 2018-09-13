@@ -325,15 +325,6 @@ def early_render(request, id):
 	print ausentes
 	print students
 	print presentes
-
-	# for i in ausentes:
-	# 	for j in students:
-	# 		if i!=j:
-
-	# 			presentes.append(j)
-	# for i in ausentes:
-	# 	for j in students:
-	# 		if 
 	presentes = list(set(students)-set(ausentes))
 	print presentes
 	if (ausentes==[]):
@@ -367,12 +358,15 @@ def justify(request):
 
 def export_users_xls(request):
 	today_date = datetime.date.today()
+	month = today_date.month
 	month_name = datetime.date(today_date.year,today_date.month, 1).strftime('%B')
+	year = 7
+	division = "c"
+	students = Student.objects.filter(year__year_number=year, year__division=division).order_by("last_name")
 	response = HttpResponse(content_type='application/ms-excel')
-	response['Content-Disposition'] = 'attachment; filename="'+month_name+'.xls"'
-
-	wb = xlwt.Workbook(encoding='utf-8')
-	ws = wb.add_sheet('Users', cell_overwrite_ok=True)
+	response['Content-Disposition'] = 'attachment; filename={}-{}{}.xls'.format(month_name, year, division)
+	wb = xlwt.Workbook(encoding='utf-8')	
+	ws = wb.add_sheet("{}".format(today_date.month), cell_overwrite_ok=True)
 	style1 = xlwt.XFStyle()
 	pattern = xlwt.Pattern()
 	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
@@ -390,68 +384,69 @@ def export_users_xls(request):
 	row_num = 0
 	style1.font.bold = True
 	ws.col(0).width = int(20*265)
-	ws.col(1).width = int(20*256)
-	ws.col(2).width = int(20*70)
-	ws.col(3).width = int(20*105)
-	#columns = ['Username', 'First name', 'Last name', 'Email address',]
+	ws.col(1).width = int(10*256)
 	cantidadDias=calendar.monthrange(today_date.year,today_date.month)[1]
 	style3 = xlwt.XFStyle()
 	style3.borders = borders
+	cantidadAlumnos= students.count()
+	#Columnas default
+	columns = ['Nombre', 'Año']
 	#MES CON 31 DIAS
-	students= Student.objects.filter(year__year_number=7,year__division="c")
-	rows = students.values_list(Upper('last_name'),'first_name','year__year_number', 'year__division')
-	cantidadAlumnos= rows.count()
-	ausencias = Absence.objects.filter(date__month = today_date.month, student__year__year_number=7,student__year__division="c" )
 	if(cantidadDias==31):
-		columns = ['Apellido', 'Nombre', 'Año', 'Division']
+		#Agregar 31 columnas para los dias
 		for i in range(1,32):
 			columns.append(i)
-			for j in range(4,35):
-				ws.col(j).width = int(20*50)
-				for alumno in range(1,cantidadAlumnos+1):
+		#width columnas para los dias
+		for j in range(2,33):
+			ws.col(j).width = int(20*50)
+			for alumno in range(1,cantidadAlumnos+1):
+				for a in Absence.objects.filter(date__month = today_date.month):
 					ws.write(alumno,j,"P",style3)
-		for col_num in range(len(columns)):
-		    ws.write(row_num, col_num, columns[col_num], style1)
-	#MES CON 30 DIAS
-	elif(cantidadDias==30):
-		columns = ['Apellido', 'Nombre', 'Año', 'Division']
-		for i in range(1,31):
-			columns.append(i)
-			for j in range(4,34):
-				ws.col(j).width = int(20*50)
-				for alumno in range(1,cantidadAlumnos+1):
-					for a in Absence.objects.filter(date__month = today_date.month):
-						ws.write(alumno,j,"P",style3)
-		for col_num in range(len(columns)):
-		    ws.write(row_num, col_num, columns[col_num], style1)
-	#POR LAS DUDAS(FEBRERO)
-	else:
-		columns = ['Apellido', 'Nombre', 'Año', 'Division']
-		for i in range(1,29):
-			columns.append(i)
-			for j in range(4,32):
-				ws.col(j).width = int(20*50)
-				for alumno in range(1,cantidadAlumnos+1):
-					#for a in Absence.objects.filter(date.month == today_date.month):
-					#	if (alumno__id == a__Student__id):
-					#		print "asdasd"
-					ws.write(alumno,j,"P",style3)
+				nro=0
+				for student in students:
+					nro+=1
+					ws.write(nro, 0, "{}, {}".format(student.last_name.upper(),student.first_name)	,style3)
+					ws.write(nro, 1, "{}".format(student.year),style3)
+
+					absences = student.getAbsence().filter(date__month=month)
+					if absences:
+						for absence in absences:
+							ws.write(0, absence.date.day, "{}".format(absence.date.day))
+							ws.write(nro, absence.date.day+1, "{}".format("A"),style3)
+
 		for col_num in range(len(columns)):
 		    ws.write(row_num, col_num, columns[col_num], style1)
 
+	#MES CON 30 DIAS
+	elif(cantidadDias==30):
+		#Agregar 31 columnas para los dias
+		for i in range(1,31):
+			columns.append(i)
+		for j in range(2,32):
+			ws.col(j).width = int(20*50)
+			for alumno in range(1,cantidadAlumnos+1):
+				for a in Absence.objects.filter(date__month = today_date.month):
+					ws.write(alumno,j,"P",style3)
+				nro=0
+				for student in students:
+					nro+=1
+					ws.write(nro, 0, "{}, {}".format(student.last_name.upper(),student.first_name)	,style3)
+					ws.write(nro, 1, "{}".format(student.year),style3)
+
+					absences = student.getAbsence().filter(date__month=month)
+					if absences:
+						for absence in absences:
+							ws.write(0, absence.date.day, "{}".format(absence.date.day))
+							ws.write(nro, absence.date.day+1, "{}".format("A"),style3)
+
+		for col_num in range(len(columns)):
+		    ws.write(row_num, col_num, columns[col_num], style1)
 	# Sheet body, remaining rows
+
+
 	style = xlwt.XFStyle()
 	style.borders = borders
 	style.alignment.wrap = 1
-	#rows = User.objects.all().values_list('username', 'first_name', 'last_name', 'email')
-	#rows = Absence.objects.filter(date=today_date).annotate(name=GroupConcat(Upper('student__last_name'),'student__first_name'))
-	#rows = Absence.objects.filter(date=today_date).values_list(Concat(Upper('student__last_name'),'student__first_name'))
-	# AUSENTES
-	#rows = Absence.objects.filter(date=today_date).values_list(Upper('student__last_name'),'student__first_name','year__year_number', 'year__division')
-	for row in rows:
-	    row_num += 1
-	    for col_num in range(len(row)):
-	        ws.write(row_num, col_num, row[col_num], style)
-	
+
 	wb.save(response)
 	return response
