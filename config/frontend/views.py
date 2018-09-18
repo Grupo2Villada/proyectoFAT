@@ -454,9 +454,23 @@ def export_users_xls(request):
 				absences = student.getAbsence().filter(date__month=month)
 				if absences:
 					for absence in absences:
-						ws.write(0, absence.date.day, "{}".format(absence.date.day))
-						ws.write(nro, absence.date.day+1, "{}".format("A"),style3)
-
+						#ws.write(0, absence.date.day, "{}".format(absence.date.day))    ????no se que es esto
+						if absence.justified == True and absence.percentage == 1:
+							ws.write(nro, absence.date.day+1, "{}".format("AJ"),style3)
+						elif absence.justified == False and absence.percentage == 1:
+							ws.write(nro, absence.date.day+1, "{}".format("A"),style3)
+						elif absence.justified == True and absence.percentage == 0.75:
+							ws.write(nro, absence.date.day+1, "{}".format("CJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.75:
+							ws.write(nro, absence.date.day+1, "{}".format("C"),style3)
+						elif absence.justified == True and absence.percentage == 0.5:
+							ws.write(nro, absence.date.day+1, "{}".format("MJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.5:
+							ws.write(nro, absence.date.day+1, "{}".format("M"),style3)
+						elif absence.justified == True and absence.percentage == 0.25:
+							ws.write(nro, absence.date.day+1, "{}".format("RJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.25:
+							ws.write(nro, absence.date.day+1, "{}".format("R"),style3)
 		for col_num in range(len(columns)):
 		    ws.write(row_num, col_num, columns[col_num], style1)
 	# Sheet body, remaining rows
