@@ -24,6 +24,7 @@ import xlwt
 from django.db.models.functions import Concat
 from django.db.models.functions import Upper
 import calendar
+from django.core.mail import send_mail, EmailMessage
 if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
 	from controlAsistencia.forms import *
 
@@ -363,9 +364,10 @@ def export_users_xls(request):
 	year = 7
 	division = "c"
 	students = Student.objects.filter(year__year_number=year, year__division=division).order_by("last_name")
-	response = HttpResponse(content_type='application/ms-excel')
-	response['Content-Disposition'] = 'attachment; filename={}-{}{}.xls'.format(month_name, year, division)
+	#response = HttpResponse(content_type='application/ms-excel')
+	#response['Content-Disposition'] = 'attachment; filename={}-{}{}.xls'.format(month_name, year, division)
 	wb = xlwt.Workbook(encoding='utf-8')	
+
 	ws = wb.add_sheet("{}".format(today_date.month), cell_overwrite_ok=True)
 	style1 = xlwt.XFStyle()
 	pattern = xlwt.Pattern()
@@ -480,5 +482,13 @@ def export_users_xls(request):
 	style.borders = borders
 	style.alignment.wrap = 1
 
-	wb.save(response)
-	return response
+	wb.save(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year, division))
+	send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year, division))
+	return redirect('manage')
+
+def send_mail(file):
+	msg = EmailMessage('Planilla Asistencia ', '', 'test.asistencia@gmail.com', ['brunojular@outlook.com'])
+	msg.attach_file(file)
+	msg.send()
+
+
