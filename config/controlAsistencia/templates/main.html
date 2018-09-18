@@ -31,33 +31,41 @@ Menu
 {% endblock navbar %}
 {% block body %}
 {% for year in years %}
-
-  <form action="{% url 'main' %}" method="POST" enctype="multipart/form-data" class="blue-grey darken-1">
+<center>
+  <form action="{% url 'main' %}" method="POST" enctype="multipart/form-data" >
   <div class="row">
-    <div class="col s2 m6">
-      <div class="card">
-        <div class="card-image waves-effect waves-block waves-light">  
-        </div>
+    <div class="col s12 m6">
+      <div class="card small">
+      
         <div class="card-content">
-  
+ 
+          
+
+
           <span class="card-title activator grey-text text-darken-4">{{year|upper}}<i class="material-icons right">more_vert</i></span>
           <div class="card-action">
           
           </div>
   
         </div>
+        
         <div class="card-reveal" href="Equipos.html">
           <span class="card-title grey-text text-darken-4">INFORMACION DEL CURSO<i class="material-icons right">close</i></span>
+          
           <a href="{% url 'list' year.id %}" class="btn btn-primary">Tomar lista</a>
+          <p> </p>
           <a href="{% url 'late' year.id %}" class="btn btn-primary">Llegadas tarde</a>
+          <p> </p>
           <a href="{% url 'early' year.id %}" class="btn btn-primary">Retiro Anticipado</a>
+          <p> </p>
           <a href="{% url 'justification' year.id %}" class="btn btn-primary">Justificar Faltas</a>
         </div>
       </div>
+      
     </div>
     </div>
     </form>
-
+</center>
 
 
 
