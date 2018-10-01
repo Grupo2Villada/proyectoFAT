@@ -219,11 +219,11 @@
 * Crear botón en la view necesaria para generar un excel por curso
 > Botón por curso que desprenda una selección de día o mes
 
-### COMO sistema QUIERO enviar mails -> 8sp
+### COMO sistema QUIERO enviar mails -> 5sp
 * View para mandar el mail correspondiente al comedor
 > La view necesita recolectar el número de alumnos en el día y sus menús particulares para mandar esas especificaciones al comedor
 
-### COMO secretaría QUIERO recibir Excels mensuales PARA llevar registros de la gestión de los alumnos -> 3sp
+### COMO secretaría QUIERO recibir Excels mensuales PARA llevar registros de la gestión de los alumnos -> 5sp
 * View para mandar el mail correspondiente a secretaría
 > La view necesita recolectar el número de alumnos en el día para mandar esas especificaciones a secretaría
 
