@@ -3,253 +3,256 @@
 {% endblock imports %}
 {% block title %}
 Asistencia
-{% endblock title %}            
+{% endblock title %}
 {% block navbar %}
 {% endblock navbar %}
 {% block style %}
 
 
 
-	.trigger-btn {
-		display: inline-block;
-		margin: 100px auto;
-	}
-   .info p {
-  text-align:center;
-  color: #999;
-  text-transform:none;
-  font-weight:600;
-  font-size:15px;
-  margin-top:2px
+.trigger-btn {
+display: inline-block;
+margin: 100px auto;
+}
+.info p {
+text-align:center;
+color: #999;
+text-transform:none;
+font-weight:600;
+font-size:15px;
+margin-top:2px
 }
 
 .info i {
-  color:#F6AA93;
+color:#F6AA93;
 }
 form h1 {
-  font-size: 18px;
-  background: #008bd2 none repeat scroll 0% 0%;
-  color: rgb(255, 255, 255);
-  padding: 22px 25px;
-  border-radius: 5px 5px 0px 0px;
-  margin: auto;
-  text-shadow: none; 
-  text-align:left
+font-size: 18px;
+background: #008bd2 none repeat scroll 0% 0%;
+color: rgb(255, 255, 255);
+padding: 22px 25px;
+border-radius: 5px 5px 0px 0px;
+margin: auto;
+text-shadow: none;
+text-align:left
 }
 
 form {
-  border-radius: 5px;
-  max-width:700px;
-  width:100%;
-  margin: 2% auto;
-  background-color: #FFFFFF;
-  overflow: hidden;
+border-radius: 5px;
+max-width:700px;
+width:100%;
+margin: 2% auto;
+background-color: #FFFFFF;
+overflow: hidden;
 }
 
 p span {
-  color: #F00;
+color: #F00;
 }
 
 p {
-  margin: 0px;
-  font-weight: 500;
-  line-height: 2;
-  color:#333;
+margin: 0px;
+font-weight: 500;
+line-height: 2;
+color:#333;
 }
 
 h1 {
-  text-align:center; 
-  color: #666;
-  text-shadow: 1px 1px 0px #FFF;
-  margin:50px 0px 0px 0px
+text-align:center;
+color: #666;
+text-shadow: 1px 1px 0px #FFF;
+margin:50px 0px 0px 0px
 }
 
 input {
-  border-radius: 0px 5px 5px 0px;
-  border: 1px solid #eee;
-  margin-bottom: 15px;
-  width: 93%;
-  height: 40px;
-  float: left;
-  padding: 0px 15px;
+border-radius: 0px 5px 5px 0px;
+border: 1px solid #eee;
+margin-bottom: 15px;
+width: 93%;
+height: 40px;
+float: left;
+padding: 0px 15px;
 }
 
 a {
-  text-decoration:inherit
+text-decoration:inherit
 }
 
 textarea {
-  border-radius: 0px 5px 5px 0px;
-  border: 1px solid #EEE;
-  margin: 0;
-  width: 75%;
-  height: 130px; 
-  float: left;
-  padding: 0px 15px;
+border-radius: 0px 5px 5px 0px;
+border: 1px solid #EEE;
+margin: 0;
+width: 75%;
+height: 130px;
+float: left;
+padding: 0px 15px;
 }
 
 .form-group {
-  overflow: hidden;
-  clear: both;
+overflow: hidden;
+clear: both;
 }
 
 .icon-case {
-  width: 35px;
-  float: left;
-  border-radius: 5px 0px 0px 5px;
-  background:#eeeeee;
-  height:40px;
-  position: relative;
-  text-align: center;
-  line-height:40px;
+width: 35px;
+float: left;
+border-radius: 5px 0px 0px 5px;
+background:#eeeeee;
+height:40px;
+position: relative;
+text-align: center;
+line-height:40px;
 }
 
 i {
-  color:#555;
+color:#555;
 }
 
 .contentform {
-  padding: 40px 30px;
+padding: 40px 30px;
 }
 
 .bouton-contact{
-  background-color: #008bd2;
-  color: #FFF;
-  text-align: center;
-  width: 100%;
-  border:0;
-  padding: 17px 25px;
-  border-radius: 0px 0px 5px 5px;
-  cursor: pointer;
-  font-size: 18px;
+background-color: #008bd2;
+color: #FFF;
+text-align: center;
+width: 100%;
+border:0;
+padding: 17px 25px;
+border-radius: 0px 0px 5px 5px;
+cursor: pointer;
+font-size: 18px;
 }
 
 .leftcontact {
-  width:49.5%; 
-  float:left;
-  border-right: 1px dotted #CCC;
-  box-sizing: border-box;
-  padding: 0px 15px 0px 0px;
+width:49.5%;
+float:left;
+border-right: 1px dotted #CCC;
+box-sizing: border-box;
+padding: 0px 15px 0px 0px;
 }
 
 .rightcontact {
-  width:49.5%;
-  float:right;
-  box-sizing: border-box;
-  padding: 0px 0px 0px 15px;
+width:49.5%;
+float:right;
+box-sizing: border-box;
+padding: 0px 0px 0px 15px;
 }
 
 .validation {
-  display:none;
-  margin: 0 0 10px;
-  font-weight:400;
-  font-size:13px;
-  color: #DE5959;
+display:none;
+margin: 0 0 10px;
+font-weight:400;
+font-size:13px;
+color: #DE5959;
 }
 
 #sendmessage {
-  border:1px solid #fff;
-  display:none;
-  text-align:center;
-  margin:10px 0;
-  font-weight:600;
-  margin-bottom:30px;
-  background-color: #EBF6E0;
-  color: #5F9025;
-  border: 1px solid #B3DC82;
-  padding: 13px 40px 13px 18px;
-  border-radius: 3px;
-  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.03);
+border:1px solid #fff;
+display:none;
+text-align:center;
+margin:10px 0;
+font-weight:600;
+margin-bottom:30px;
+background-color: #EBF6E0;
+color: #5F9025;
+border: 1px solid #B3DC82;
+padding: 13px 40px 13px 18px;
+border-radius: 3px;
+box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.03);
 }
 
-#sendmessage.show,.show  {
-  display:block;
+#sendmessage.show,.show {
+display:block;
 }
 
 .year{
-    width:93%;
+width:93%;
 }
 {% endblock style %}
-{% block body %}    
-    
-     <form action="{% url 'register' %}" method="POST">
-	    <h1>Member Sign up</h1>
-	    
+{% block body %}
 
-       {% csrf_token %}
-    	<div style="padding-left: 12px">
-			      <div class="form-group">
-			        <p>Username:<span>*</span></p>
-			        <span class="icon-case"><i class="fa fa-user"></i></span>
-				        <input type="text" name="username" class="" placeholder="Username" required="required">
-                <div class="validation"></div>
-       </div> 
-
-            <div class="form-group">
-            <p>First name:<span>*</span></p>
-            <span class="icon-case"><i class="fa fa-user"></i></span>
-				<input type="text" name="first_name" class="" placeholder="First Name" required="required">
-                <div class="validation"></div>
-			</div>
-
-			<div class="form-group">
-			<p>Last Name: <span>*</span></p>	
-			<span class="icon-case"><i class="fa fa-address-card"></i></span>
-                <input type="text" name="last_name" class="" placeholder="Last Name" required="required">
-                <div class="validation"></div>
-			</div>	
-
-			<div class="form-group">
-			<p>Email:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-at"></i></span>
-				<input type="email" name="email" class="" placeholder="Email" required="required">
-                <div class="validation"></div>
-			</div>
-            
-			<div class="form-group">
-			<p>Year:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-institution"></i></span>
-                <select class="year mdb-select" id="id_year" name="year" multiple>
-                {% for year in form.year %}
-                {{year}}
-                {% endfor %} 
-                </select>
-                <div class="validation"></div>
-			</div>
-        
-			<div class="form-group">
-			<p>Internal Tel:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-home"></i></span>
-				{{ form.internal_tel }}
-                <div class="validation"></div>
-			</div>
-
-			<div class="form-group">
-			<p>Password:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-lock"></i></span>
-				<input type="password" name="password" class="" placeholder="Password" required="required">	
-                <div class="validation"></div>
-			</div>
-
-			<div class="form-group">
-			<p>Repeat Password:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-lock"></i></span>
-                <input type="password" name="sec_password" class="" placeholder="Repeat password" required="required">
-
-                <div class="validation"></div>
-			</div>
+<form action="{% url 'register' %}" method="POST">
+  <h1>Registro de preceptor</h1>
 
 
-<button type="submit" class="bouton-contact" value="Register">Create Preceptor</button>
-	
+  {% csrf_token %}
+  <div style="padding-left: 12px">
+    <div class="form-group">
+      <p>Usuario:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-user"></i></span>
+      <input type="text" name="username" class="" placeholder="Usuario" required="required">
+      <div class="validation"></div>
+    </div>
+
+    <div class="form-group">
+      <p>Nombre:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-user"></i></span>
+      <input type="text" name="first_name" class="" placeholder="Nombre" required="required">
+      <div class="validation"></div>
+    </div>
+
+    <div class="form-group">
+      <p>Apellido: <span>*</span></p>
+      <span class="icon-case"><i class="fa fa-address-card"></i></span>
+      <input type="text" name="last_name" class="" placeholder="Apellido" required="required">
+      <div class="validation"></div>
+    </div>
+
+    <div class="form-group">
+      <p>Email:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-at"></i></span>
+      <input type="email" name="email" class="" placeholder="Email" required="required">
+      <div class="validation"></div>
+    </div>
+
+    <div class="form-group">
+      <p>Año:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-institution"></i></span>
+      <select class="year mdb-select" id="id_year" name="year" multiple>
+        {% for year in form.year %}
+        {{year}}
+        {% endfor %}
+      </select>
+      <div class="validation"></div>
+    </div>
+
+    <div class="form-group">
+      <p>Telefono interno:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-home"></i></span>
+      {{ form.internal_tel }}
+      <div class="validation"></div>
+    </div>
+
+    <div class="form-group">
+      <p>Contraseña:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-lock"></i></span>
+      <input type="password" name="password" class="" placeholder="Contraseña" required="required">
+      <div class="validation"></div>
+    </div>
+
+    <div class="form-group">
+      <p>Repetir Contraseña:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-lock"></i></span>
+      <input type="password" name="sec_password" class="" placeholder="Repetir Contraseña" required="required">
+
+      <div class="validation"></div>
+    </div>
+
+
+
+
+  </div>
+
+  <button type="submit" class="bouton-contact" value="Register">Crear Preceptor</button>
+
 </form>
 <!-- SCRIPTS -->
 <script>
-// Material Select Initialization
-$(document).ready(function() {
+  // Material Select Initialization
+  $(document).ready(function () {
     $('.mdb-select').material_select();
-});
-
+  });
 </script>
 <!-- JQuery -->
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>

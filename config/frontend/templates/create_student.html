@@ -3,281 +3,289 @@
 {% endblock imports %}
 {% block title %}
 Asistencia
-{% endblock title %}            
+{% endblock title %}
 {% block navbar %}
 {% endblock navbar %}
 {% block style %}
 
-	.trigger-btn {
-		display: inline-block;
-		margin: 100px auto;
-	}
-   .info p {
-  text-align:center;
-  color: #999;
-  text-transform:none;
-  font-weight:600;
-  font-size:15px;
-  margin-top:2px
+.trigger-btn {
+display: inline-block;
+margin: 100px auto;
+}
+.info p {
+text-align:center;
+color: #999;
+text-transform:none;
+font-weight:600;
+font-size:15px;
+margin-top:2px
 }
 
 .info i {
-  color:#F6AA93;
+color:#F6AA93;
 }
 form h1 {
-  font-size: 18px;
-  background: #008bd2 none repeat scroll 0% 0%;
-  color: rgb(255, 255, 255);
-  padding: 22px 25px;
-  border-radius: 5px 5px 0px 0px;
-  margin: auto;
-  text-shadow: none; 
-  text-align:left
+font-size: 18px;
+background: #008bd2 none repeat scroll 0% 0%;
+color: rgb(255, 255, 255);
+padding: 22px 25px;
+border-radius: 5px 5px 0px 0px;
+margin: auto;
+text-shadow: none;
+text-align:left
 }
 
 form {
-  border-radius: 5px;
-  max-width:700px;
-  width:100%;
-  margin: 5% auto;
-  background-color: #FFFFFF;
-  overflow: hidden;
+border-radius: 5px;
+max-width:700px;
+width:100%;
+margin: 5% auto;
+background-color: #FFFFFF;
+overflow: hidden;
 }
 
 p span {
-  color: #F00;
+color: #F00;
 }
 
 p {
-  margin: 0px;
-  font-weight: 500;
-  line-height: 2;
-  color:#333;
+margin: 0px;
+font-weight: 500;
+line-height: 2;
+color:#333;
 }
 
 h1 {
-  text-align:center; 
-  color: #666;
-  text-shadow: 1px 1px 0px #FFF;
-  margin:50px 0px 0px 0px
+text-align:center;
+color: #666;
+text-shadow: 1px 1px 0px #FFF;
+margin:50px 0px 0px 0px
 }
 
 input {
-  border-radius: 0px 5px 5px 0px;
-  border: 1px solid #eee;
-  margin-bottom: 15px;
-  width: 93%;
-  height: 40px;
-  float: left;
-  padding: 0px 15px;
+border-radius: 0px 5px 5px 0px;
+border: 1px solid #eee;
+margin-bottom: 15px;
+width: 93%;
+height: 40px;
+float: left;
+padding: 0px 15px;
 }
 
 a {
-  text-decoration:inherit
+text-decoration:inherit
 }
 
 textarea {
-  border-radius: 0px 5px 5px 0px;
-  border: 1px solid #EEE;
-  margin: 0;
-  width: 75%;
-  height: 130px; 
-  float: left;
-  padding: 0px 15px;
+border-radius: 0px 5px 5px 0px;
+border: 1px solid #EEE;
+margin: 0;
+width: 75%;
+height: 130px;
+float: left;
+padding: 0px 15px;
 }
 
 .form-group {
-  overflow: hidden;
-  clear: both;
+overflow: hidden;
+clear: both;
 }
 
 .icon-case {
-  width: 35px;
-  float: left;
-  border-radius: 5px 0px 0px 5px;
-  background:#eeeeee;
-  height:40px;
-  position: relative;
-  text-align: center;
-  line-height:40px;
+width: 35px;
+float: left;
+border-radius: 5px 0px 0px 5px;
+background:#eeeeee;
+height:40px;
+position: relative;
+text-align: center;
+line-height:40px;
 }
 
 i {
-  color:#555;
+color:#555;
 }
 
 .contentform {
-  padding: 40px 30px;
+padding: 40px 30px;
 }
 
 .bouton-contact{
-  background-color: #008bd2;
-  color: #FFF;
-  text-align: center;
-  width: 100%;
-  border:0;
-  padding: 17px 25px;
-  border-radius: 0px 0px 5px 5px;
-  cursor: pointer;
-  font-size: 18px;
+background-color: #008bd2;
+color: #FFF;
+text-align: center;
+width: 100%;
+border:0;
+padding: 17px 25px;
+border-radius: 0px 0px 5px 5px;
+cursor: pointer;
+font-size: 18px;
 }
 
 .leftcontact {
-  width:49.5%; 
-  float:left;
-  border-right: 1px dotted #CCC;
-  box-sizing: border-box;
-  padding: 0px 15px 0px 0px;
+width:49.5%;
+float:left;
+border-right: 1px dotted #CCC;
+box-sizing: border-box;
+padding: 0px 15px 0px 0px;
 }
 
 .rightcontact {
-  width:49.5%;
-  float:right;
-  box-sizing: border-box;
-  padding: 0px 0px 0px 15px;
+width:49.5%;
+float:right;
+box-sizing: border-box;
+padding: 0px 0px 0px 15px;
 }
 
 .validation {
-  display:none;
-  margin: 0 0 10px;
-  font-weight:400;
-  font-size:13px;
-  color: #DE5959;
+display:none;
+margin: 0 0 10px;
+font-weight:400;
+font-size:13px;
+color: #DE5959;
 }
 
 #sendmessage {
-  border:1px solid #fff;
-  display:none;
-  text-align:center;
-  margin:10px 0;
-  font-weight:600;
-  margin-bottom:30px;
-  background-color: #EBF6E0;
-  color: #5F9025;
-  border: 1px solid #B3DC82;
-  padding: 13px 40px 13px 18px;
-  border-radius: 3px;
-  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.03);
+border:1px solid #fff;
+display:none;
+text-align:center;
+margin:10px 0;
+font-weight:600;
+margin-bottom:30px;
+background-color: #EBF6E0;
+color: #5F9025;
+border: 1px solid #B3DC82;
+padding: 13px 40px 13px 18px;
+border-radius: 3px;
+box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.03);
 }
 
-#sendmessage.show,.show  {
-  display:block;
+#sendmessage.show,.show {
+display:block;
 }
 
 .year{
-    width:93%;
+width:93%;
 }
 {% endblock style %}
 {% block body %}
- <form action="{% url 'create_student' %}" method="POST">
-	    <h1>Create Student</h1>
-	    
-    <div class="contentform">
-    	<div id="sendmessage"> Your message has been sent successfully. Thank you. </div>
+<form action="{% url 'create_student' %}" method="POST">
+  <h1>Crear Alumno</h1>
 
-       {% csrf_token %}
-    	<div>
-			      <div class="form-group">
-			        <p>First name:<span>*</span></p>
-			        <span class="icon-case"><i class="fa fa-user"></i></span>
-				        {{form.first_name}}
-                <div class="validation"></div>
-       </div> 
+  {% csrf_token %}
+  <div>
+    <div class="form-group">
+      <p>Nombre:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-user"></i></span>
+      {{form.first_name}}
+      <div class="validation"></div>
+    </div>
 
-            <div class="form-group">
-            <p>Last name:<span>*</span></p>
-            <span class="icon-case"><i class="fa fa-user"></i></span>
-				{{form.last_name}}
-                <div class="validation"></div>
-			</div>
+    <div class="form-group">
+      <p>Apellido:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-user"></i></span>
+      {{form.last_name}}
+      <div class="validation"></div>
+    </div>
 
-			<div class="form-group">
-			<p>Dni: <span>*</span></p>	
-			<span class="icon-case"><i class="fa fa-address-card"></i></span>
-                {{form.dni}}
-                <div class="validation"></div>
-			</div>	
+    <div class="form-group">
+      <p>Dni: <span>*</span></p>
+      <span class="icon-case"><i class="fa fa-address-card"></i></span>
+      {{form.dni}}
+      <div class="validation"></div>
+    </div>
 
-			<div class="form-group">
-			<p>Student tag:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-home"></i></span>
-				{{form.student_tag}}
-                <div class="validation"></div>
-			</div>
+    <div class="form-group">
+      <p>Nº de Legajo:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-home"></i></span>
+      {{form.student_tag}}
+      <div class="validation"></div>
+    </div>
 
-			<div class="form-group">
-			<p>List number:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-sort-numeric-asc"></i></span>
-				{{form.list_number}}
-                <div class="validation"></div>
-			</div>
+    <div class="form-group">
+      <p>Nº de lista:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-sort-numeric-asc"></i></span>
+      {{form.list_number}}
+      <div class="validation"></div>
+    </div>
 
-			<div class="form-group">
-			<p>Birthday:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-calendar"></i></span>
-                {{form.birthday}}
+    <div class="form-group">
+      <p>Fecha de Nacimiento:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-calendar"></i></span>
+      {{form.birthday}}
 
-                <div class="validation"></div>
-			</div>
-            
-            <div class="form-group">
-			<p>Address:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-map-marker"></i></span>
-				{{form.address}}
-                <div class="validation"></div>
-			</div>
-            
-			<div class="form-group">
-			<p>Neighbourhood:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-map-marker"></i></span>
-				{{form.neighbourhood}}
-                <div class="validation"></div>
-			</div>
+      <div class="validation"></div>
+    </div>
 
-            <div class="form-group">
-			<p>City:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-map-marker"></i></span>
-				{{form.city}}
-                <div class="validation"></div>
-			</div>
-            
-			<div class="form-group">
-			<p>Year:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-institution"></i></span>
-                <select class="form-control year" id="id_year" name="year">
-                {% for year in form.year %}
-                {{year}}
-                {% endfor %} 
-                </select>
-                <div class="validation"></div>
-			</div>
-            
-			<div class="form-group">
-			<p>Status:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-check"></i></span>
-               <!-- {{form.status}}-->
-                
-                <select class="form-control year" id="id_status" name="status">
-                {% for status in form.status %}
-                {{status}}
-                {% endfor %}
-                </select>
-                
-                <div class="validation"></div>
-			</div>
-        
-			<div class="form-group">
-			<p>food_obvs:<span>*</span></p>
-			<span class="icon-case"><i class="fa fa-search"></i></span>
-				{{form.food_obvs}}
-                <div class="validation"></div>
-			</div>
+    <div class="form-group">
+      <p>Dirección:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-map-marker"></i></span>
+      {{form.address}}
+      <div class="validation"></div>
+    </div>
 
-	</div>
+    <div class="form-group">
+      <p>Barrio:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-map-marker"></i></span>
+      {{form.neighbourhood}}
+      <div class="validation"></div>
+    </div>
+
+    <div class="form-group">
+      <p>Ciudad:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-map-marker"></i></span>
+      {{form.city}}
+      <div class="validation"></div>
+    </div>
+
+    <div class="form-group">
+      <p>Curso:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-institution"></i></span>
+      <select class="form-control year" id="id_year" name="year">
+        {% for year in form.year %}
+        {{year}}
+        {% endfor %}
+      </select>
+      <div class="validation"></div>
+    </div>
+
+    <div class="form-group">
+      <p>Estado:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-check"></i></span>
+      <!-- {{form.status}}-->
+
+      <select class="form-control year" id="id_status" name="status">
+        {% for status in form.status %}
+        {{status}}
+        {% endfor %}
+      </select>
+
+      <div class="validation"></div>
+    </div>
+
+    <div class="form-group">
+      <p>Observacion Alimenticia:<span>*</span></p>
+      <span class="icon-case"><i class="fa fa-search"></i></span>
+      {{form.food_obvs}}
+      <div class="validation"></div>
+    </div>
+
+  </div>
 
 
-	</div>
-<button type="submit" class="bouton-contact" value="Create student">Create student</button>
-	
+  </div>
+  <button type="submit" class="bouton-contact" value="Create student">Crear Alumno</button>
+
 </form>
+<script>
+  $(function () {
+    $(".datepicker").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2012",
+      format: 'DD-MM-YYYY'
+      // You can put more options here.
+    });
+  });
+</script>
 {% endblock body %}
