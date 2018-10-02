@@ -131,9 +131,12 @@ def ausente(request):
 	return HttpResponse("ok")
 
 def create_student(request):
+	print "view"
 	if request.method == "POST":
+		print "post"
 		form = StudentForm(request.POST)
 		if form.is_valid():
+			print "valid"
 			first_name= form.cleaned_data.get("first_name")
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
@@ -148,8 +151,11 @@ def create_student(request):
 			food_obvs= form.cleaned_data.get("food_obvs")
 			year= Year.objects.get(id=yearqs)
 			try: 
-				Student.objects.get(dni=dni)
+				a=Student.objects.get(dni=dni)
+				print "estudiante"
+				print a
 			except Student.DoesNotExist:
+				print "not exist"
 				student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
 				student.save()
 		return redirect('/')
