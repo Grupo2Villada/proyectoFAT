@@ -103,3 +103,5 @@ ENV/
 #sublime-text
 *.sublime-project
 *.sublime-workspace
+
+/config/controlAsistencia/migrations/

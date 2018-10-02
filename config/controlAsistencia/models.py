@@ -4,6 +4,7 @@ from datetime import date
 from django.conf import settings
 from django.db import models
 from itertools import chain
+from django.db.models.functions import Upper
 
 # Create your models here.
 STATUS_CHOICES = (
@@ -14,9 +15,9 @@ STATUS_CHOICES = (
 
 )
 DIVISION_CHOICES = (
-    ("a", "A"),
-    ("b", "B"),
-    ("c", "C"),
+    ("A", "A"),
+    ("B", "B"),
+    ("C", "C"),
 
 )
 
@@ -54,12 +55,12 @@ class Year(models.Model):
 		results = Student.objects.filter(year=self)
 		return results
 
-	def __str__(self):
-		return "{}-{}".format(self.year_number, self.division)
+	def __unicode__(self):
+		return "{}°{}".format(self.year_number,self.division)
 
 class Preceptor(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
-	internal_tel = models.IntegerField(blank=True)
+	internal_tel = models.PositiveIntegerField(blank=True)
 	year = models.ManyToManyField(Year,blank=True,related_name='preceptores')
 
 	def getYear(self):
@@ -75,11 +76,11 @@ class Preceptor(models.Model):
 		return "{} {}".format(self.user.first_name, self.user.last_name)
 
 class Student(models.Model):
-	first_name = models.CharField(max_length=12)
+	first_name = models.CharField(max_length=25)
 	last_name = models.CharField(max_length=25)
-	dni = models.CharField(max_length=8,primary_key=True)
-	student_tag = models.IntegerField()
-	list_number = models.IntegerField()
+	dni = models.PositiveIntegerField()
+	student_tag = models.PositiveIntegerField()
+	list_number = models.PositiveIntegerField()
 	birthday = models.DateField()
 	address = models.CharField(max_length=50)
 	neighbourhood = models.CharField(max_length=50)
@@ -95,6 +96,13 @@ class Student(models.Model):
 		today = date.today()
 		born=self.birthday
 		return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+
+	def getYear(self):
+		results = self._meta.model.objects.all()
+		return results
+
+	def getAbsence(self):
+		return Absence.objects.filter(student=self)
 
 class Parent(models.Model):
 	dni = models.IntegerField()
