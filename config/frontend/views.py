@@ -255,10 +255,10 @@ def late_arrival(request):
 		absence_q = Absence.objects.filter(id=request.POST['absence'])
 
 		now = datetime.datetime.now().time()
-		a9am = now.replace(hour=9, minute= 0 , second= 0) 
-		a10_30am = now.replace(hour=10, minute= 30 , second= 0) 
-		a12am = now.replace(hour=12, minute= 0 , second= 0) 
-		a15am = now.replace(hour=15, minute= 0 , second= 0) 
+		cuarto = now.replace(hour=7, minute= 55 , second= 0) 
+		media = now.replace(hour=8, minute= 05 , second= 0) 
+		tres_cuartos = now.replace(hour=11, minute= 00 , second= 0) 
+		completa = now.replace(hour=13, minute= 0 , second= 0) 
 
 		if now > a15am:
 			absence_q.update(percentage=1)
@@ -269,7 +269,7 @@ def late_arrival(request):
 		elif now > a10_30am:
 			absence_q.update(percentage=0.5)
 
-		elif now > a9am:
+		elif now > cuarto:
 			absence_q.update(percentage=0.25)
 
 		
