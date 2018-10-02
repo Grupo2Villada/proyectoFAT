@@ -403,7 +403,6 @@ def export_users_xls(request):
 		for j in range(2,33):
 			ws.col(j).width = int(20*50)
 			for alumno in range(1,cantidadAlumnos+1):
-				print datetime.datetime.day(alumno).weekday()
 				if datetime.datetime.day(alumno).weekday()<5:
 				    ws.write(alumno,j,"P",style3)
 				else:
@@ -487,7 +486,7 @@ def export_users_xls(request):
 	return redirect('manage')
 
 def send_mail(file):
-	msg = EmailMessage('Planilla Asistencia ', '', 'test.asistencia@gmail.com', ['brunojular@outlook.com'])
+	msg = EmailMessage('Planilla Asistencia ', '', 'test.asistencia@gmail.com', ['juli.luna1999@gmail.com','nikobazan@gmail.com'])
 	msg.attach_file(file)
 	msg.send()
 
