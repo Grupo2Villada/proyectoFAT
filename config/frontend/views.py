@@ -399,14 +399,25 @@ def export_users_xls(request):
 		#Agregar 31 columnas para los dias
 		for i in range(1,32):
 			columns.append(i)
-		#width columnas para los dias
 		for j in range(2,33):
 			ws.col(j).width = int(20*50)
-			for alumno in range(1,cantidadAlumnos+1):
-				if datetime.datetime.day(alumno).weekday()<5:
-				    ws.write(alumno,j,"P",style3)
-				else:
-				    print ws.write(alumno,j,"",style3)
+			# for alumno in range(1,cantidadAlumnos+1):
+			# 	for dia in range(1,31):
+			# 		print datetime.date(day=dia, month=month, year=today_date.year)
+			# 		if datetime.date(day=dia, month=month, year=today_date.year).weekday()<5:	
+			# 			ws.write(alumno,j,"P",style3)
+			# 		else:
+			# 			ws.write(alumno,j," ",style3)
+		for dia in range (1,32):
+			if datetime.date(day=dia, month=month, year=today_date.year).weekday()<5:
+				for alumno in range(1,cantidadAlumnos+1):
+					ws.write(alumno,dia+1,"P",style3)
+			else:
+				for alumno in range(1,cantidadAlumnos+1):
+					ws.write(alumno,dia+1," ",style3)
+
+
+
 			nro=0
 			for student in students:
 				nro+=1
@@ -416,9 +427,23 @@ def export_users_xls(request):
 				absences = student.getAbsence().filter(date__month=month)
 				if absences:
 					for absence in absences:
-						ws.write(0, absence.date.day, "{}".format(absence.date.day))
-						ws.write(nro, absence.date.day+1, "{}".format("A"),style3)
-
+						#ws.write(0, absence.date.day, "{}".format(absence.date.day))    ????no se que es esto
+						if absence.justified == True and absence.percentage == 1:
+							ws.write(nro, absence.date.day+1, "{}".format("AJ"),style3)
+						elif absence.justified == False and absence.percentage == 1:
+							ws.write(nro, absence.date.day+1, "{}".format("A"),style3)
+						elif absence.justified == True and absence.percentage == 0.75:
+							ws.write(nro, absence.date.day+1, "{}".format("CJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.75:
+							ws.write(nro, absence.date.day+1, "{}".format("C"),style3)
+						elif absence.justified == True and absence.percentage == 0.5:
+							ws.write(nro, absence.date.day+1, "{}".format("MJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.5:
+							ws.write(nro, absence.date.day+1, "{}".format("M"),style3)
+						elif absence.justified == True and absence.percentage == 0.25:
+							ws.write(nro, absence.date.day+1, "{}".format("RJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.25:
+							ws.write(nro, absence.date.day+1, "{}".format("R"),style3)
 		for col_num in range(len(columns)):
 		    ws.write(row_num, col_num, columns[col_num], style1)
 
