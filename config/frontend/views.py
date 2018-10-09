@@ -20,6 +20,11 @@ from django.contrib.auth.models import User
 import datetime
 from datetime import timedelta
 import sys
+import xlwt
+from django.db.models.functions import Concat
+from django.db.models.functions import Upper
+import calendar
+from django.core.mail import send_mail, EmailMessage
 if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
 	from controlAsistencia.forms import *
 
@@ -64,8 +69,6 @@ def list_render(request, id):
 		results['students']= students
 	else:
 		results['students']= presentes
-
-
 	return render(request, 'asistencia_lista.html', results)
 
 def login_user(request):
@@ -128,9 +131,12 @@ def ausente(request):
 	return HttpResponse("ok")
 
 def create_student(request):
+	print "view"
 	if request.method == "POST":
+		print "post"
 		form = StudentForm(request.POST)
 		if form.is_valid():
+			print "valid"
 			first_name= form.cleaned_data.get("first_name")
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
@@ -145,8 +151,11 @@ def create_student(request):
 			food_obvs= form.cleaned_data.get("food_obvs")
 			year= Year.objects.get(id=yearqs)
 			try: 
-				Student.objects.get(dni=dni)
+				a=Student.objects.get(dni=dni)
+				print "estudiante"
+				print a
 			except Student.DoesNotExist:
+				print "not exist"
 				student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
 				student.save()
 		return redirect('/')
@@ -252,10 +261,10 @@ def late_arrival(request):
 		absence_q = Absence.objects.filter(id=request.POST['absence'])
 
 		now = datetime.datetime.now().time()
-		a9am = now.replace(hour=9, minute= 0 , second= 0) 
-		a10_30am = now.replace(hour=10, minute= 30 , second= 0) 
-		a12am = now.replace(hour=12, minute= 0 , second= 0) 
-		a15am = now.replace(hour=15, minute= 0 , second= 0) 
+		cuarto = now.replace(hour=7, minute= 55 , second= 0) 
+		media = now.replace(hour=8, minute= 05 , second= 0) 
+		tres_cuartos = now.replace(hour=11, minute= 00 , second= 0) 
+		completa = now.replace(hour=13, minute= 0 , second= 0) 
 
 		if now > a15am:
 			absence_q.update(percentage=1)
@@ -266,7 +275,7 @@ def late_arrival(request):
 		elif now > a10_30am:
 			absence_q.update(percentage=0.5)
 
-		elif now > a9am:
+		elif now > cuarto:
 			absence_q.update(percentage=0.25)
 
 		
@@ -323,15 +332,6 @@ def early_render(request, id):
 	print ausentes
 	print students
 	print presentes
-
-	# for i in ausentes:
-	# 	for j in students:
-	# 		if i!=j:
-
-	# 			presentes.append(j)
-	# for i in ausentes:
-	# 	for j in students:
-	# 		if 
 	presentes = list(set(students)-set(ausentes))
 	print presentes
 	if (ausentes==[]):
@@ -362,3 +362,163 @@ def justify(request):
 		absence_q = Absence.objects.filter(id=request.POST['absence'])
 		absence_q.update(justified=True)
 		return HttpResponse("okk")
+
+def export_users_xls(request):
+	today_date = datetime.date.today()
+	month = today_date.month
+	month_name = datetime.date(today_date.year,today_date.month, 1).strftime('%B')
+	year = 7
+	division = "c"
+	students = Student.objects.filter(year__year_number=year, year__division=division).order_by("last_name")
+	#response = HttpResponse(content_type='application/ms-excel')
+	#response['Content-Disposition'] = 'attachment; filename={}-{}{}.xls'.format(month_name, year, division)
+	wb = xlwt.Workbook(encoding='utf-8')	
+
+	ws = wb.add_sheet("{}".format(today_date.month), cell_overwrite_ok=True)
+	style1 = xlwt.XFStyle()
+	pattern = xlwt.Pattern()
+	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+	pattern.pattern_fore_colour = xlwt.Style.colour_map['yellow']
+	style1.pattern = pattern
+
+	borders= xlwt.Borders()
+	borders.left= 7
+	borders.right= 7
+	borders.top= 7
+	borders.bottom= 7
+	style1.borders = borders
+
+	# Sheet header, first row
+	row_num = 0
+	style1.font.bold = True
+	ws.col(0).width = int(20*265)
+	ws.col(1).width = int(10*256)
+	cantidadDias=calendar.monthrange(today_date.year,today_date.month)[1]
+	style3 = xlwt.XFStyle()
+	style3.borders = borders
+	cantidadAlumnos= students.count()
+	weekno = datetime.datetime.today().weekday()
+	#Columnas default
+	columns = ['Nombre', 'Año']
+	#MES CON 31 DIAS
+	if(cantidadDias==31):
+		#Agregar 31 columnas para los dias
+		for i in range(1,32):
+			columns.append(i)
+		for j in range(2,33):
+			ws.col(j).width = int(20*50)
+			# for alumno in range(1,cantidadAlumnos+1):
+			# 	for dia in range(1,31):
+			# 		print datetime.date(day=dia, month=month, year=today_date.year)
+			# 		if datetime.date(day=dia, month=month, year=today_date.year).weekday()<5:	
+			# 			ws.write(alumno,j,"P",style3)
+			# 		else:
+			# 			ws.write(alumno,j," ",style3)
+		for dia in range (1,32):
+			if datetime.date(day=dia, month=month, year=today_date.year).weekday()<5:
+				for alumno in range(1,cantidadAlumnos+1):
+					ws.write(alumno,dia+1,"P",style3)
+			else:
+				for alumno in range(1,cantidadAlumnos+1):
+					ws.write(alumno,dia+1," ",style3)
+
+
+
+			nro=0
+			for student in students:
+				nro+=1
+				ws.write(nro, 0, "{}, {}".format(student.last_name.upper(),student.first_name)	,style3)
+				ws.write(nro, 1, "{}".format(student.year),style3)
+
+				absences = student.getAbsence().filter(date__month=month)
+				if absences:
+					for absence in absences:
+						#ws.write(0, absence.date.day, "{}".format(absence.date.day))    ????no se que es esto
+						if absence.justified == True and absence.percentage == 1:
+							ws.write(nro, absence.date.day+1, "{}".format("AJ"),style3)
+						elif absence.justified == False and absence.percentage == 1:
+							ws.write(nro, absence.date.day+1, "{}".format("A"),style3)
+						elif absence.justified == True and absence.percentage == 0.75:
+							ws.write(nro, absence.date.day+1, "{}".format("CJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.75:
+							ws.write(nro, absence.date.day+1, "{}".format("C"),style3)
+						elif absence.justified == True and absence.percentage == 0.5:
+							ws.write(nro, absence.date.day+1, "{}".format("MJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.5:
+							ws.write(nro, absence.date.day+1, "{}".format("M"),style3)
+						elif absence.justified == True and absence.percentage == 0.25:
+							ws.write(nro, absence.date.day+1, "{}".format("RJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.25:
+							ws.write(nro, absence.date.day+1, "{}".format("R"),style3)
+		for col_num in range(len(columns)):
+		    ws.write(row_num, col_num, columns[col_num], style1)
+
+	#MES CON 30 DIAS
+	elif(cantidadDias==30):
+		#Agregar 31 columnas para los dias
+		for i in range(1,31):
+			columns.append(i)
+		for j in range(2,32):
+			ws.col(j).width = int(20*50)
+			# for alumno in range(1,cantidadAlumnos+1):
+			# 	for dia in range(1,31):
+			# 		print datetime.date(day=dia, month=month, year=today_date.year)
+			# 		if datetime.date(day=dia, month=month, year=today_date.year).weekday()<5:	
+			# 			ws.write(alumno,j,"P",style3)
+			# 		else:
+			# 			ws.write(alumno,j," ",style3)
+		for dia in range (1,31):
+			if datetime.date(day=dia, month=month, year=today_date.year).weekday()<5:
+				for alumno in range(1,cantidadAlumnos+1):
+					ws.write(alumno,dia+1,"P",style3)
+			else:
+				for alumno in range(1,cantidadAlumnos+1):
+					ws.write(alumno,dia+1," ",style3)
+
+
+
+			nro=0
+			for student in students:
+				nro+=1
+				ws.write(nro, 0, "{}, {}".format(student.last_name.upper(),student.first_name)	,style3)
+				ws.write(nro, 1, "{}".format(student.year),style3)
+
+				absences = student.getAbsence().filter(date__month=month)
+				if absences:
+					for absence in absences:
+						#ws.write(0, absence.date.day, "{}".format(absence.date.day))    ????no se que es esto
+						if absence.justified == True and absence.percentage == 1:
+							ws.write(nro, absence.date.day+1, "{}".format("AJ"),style3)
+						elif absence.justified == False and absence.percentage == 1:
+							ws.write(nro, absence.date.day+1, "{}".format("A"),style3)
+						elif absence.justified == True and absence.percentage == 0.75:
+							ws.write(nro, absence.date.day+1, "{}".format("CJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.75:
+							ws.write(nro, absence.date.day+1, "{}".format("C"),style3)
+						elif absence.justified == True and absence.percentage == 0.5:
+							ws.write(nro, absence.date.day+1, "{}".format("MJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.5:
+							ws.write(nro, absence.date.day+1, "{}".format("M"),style3)
+						elif absence.justified == True and absence.percentage == 0.25:
+							ws.write(nro, absence.date.day+1, "{}".format("RJ"),style3)
+						elif absence.justified == False and absence.percentage == 0.25:
+							ws.write(nro, absence.date.day+1, "{}".format("R"),style3)
+		for col_num in range(len(columns)):
+		    ws.write(row_num, col_num, columns[col_num], style1)
+	# Sheet body, remaining rows
+
+
+	style = xlwt.XFStyle()
+	style.borders = borders
+	style.alignment.wrap = 1
+
+	wb.save(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year, division))
+	send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year, division))
+	return redirect('manage')
+
+def send_mail(file):
+	msg = EmailMessage('Planilla Asistencia ', '', 'test.asistencia@gmail.com', ['juli.luna1999@gmail.com','nikobazan@gmail.com'])
+	msg.attach_file(file)
+	msg.send()
+
+
