@@ -250,6 +250,7 @@
 * Rediseño de cards de la página - 1 módulo
 * Rediseño de navbars - 1 módulo
 * Cambiar Idioma "Fecha" crear estudiante - 5 minutos
+* Reorganizar páginas y sus URLS
 
 ### COMO comedor, administración, secretaría, directivo QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes -> 8sp
 * View para contar la cantidad de alumnos presentes y que se incorporen al mail diario - 2 módulos
