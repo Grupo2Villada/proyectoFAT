@@ -1,20 +1,14 @@
 {% extends 'base.html' %}
 {% block imports %}
     <meta charset="utf-8"> {% load static %}
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-      crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js">
-    </script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static " css.css " %}">
-    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% endblock imports %}
+{% block title %}
+Menu
+{% endblock title %}			
+{% block navbar %}
+{% endblock navbar %}
+{% block body %}
+{% for year in years %}
     <style>
     .card {
     width:400px;
@@ -24,20 +18,14 @@
       
     }
     </style>
-{% endblock imports %}
-{% block title %}
-Menu
-{% endblock title %}			
-{% block navbar %}
-{% endblock navbar %}
-{% block body %}
-{% for year in years %}
+
 <center>
+    
 
         
                <div class="card text-white bg-primary mb-3" >
   <div class="card-body">
-     <span class="card-title activator grey-text text-darken-4">{{year|upper}}<i </span>
+     <span class="card-title activator grey-text text-darken-4">{{year|upper}} </span>
     <div class="card text-center" style="width: 18rem;">      
   
         <a href="{% url 'list' year.id %}" class="btn btn-primary">   Tomar Asistencia</a>
