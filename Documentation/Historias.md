@@ -250,7 +250,7 @@
 * Rediseño de cards de la página - 1 módulo
 * Rediseño de navbars - 1 módulo
 * Cambiar Idioma "Fecha" crear estudiante - 5 minutos
-* Reorganizar páginas y sus URLS
+* Reorganizar páginas y sus URLS - 1 módulo
 
 ### COMO comedor, administración, secretaría, directivo QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes -> 8sp
 * View para contar la cantidad de alumnos presentes y que se incorporen al mail diario - 2 módulos
@@ -261,7 +261,7 @@
 
 ### COMO preceptor QUIERO poder tomar lista con la posición de los bancos -> 13sp
 * Crear campo numeroBanco - 20 minutos
-* View ordenar por curso - 20minutos
+* View ordenar por curso - 20 minutos
 * Rediseñar como se va a elegir la posición de los alumnos al momento de tomar lista - 2 módulos
 
 ------------
