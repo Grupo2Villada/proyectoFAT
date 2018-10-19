@@ -15,10 +15,17 @@ Administrar
 
 {% endblock style %}
 {% block body %}
+<center>
 <div style="margin-left: 8px">
 <a style="margin-top: 8px;" href="{% url 'register' %}" class="btn btn-primary btn-block btn-lg a">Registrar Preceptor</a>
 <a href="{% url 'create_student' %}" class="btn btn-primary btn-block btn-lg a">Crear Estudiante</a>
 <a href="{% url 'preceptor_list' %}" class="btn btn-primary btn-block btn-lg a">Modificar preceptores</a>
 <a href="{% url 'student_list' %}" class="btn btn-primary btn-block btn-lg a">Modificar Estudiantes</a>
+<a style="width:300px" href="{% url 'export_users_xls' %}" class="btn btn-primary btn-block btn-lg">Excel y mail</a>
 </div>
+</center>
 {% endblock body %}
+<script type="text/javascript">
+	alert('{{ message }}');
+</script>
+

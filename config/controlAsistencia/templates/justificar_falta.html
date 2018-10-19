@@ -20,9 +20,12 @@ Justificar Faltas
   {% for absence in absences %}
     <tr>
       <td>
-        {{ absence.student }}
+        {{ absence.student.last_name|upper }},
+        {{ absence.student.first_name }}
         -
         {{ absence.date }}
+        -
+        {{ absence.percentage }}
 
       </td>
       <td>

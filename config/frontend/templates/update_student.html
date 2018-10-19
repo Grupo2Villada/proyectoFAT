@@ -171,6 +171,7 @@ i {
 <form action="{% url 'update_student' %}" method="POST">  
   {% csrf_token %}
     <h1>Actualizar</h1>
+      <input type="hidden" name="id" class="form-control" required="required" value="{{id}}">
     	<div class="padding_correction">
 			      <div class="form-group">
 			        <p>Nombre:<span></span></p>
@@ -189,7 +190,7 @@ i {
 			<div class="form-group">
 			<p>Dni: <span></span></p>	
 			<span class="icon-case"><i class="fa fa-address-card"></i></span>
-                	<input type="text" name="dni"  placeholder="Dni" required="required" value="{{form.dni.value}}" readonly="readonly">
+                	<input type="text" name="dni"  placeholder="Dni" required="required" value="{{form.dni.value}}">
                 <div class="validation"></div>
 			</div>	
 
@@ -270,14 +271,4 @@ i {
 	
 </form>
 <script>
-  $(function() {
-    $( ".datepicker" ).datepicker({
-      changeMonth: true,
-      changeYear: true,
-      yearRange: "1900:2012",
-      format:'DD.MM.YYYY'
-        // You can put more options here.
-
-    });
-  });
 </script>

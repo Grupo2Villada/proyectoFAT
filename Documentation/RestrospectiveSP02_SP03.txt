@@ -1,0 +1,56 @@
+Notas demo 1
+
+-Demo por sprint para la proxima
+-Respetar tiempo de exposicion de cada uno.
+-No hace falta que hablen todos. En la final si estaria bueno.
+-Dividir bien que va a decir cada uno.
+-Replantear como mover alumnos una vez que pasa de año
+-El burndown chart tiene que reflejar lo zue realmente paso y no acomodarlo.
+-Reflejar en el burndown chart que empieza el siguiente sprint. Chart de print 3 da la sensacion que nos rascamos 2 dias enteros.
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Presentacion de la demo correciones:
+-Historias de usuario. Poner las tareas, especificarlas y quien las hizo.
+-Agregar horas de hombre a las tareas. Se calcula en lineas de codigo.
+-¿En que ocupo el tiempo cada uno? Gestion, codigo,etc.
+-Si hay que investigar o aprender algo tambien hay que reflejarlo y estimarlo. Si no parece que no hizo nada.
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Presentación de la pagina:
+-Mejorar estetica.
+-Mis cursos. Poner una sola card que me permita seleccionar cualquier curso. NO poner una card por cada curso.
+-"novedades" lista con presentes. Despues de tomar lista actualizar la lista y que los ausentes no aparezcan
+-Agregar motivo para justificar faltas. Nota de c padres, certificados medico. CON checkbox para que no tenga que escribir.
+-Retiro anticipado poner hora de forma manual.
+-Tomar lista con orden de filas.
+-pestaña administrar: ser especifico. ej Registrar preceptores.
+-Carga de alumnos por excel
+-Campos innecesarios como ciudad. barrio.
+-No usar DNI de primary key. Cambiar ya.
+-Especificar en que año estamos. En que año se matriculó.
+-Historial de año anteriores.
+-Especificar que campos me muestran los datos. Tienen iconos nomas.
+-food_obvs: Select con alergias mas comunes y opcion de otro para especificar alguna que no este en el select.
+-Reporte para secretaria tiene que ser en excel si o si.
+-Tener en cuenta dias habiles para justificar faltas.
+--------------------------------------------------------------------------------------------------------------------------------
+
+Retrospective:
+Mal:
+	-Jugar con consola y spotify
+	-Productividad Frontend
+	-Productividad Testing
+	-Gestion de tiempo
+	-Autonomia de trabajo
+Mantener:
+	-Division de roles
+	-Extreme programming(xp)
+	-Daily meetings
+	-Todas las ceremonias
+Para mejorar:
+	-Recuperar el ritmo y compromiso de trabajo alcanzado en la empresa.
+	-Cambiar de lugar a Lucas y Bollati para ayuda de parte de los profes
+	-Sumar a Emi al testing.
+	-Workshop de testing
+

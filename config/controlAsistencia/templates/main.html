@@ -16,16 +16,6 @@ Menu
 
 {% endblock style%}
 {% block body %}
-<div class="">
-
-<div>
-                <select class="form-control" id="id_year" name="year">
-                {% for year in years %}
-                <option>{{year}}</option>
-                {% endfor %} 
-                </select>
-    </div>
-</div>
 {% for year in years %}
 
 
@@ -42,7 +32,6 @@ curso
   <a href="{% url 'late' year.id %}" class="btn btn-primary">Llegadas tarde</a>
   <a href="{% url 'early' year.id %}" class="btn btn-primary">Retiro Anticipado</a>
   <a href="{% url 'justification' year.id %}" class="btn btn-primary">Justificar Faltas</a>
-  <a href="*" class="btn btn-primary">Generar Excel</a>
 </div>
 </div>
 
