@@ -245,11 +245,23 @@
 -----------------
 # Sprint 5
 
-### COMO comedor QUIERO recibir cantidad de alumnos presentes diarios PARA hacer la comida 
+### Mejoras sprint planning -> 13sp
+* Terminar el cambio de Materialize a Bootstrap - 2 módulos
+* Rediseño de cards de la página - 1 módulo
+* Rediseño de navbars - 1 módulo
+* Cambiar Idioma "Fecha" crear estudiante - 5 minutos
+* Reorganizar páginas y sus URLS - 1 módulo
 
-### COMO administración QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes
-### COMO secretaría QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes
-### COMO directivo QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes
+### COMO comedor, administración, secretaría, directivo QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes -> 8sp
+* View para contar la cantidad de alumnos presentes y que se incorporen al mail diario - 2 módulos
 
-### COMO comedor QUIERO recibir especificaciones especiales de alumnos PARA hacer dietas especiales
+### COMO preceptor QUIERO poder escribir casos de enfermedades alimenticias particulares de alumnos  -> 5sp
+* Crear button para elegir si esto es necesario - 20 minutos
+* View para que si el button esté apretado la opción se pueda escribir - 20 minutos
+
+### COMO preceptor QUIERO poder tomar lista con la posición de los bancos -> 13sp
+* Crear campo numeroBanco - 20 minutos
+* View ordenar por curso - 20 minutos
+* Rediseñar como se va a elegir la posición de los alumnos al momento de tomar lista - 2 módulos
+
 ------------
