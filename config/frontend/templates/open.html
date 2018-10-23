@@ -12,29 +12,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
- 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
-    <!-- Your custom styles (optional) -->
-    <link href="css/style.css" rel="stylesheet">
-    
-    
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    
-    
-    
-    
-    
     {% block imports %}
   {% endblock imports %}
 <style type="text/css">
@@ -119,9 +96,6 @@ body {
 }
     {% block style %}
     {% endblock style %}
-.navbar .navbar-brand img {
-  height: 50px;
-}
 </style>
   <title>
     {% block title %}
@@ -132,36 +106,21 @@ body {
   <nav class="navbar navbar-inverse ">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="{% url 'main' %}" class="navbar-left"><img src="http://preinscripcion.itsv.edu.ar/static/img/cole.png" style=" height:65px"  ></a>
+      <a class="navbar-brand navbar1" href="#">Asistencia</a>
+    </div>
 
-    </div>
-    <center><font size=5>INSTITUTO TECNICO SALESIANO VILLADA - CONTROL DE ASISTENCIA</font>	</center>
     {% if user.is_authenticated %}
-    <div class="dropdown">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: black">
-      Welcome {{user.username|title}}
-    </button>
-      <div class="dropdown-menu">
-        <li><a href="#" class="dropdown-item">
-            Welcome {{user.username|title}}</a></li>
-        <li><a href="{% url 'logout' %}" class="dropdown-item">
-            Logout</a></li>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" class="glyphicon navbar1">Welcome {{user.username|title}}</a></li>
+        <li><a href="{% url 'logout' %}" class="glyphicon glyphicon-log-in navbar1">Logout</a></li>
         {% if request.user.is_staff %}
-        <li><a href="{% url 'manage' %}" class="dropdown-item">
-            Administrar</a></li>
+        <li><a href="{% url 'register' %}" class="glyphicon navbar1">Register</a></li>
         {% endif %}
-      </div>
+      </ul>
     {% endif %}
-    </div>
   </div>
-  
 </nav> 
 {% block body %}
 {% endblock body %}
-<script>
-$(document).ready(function(){
-    $(".dropdown-toggle").dropdown();
-});
-</script>
 </body>
 </html>

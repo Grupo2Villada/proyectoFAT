@@ -1,39 +1,56 @@
 {% extends 'base.html' %}
 {% block imports %}
+    <meta charset="utf-8"> {% load static %}
 {% endblock imports %}
 {% block title %}
 Menu
 {% endblock title %}			
 {% block navbar %}
 {% endblock navbar %}
-{% block style %}
-
-   .hola{
-       left=9px;
-       top=9px;
-   }
-
-
-{% endblock style%}
 {% block body %}
 {% for year in years %}
+    <style>
+    .card {
+    width:400px;
+    }
+    .navbar{
+      height: 175px;
+      
+    }
+    </style>
 
-
-<div class="hola card text-white bg-secondary mb-3" style="max-width: 18rem;">
-
-<div class="card-header">
-curso
+<center>
     
-</div>
 
-<div class="card-body">
-  <h5 class="card-title">{{ year|upper }}</h5>
-  <a href="{% url 'list' year.id %}" class="btn btn-primary">Tomar lista</a>
-  <a href="{% url 'late' year.id %}" class="btn btn-primary">Llegadas tarde</a>
-  <a href="{% url 'early' year.id %}" class="btn btn-primary">Retiro Anticipado</a>
-  <a href="{% url 'justification' year.id %}" class="btn btn-primary">Justificar Faltas</a>
-</div>
-</div>
+        
+               <div class="card text-white bg-primary mb-3" >
+  <div class="card-body">
+     <span class="card-title activator grey-text text-darken-4">{{year|upper}} </span>
+    <div class="card text-center" style="width: 18rem;">      
+  
+        <a href="{% url 'list' year.id %}" class="btn btn-primary">   Tomar Asistencia</a>
+    </div>
+        
+      <p> </p>
+    <div class="card text-center" style="width: 18rem;">
+         <a href="{% url 'late' year.id %}" class="btn btn-primary">Llegadas Tardes</a>
+        </div>
+      <p> </p>
+    <div class="card text-center" style="width: 18rem;">
+        <a href="{% url 'early' year.id %}" class="btn btn-primary">Retiro Anticipado</a>
+      </div>
+        <p> </p>
+    <div class="card text-center" style="width: 18rem;">
+        <a href="{% url 'justification' year.id %}" class="btn btn-primary">Justificar faltas</a>
+                                                         
+        </div>
+  </div>
+      </div>
+
+</center>
+
+
+
 
 
 {% endfor %}		
