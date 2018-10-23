@@ -54,7 +54,7 @@ Update preceptor
 {% for preceptor in preceptors%}
     <tr>
       <td>
-        {{ preceptor }}
+        {{ preceptor.user }}
       </td>
       <td>
         <button id="btn-{{ preceptor.id }}" class="btn btn-flat" onclick="form_update({{ preceptor.id }})">Editar</button>
