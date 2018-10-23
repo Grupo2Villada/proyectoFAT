@@ -207,23 +207,61 @@
 -----------
 # Sprint 4
 
-### COMO sistema QUIERO generar pdfs mensuales 
-### COMO sistema QUIERO enviar mails
-### COMO sistema QUIERO hacer un Backup PARA no perder los datos
+### Mejoras sprint planning -> 5sp
+* Mejorar estética tarjetas elección de curso
+* Cambiar la especifidad de la pestaña administrar
+* Sacar la necesidad de campos que no hacen falta, incluyendo la modificación de los htmls.
 
-### COMO secretaría QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
-### COMO preceptor QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
-### COMO directivo QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
-### COMO administración QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
+### COMO sistema QUIERO generar Excels -> 21sp
+* View para generar un excel mensual
+> Generar un excel con nombres, fechas y faltas dependiendo a cada curso correspondientes al mes o día deseado.
+
+* Crear botón en la view necesaria para generar un excel por curso
+> Botón por curso que desprenda una selección de día o mes
+
+### COMO sistema QUIERO enviar mails -> 5sp
+* View para mandar el mail correspondiente al comedor
+> La view necesita recolectar el número de alumnos en el día y sus menús particulares para mandar esas especificaciones al comedor
+
+### COMO secretaría QUIERO recibir Excels mensuales PARA llevar registros de la gestión de los alumnos -> 5sp
+* View para mandar el mail correspondiente a secretaría
+> La view necesita recolectar el número de alumnos en el día para mandar esas especificaciones a secretaría
+
+### COMO preceptor QUIERO recibir Excels mensuales PARA llevar registros de la gestión de los alumnos -> 1sp
+* View para mandar el mail correspondiente al preceptor
+> La view necesita recolectar el número de alumnos en el día esas especificaciones al preceptor
+
+### COMO directivo QUIERO recibir Excels mensuales PARA llevar registros de la gestión de los alumnos -> 1sp
+* View para mandar el mail correspondiente al directivo
+> La view necesita recolectar el número de alumnos en el día esas especificaciones al directivo
+
+### COMO administración QUIERO recibir Excels mensuales PARA llevar registros de la gestión de los alumnos -> 1sp
+* View para mandar el mail correspondiente al administración
+> La view necesita recolectar el número de alumnos en el día esas especificaciones al administración
+
+* Html para elección de mail al que se mandan la cantidad de alumnos
+> Poder cambiar el mail predeterminado al cual se le manda el mail con los datos diarios
 
 -----------------
 # Sprint 5
 
-### COMO comedor QUIERO recibir cantidad de alumnos presentes diarios PARA hacer la comida 
+### Mejoras sprint planning -> 13sp
+* Terminar el cambio de Materialize a Bootstrap - 2 módulos
+* Rediseño de cards de la página - 1 módulo
+* Rediseño de navbars - 1 módulo
+* Cambiar Idioma "Fecha" crear estudiante - 5 minutos
+* Reorganizar páginas y sus URLS - 1 módulo
 
-### COMO administración QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes
-### COMO secretaría QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes
-### COMO directivo QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes
+### COMO comedor, administración, secretaría, directivo QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes -> 8sp
+* View para contar la cantidad de alumnos presentes y que se incorporen al mail diario - 2 módulos
 
-### COMO comedor QUIERO recibir especificaciones especiales de alumnos PARA hacer dietas especiales
+### COMO preceptor QUIERO poder escribir casos de enfermedades alimenticias particulares de alumnos  -> 5sp
+* Crear button para elegir si esto es necesario - 20 minutos
+* View para que si el button esté apretado la opción se pueda escribir - 20 minutos
+
+### COMO preceptor QUIERO poder tomar lista con la posición de los bancos -> 13sp
+* Crear campo numeroBanco - 20 minutos
+* View ordenar por curso - 20 minutos
+* Rediseñar como se va a elegir la posición de los alumnos al momento de tomar lista - 2 módulos
+
 ------------
