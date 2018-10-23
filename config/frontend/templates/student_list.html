@@ -2,32 +2,59 @@
 {% block imports %}
 {% endblock imports %}
 {% block title %}
-Update student
+Update preceptor
 {% endblock title %}            
 {% block navbar %}
 {% endblock navbar %}
 {% block style %}
+.hola {
+  border-radius: 5px;
+  
+  width:100%;
+  margin: 2% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+.tr {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+.tr{
+  font-size: 18px;
+  background: #008bd2 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  
+}
 {% endblock style %}
 {% block body %}
 
 <div class="container">
   <div class="row">
     <div class="col">
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nombre/edad" title="Type in a name">
+        <div class="hola">
+<div class="tr">  
+    <thead class="">
+    
+        <tr class="">
+            <th scope="col">Alumnos</th>
+            
+        </tr>
 
-      <table class="table" id="myTable">
-  <thead>
-    <tr>
-      <th scope="col">Alumnos</th>
-    </tr>
-  </thead>
+    </thead>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nombre/edad" title="Type in a name">
+</div>
+<table class="table">
   <tbody>
 {% for student in students%}
     <tr>
       <td>
         {{ student }}
-        -
-        {{ student.getAge }}
       </td>
       <td>
         <button id="btn-{{ student.id }}" class="btn btn-flat" onclick="form_update({{ student.id }})">Editar</button>
@@ -37,6 +64,7 @@ Update student
   {% endfor %}          
   </tbody>
 </table>
+        </div>
     </div>
     <div id="card" class="col">
 
@@ -48,7 +76,7 @@ function form_update(id){
   $.ajax({
     url:"{% url 'update_student' %}",
     data:{
-      id : id,
+      preceptor : id,
     },
     success:function(results){
       $("#card").html(results)

@@ -20,6 +20,7 @@ Asistencia
   {% for student in students %}
     <tr>
       <td>
+        {{ student.list_number }} --    
         {{ student.last_name|upper }},
         {{ student.first_name }}
       </td>
