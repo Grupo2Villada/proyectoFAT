@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"send",
+				"send_mail"
+			],
+			[
 				"u",
 				"user"
 			],
@@ -84,54 +88,11 @@
 	"buffers":
 	[
 		{
-			"file": "config/frontend/templates/manage.html",
-			"settings":
-			{
-				"buffer_size": 751,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "config/controlAsistencia/models.py",
-			"settings":
-			{
-				"buffer_size": 3245,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "config/controlAsistencia/forms.py",
-			"settings":
-			{
-				"buffer_size": 1317,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "config/frontend/views.py",
 			"settings":
 			{
-				"buffer_size": 11703,
+				"buffer_size": 19369,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "config/frontend/templates/create_student.html",
-			"settings":
-			{
-				"buffer_size": 6081,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "config/frontend/templates/register.html",
-			"settings":
-			{
-				"buffer_size": 3288,
 				"line_ending": "Unix"
 			}
 		},
@@ -139,7 +100,7 @@
 			"file": "config/frontend/urls.py",
 			"settings":
 			{
-				"buffer_size": 1278,
+				"buffer_size": 1340,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -149,33 +110,24 @@
 			"settings":
 			{
 				"buffer_size": 764,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/frontend/templates/manage.html",
+			"settings":
+			{
+				"buffer_size": 985,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "config/controlAsistencia/templates/asistencia_lista.html",
+			"file": "config/config/settings.py",
 			"settings":
 			{
-				"buffer_size": 1008,
+				"buffer_size": 3543,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "config/controlAsistencia/templates/retiro_anticipado.html",
-			"settings":
-			{
-				"buffer_size": 1044,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "config/controlAsistencia/templates/llegada_tarde.html",
-			"settings":
-			{
-				"buffer_size": 1034,
 				"line_ending": "Unix"
 			}
 		}
@@ -203,7 +155,7 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 352.0,
+		"height": 392.0,
 		"last_filter": "",
 		"selected_items":
 		[
@@ -270,26 +222,29 @@
 	],
 	"file_history":
 	[
-		"/home/julian/ProyectoFAT/config/controlAsistencia/templates/static/llegada_tarde.html",
-		"/home/julian/ProyectoFAT/config/frontend/templates/register.html",
+		"/home/julian/Grupo10/jular-Luna2.py",
+		"/home/julian/ProyectoFAT/config/controlAsistencia/templates/llegada_tarde.html",
+		"/home/julian/ProyectoFAT/config/controlAsistencia/templates/retiro_anticipado.html",
+		"/home/julian/ProyectoFAT/config/controlAsistencia/templates/asistencia_lista.html",
 		"/home/julian/ProyectoFAT/config/controlAsistencia/templates/main.html",
+		"/home/julian/ProyectoFAT/config/frontend/urls.py",
+		"/home/julian/ProyectoFAT/config/frontend/templates/register.html",
+		"/home/julian/ProyectoFAT/config/frontend/templates/create_student.html",
+		"/home/julian/ProyectoFAT/config/controlAsistencia/forms.py",
+		"/home/julian/ProyectoFAT/config/controlAsistencia/models.py",
+		"/home/julian/ProyectoFAT/config/frontend/templates/manage.html",
+		"/home/julian/ProyectoFAT/config/controlAsistencia/templates/static/llegada_tarde.html",
 		"/home/julian/ProyectoFAT/config/frontend/templates/update_preceptor.html",
 		"/home/julian/ProyectoFAT/config/frontend/templates/update_student.html",
 		"/home/julian/ProyectoFAT/config/frontend/templates/student_list.html",
-		"/home/julian/ProyectoFAT/config/controlAsistencia/forms.py",
 		"/home/julian/ProyectoFAT/config/controlAsistencia/__init__.py",
 		"/home/julian/ProyectoFAT/config/frontend/templates/update.html",
 		"/home/julian/ProyectoFAT/config/frontend/templates/create_year.html",
-		"/home/julian/ProyectoFAT/config/frontend/templates/create_student.html",
 		"/home/julian/ANTdjango/config/SistNotas/templates/index.html",
-		"/home/julian/ProyectoFAT/config/frontend/templates/manage.html",
-		"/home/julian/ProyectoFAT/config/frontend/urls.py",
 		"/home/julian/ProyectoFAT/config/frontend/templates/base.html",
 		"/home/julian/ProyectoFAT/config/frontend/templates/index.html",
 		"/home/julian/ProyectoFAT/config/frontend/views.py",
-		"/home/julian/ProyectoFAT/config/controlAsistencia/models.py",
 		"/home/julian/Desktop/asd.py",
-		"/home/julian/ProyectoFAT/config/controlAsistencia/templates/asistencia_lista.html",
 		"/home/julian/ProyectoFAT/config/controlAsistencia/admin.py",
 		"/home/julian/kivy/test.py",
 		"/home/julian/ProyectoFAT/config/config/urls.py",
@@ -327,6 +282,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"redire",
+			"wb",
+			"mail",
 			"order_by",
 			"print",
 			"integer",
@@ -362,109 +320,28 @@
 	"groups":
 	[
 		{
-			"selected": 8,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "config/frontend/templates/manage.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 751,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								340,
-								340
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "config/controlAsistencia/models.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3245,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2832,
-								2832
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1008.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "config/controlAsistencia/forms.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1317,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1307,
-								1307
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "config/frontend/views.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11703,
+						"buffer_size": 19369,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1353,
-								1353
+								13920,
+								13920
+							],
+							[
+								14076,
+								14076
 							]
 						],
 						"settings":
@@ -473,86 +350,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 252.0,
+						"translation.y": 5016.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "config/frontend/templates/create_student.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6081,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4126,
-								4126
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2982.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "config/frontend/templates/register.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3288,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2533,
-								2533
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1092.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
+					"buffer": 1,
 					"file": "config/frontend/urls.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1278,
+						"buffer_size": 1340,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1337,
+								1337
 							]
 						],
 						"settings":
@@ -565,13 +383,13 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 2,
 					"file": "config/controlAsistencia/templates/main.html",
-					"semi_transient": false,
+					"semi_transient": true,
 					"settings":
 					{
 						"buffer_size": 764,
@@ -581,8 +399,8 @@
 						"selection":
 						[
 							[
-								764,
-								764
+								0,
+								0
 							]
 						],
 						"settings":
@@ -597,93 +415,61 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "config/controlAsistencia/templates/asistencia_lista.html",
+					"buffer": 3,
+					"file": "config/frontend/templates/manage.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1008,
+						"buffer_size": 985,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								420,
-								420
+								855,
+								855
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 210.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
-					"file": "config/controlAsistencia/templates/retiro_anticipado.html",
+					"buffer": 4,
+					"file": "config/config/settings.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1044,
+						"buffer_size": 3543,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								830,
-								830
+								3402,
+								3402
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
-							"tab_size": 2,
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 252.0,
+						"translation.y": 1764.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "config/controlAsistencia/templates/llegada_tarde.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1034,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Djaneiro/Syntaxes/HTML (Django).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 210.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
