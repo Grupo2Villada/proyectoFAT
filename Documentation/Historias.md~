@@ -1,0 +1,130 @@
+# Historias de usuario
+---------------
+# Sprint 1
+
+### Tareas Generales
+* Configurar settings iniciales, requeriments y dependencias
+> Crear requirement.txt en el cual se anoten todos los programas,dependencias y librerias necesarias para que el proyecto funcione
+* Crear Base de Datos
+> Seguir manual de django admin y cumplir con los requerimientos tomados con anterioridad
+* Crear grupo de usuarios segun cargo y funcion
+> Grupo de directivos
+> Grupo de preceptores
+> Grupo de administrativos
+> Grupo de secretaria
+> Grupo de alumnos 
+
+### COMO usuario QUIERO poder loguearme PARA usar los servicios
+* Html base
+> footer 
+> Navbar 
+> background color (light-blue)
+* Html login
+> Usar html base y agregar
+> Label usuario
+> Label contraseña
+> Button inciar sesion
+* Funcion LogIn
+> Mostrar error si el usuario o contraseña son incorrectos 
+> Si todos los datos son validos re direcciona a la pagina index.html con los permisos habilitados segun el usuario que se logueo
+* Funcion LogOut
+> Salir de la pagina donde se encuentra en ingresar al login.html
+* Urls
+> Setear correctamente las urls y patterns como indica el manual de django 
+
+## Desde Django Admin
+### COMO directivo QUIERO tener funciones de preceptor
+* Registrar model en admin.py
+> Setear correctamente segun manual de django las funciones de preceptor y que las pueda hacer el grupo de directivos 
+ 
+### COMO directivo QUIERO CRUD faltas sin limite de tiempo
+* Registrar model en admin.py
+> Setear correctamente segun manual de django las funciones estrictamente necesarias como directivo con el respectivo permiso necesario 
+> Habilitar buttons cuando se inicie sesion como directivo 
+
+
+### COMO directivo QUIERO C.R.U.D. users PARA administrar personas
+* Registrar model en admin.py
+> Setear permisos 
+> Habilitar formulario en html para poder realizar dichas funciones 
+
+### COMO preceptor QUIERO guardar faltas
+* html con cursos por preceptor
+> Habilitar html cuando se inicie sesion como preceptor y mostrar los cursos que tiene a cargo 
+* html con alumnos por curso
+> Crear html que tenga distribucion por cursos y a su ves que muestre que alumno esta matriculado en cada curso especificamente 
+* view guardado faltas
+> java script si se hace click desaparece 
+> No se pueden colocar 2 faltas a la misma persona
+* ajax guardado faltas
+> cuando se hace click en el button de ausente se debe guardar en la base de datos 
+* urls(una con id de curso)
+-----------
+# Sprint 2
+## Mejorar estetica de htmls de sprint 1
+## Correccion bugs
+
+### COMO directivo QUIERO C.R.U.D. users PARA administrar preceptores
+* html con formulario para registrar
+* permiso para de staff para registrar
+* funcion render/register
+* urls
+* validación de datos
+
+### COMO preceptor QUIERO Crear, administrar y mover alumnos PARA gestionar cursos
+* html crear alumnos
+* html editar alumnos
+* view crear alumnos
+* view editar alumnos
+* urls
+
+### COMO directivo QUIERO Crear, administrar cursos
+* html crear cursos
+* html editar cursos
+* view crear cursos
+* view editar cursos
+* urls
+
+### COMO preceptor QUIERO registrar llegadas tarde
+* html llegada tarde
+* view llegada tarde
+* urls
+
+### COMO preceptor QUIERO retiros anticipados
+* html retiro anticipado
+* agregar porcentaje de falta con view de ausencia
+* urls
+
+### COMO preceptor QUIERO Justificar faltas dentro de 48 hs 
+* html justificar falta
+* view justificar falta
+* urls
+
+### COMO directivo QUIERO tener permisos de preceptor
+
+### COMO directivo QUIERO modificar faltas sin limite de tiempo PARA poder justificarlas
+-----------
+# Sprint 3
+
+### COMO sistema QUIERO generar pdfs mensuales 
+### COMO sistema QUIERO enviar mails
+### COMO sistema QUIERO hacer un Backup PARA no perder los datos
+
+### COMO secretaría QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
+### COMO preceptor QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
+### COMO directivo QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
+### COMO administración QUIERO recibir pdfs mensuales PARA llevar registros de la gestión de los alumnos
+
+-----------------
+# Sprint 4
+
+### COMO comedor QUIERO recibir cantidad de alumnos presentes diarios PARA hacer la comida 
+
+### COMO administración QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes
+### COMO secretaría QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes
+### COMO directivo QUIERO recibir un reporte diario PARA saber la cantidad de alumnos presentes
+
+### COMO comedor QUIERO recibir especificaciones especiales de alumnos PARA hacer dietas especiales
+------------
+
+

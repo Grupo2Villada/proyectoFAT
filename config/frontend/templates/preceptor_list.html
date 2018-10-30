@@ -29,7 +29,7 @@ Update preceptor
   border-radius: 5px 5px 0px 0px;
   margin: auto;
   text-shadow: none; 
-  text-align:left
+  
 }
 {% endblock style %}
 {% block body %}
@@ -43,15 +43,18 @@ Update preceptor
     
         <tr class="">
             <th scope="col">Preceptores</th>
+            
         </tr>
+
     </thead>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nombre/edad" title="Type in a name">
 </div>
 <table class="table">
   <tbody>
 {% for preceptor in preceptors%}
     <tr>
       <td>
-        {{ preceptor }}
+        {{ preceptor.user }}
       </td>
       <td>
         <button id="btn-{{ preceptor.id }}" class="btn btn-flat" onclick="form_update({{ preceptor.id }})">Editar</button>
@@ -82,6 +85,23 @@ function form_update(id){
     	alert(request.responseText)
     }
   });
+}
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
 }
 </script>
 {% endblock body %}

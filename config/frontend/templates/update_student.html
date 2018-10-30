@@ -207,6 +207,12 @@ i {
 					<input type="text" name="list_number"  placeholder="Numero de lista" required="required" value="{{form.list_number.value}}">
                 <div class="validation"></div>
 			</div>
+
+      <div class="form-group">
+      <p>Numero de banco:<span></span></p>
+      <span class="icon-case"><i class="fa fa-at"></i></span>
+          <input type="text" name="room_order"  placeholder="Numero de banco" required="required" value="{{form.room_order.value}}">
+                <div class="validation"></div>
             
 			<div class="form-group">
 			<p>Nacimiento:<span></span></p>
@@ -257,15 +263,55 @@ i {
                 </select>
                 <div class="validation"></div>
 			</div>
-        
-			<div class="form-group">
-			<p>Comida Especial:<span></span></p>
-			<span class="icon-case"><i class="fa fa-home"></i></span>
-				<input type="text" name="food_obvs"  placeholder="Comida especial" value="{{form.food_obvs.value}}">
-                <div class="validation"></div>
-            </div>
-            
-	</div>
+    
+    <div class="form-group">
+      <p>Observacion Alimenticia:<span>*</span></p>
+      
+
+<script type="text/javascript">
+function MostrarOcultar(valor)
+{
+    var Div1=document.getElementById('div1');
+    var Div2=document.getElementById('div2');
+    var DivI=document.getElementById('inicial');
+    Div1.style.display='none';
+    Div2.style.display='none';
+    DivI.style.display='none';
+if(valor ==1)
+{
+  Div1.style.display='';
+}
+else if(valor==2)
+{
+  Div2.style.display='';
+}
+else
+{
+    DivI.style.display='';
+}
+}
+</script>
+ 
+<div class="div1">   
+    <label class="checkbox-inline"> 
+      <input type=radio onclick="MostrarOcultar(this.value)" value="1" name=contacto style="width:20px;height:20px">Si
+    </label>
+
+    <label class="checkbox-inline">
+<input type=radio onclick="MostrarOcultar(this.value)" value="2" name=contacto style="width:20px;height:20px">No
+    </label>
+</div>
+ 
+<div id="inicial"></div>
+<div id="div1" style="display:none"><div>
+      <span class="icon-case"><i class="fa fa-search"></i></span>
+      {{form.food_obvs}}
+      <div class="validation"></div>
+    </div></div>
+<div id="div2" style="display:none"> </div>
+
+
+</div>
 
 <button type="submit" class="bouton-contact" value="Update">Actualizar</button>
 	
