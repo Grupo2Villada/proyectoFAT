@@ -5,17 +5,45 @@
 Justificar Faltas
 {% endblock title %}            
 {% block navbar %}
+{% block style %}
+.hola {
+  border-radius: 5px;
+  
+  width:800px;
+  margin: 2% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+.tr {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+.tr{
+  font-size: 18px;
+  background: #008bd2 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  
+}
+{% endblock style %}
 {% endblock navbar %}
 {% block body %}
 
 
-
+<div class="hola">
 <table class="table">
+  <div class="tr"></div>
   <thead>
     <tr>
-      <th scope="col"></th>
+      <th scope="col">Estudiantes</th>
     </tr>
   </thead>
+</div>
   <tbody>
   {% for absence in absences %}
     <tr>
@@ -29,13 +57,14 @@ Justificar Faltas
 
       </td>
       <td>
-        <button id="btn-{{ absence.id }}" class="btn btn-flat" onclick="ajax_justify({{ absence.id }})">Justificar</button>
+        <button id="btn-{{ absence.id }}" class="btn btn-flat" onclick="ajax_justify({{ absence.id }})" style="background:lightblue">Justificar</button>
       </td>
   </tr>
 
   {% endfor %}          
   </tbody>
 </table>
+</div>
 <script>
 function ajax_justify(id){
   $.ajax({
