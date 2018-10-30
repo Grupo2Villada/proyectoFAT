@@ -81,6 +81,7 @@ class Student(models.Model):
 	dni = models.PositiveIntegerField()
 	student_tag = models.PositiveIntegerField()
 	list_number = models.PositiveIntegerField()
+	room_order = models.PositiveIntegerField()
 	birthday = models.DateField()
 	address = models.CharField(max_length=50)
 	neighbourhood = models.CharField(max_length=50)
