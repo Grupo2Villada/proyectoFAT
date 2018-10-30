@@ -178,7 +178,7 @@ width:93%;
 
   {% csrf_token %}
 
-  <div>
+  <div style="margin-left: 12px">
     <div class="form-group">
       <p>Nombre:<span>*</span></p>
       <span class="icon-case"><i class="fa fa-user"></i></span>
@@ -273,6 +273,34 @@ width:93%;
     <div class="form-group">
       <p>Observacion Alimenticia:<span>*</span></p>
       
+ 
+<div class="div1">   
+    <label class="checkbox-inline"> 
+      <input type=radio onclick="MostrarOcultar(this.value)" value="1" name=contacto style="width:20px;height:20px">Si
+    </label>
+
+    <label class="checkbox-inline">
+<input type=radio onclick="MostrarOcultar(this.value)" value="2" name=contacto style="width:20px;height:20px">No
+    </label>
+</div>
+ 
+<div id="inicial"></div>
+<div id="div1" style="display:none"><div>
+      <span class="icon-case"><i class="fa fa-search"></i></span>
+      {{form.food_obvs}}
+      <div class="validation"></div>
+    </div></div>
+<div id="div2" style="display:none"> </div>
+
+
+</div>
+  
+
+
+  
+  <button type="submit" class="bouton-contact" value="Create student">Crear Alumno</button>
+</div>
+</form>
 
 <script type="text/javascript">
 function MostrarOcultar(valor)
@@ -297,35 +325,5 @@ else
 }
 }
 </script>
- 
-<div class="div1">   
-    <label class="checkbox-inline"> 
-      <input type=radio onclick="MostrarOcultar(this.value)" value="1" name=contacto style="width:20px;height:20px">Si
-    </label>
-
-    <label class="checkbox-inline">
-<input type=radio onclick="MostrarOcultar(this.value)" value="2" name=contacto style="width:20px;height:20px">No
-    </label>
-</div>
- 
-<div id="inicial"></div>
-<div id="div1" style="display:none"><div>
-      <span class="icon-case"><i class="fa fa-search"></i></span>
-      {{form.food_obvs}}
-      <div class="validation"></div>
-    </div></div>
-<div id="div2" style="display:none"> </div>
-
-
-</div>
-  </div>
-
-
-  </div>
-  <button type="submit" class="bouton-contact" value="Create student">Crear Alumno</button>
-
-</form>
-
-
 {% endblock body %}
 

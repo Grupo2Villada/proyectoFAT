@@ -46,31 +46,27 @@ Update preceptor
             
         </tr>
 
-<<<<<<< HEAD
+
     </thead>
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nombre/edad" title="Type in a name">
 </div>
-<table class="table">
-=======
-      <table class="table" id="myTable">
+      <table class="table" id="myTable" style="margin-bottom: 0px;">
   <thead>
     <tr>
-      <th scope="col">Alumnos</th>
-<select name= "orders">
+         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nombre/edad" title="Type in a name" style="width: 270px;">
+<select class="custom-select" name= "orders" style="width: 270px; text-align: right;">
   <option value="Orden A - Z">Orden A - Z </option>
   <option value="Orden Curso"> Orden Curso</option>
 
 </select>
     </tr>
   </thead>
->>>>>>> 15b63cacc1e6eb231d58ad1eb876859d1712a494
   <tbody>
 {% for student in students%}
     <tr>
       <td>
         {{ student }}
       </td>
-      <td>
+      <td style="width: 0px">
         <button id="btn-{{ student.id }}" class="btn btn-flat" onclick="form_update({{ student.id }})">Editar</button>
       </td>
   </tr>
