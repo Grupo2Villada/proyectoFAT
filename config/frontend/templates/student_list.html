@@ -49,7 +49,9 @@ Update preceptor
 
     </thead>
 </div>
+
       <table class="table" id="myTable" style="margin-bottom: 0px;">
+
   <thead>
     <tr>
          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nombre/edad" title="Type in a name" style="width: 270px;">
@@ -86,7 +88,7 @@ function form_update(id){
   $.ajax({
     url:"{% url 'update_student' %}",
     data:{
-      preceptor : id,
+      student : id,
     },
     success:function(results){
       $("#card").html(results)
