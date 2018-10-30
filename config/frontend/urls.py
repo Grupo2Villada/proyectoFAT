@@ -3,7 +3,7 @@ from django.contrib import admin
 from .views import *
 
 urlpatterns = [
-    url(r'^$', main, name="main"),
+    url(r'^$', index, name="index"),
     url(r'^prueba/', prueba, name="prueba"),
     url(r'^list/(?P<id>\d+)/$', list_render, name="list"),
     url(r'^login/', login_user, name="login"),
@@ -23,5 +23,5 @@ urlpatterns = [
     url(r'^early/(?P<id>\d+)/$', early_render, name="early"),
     url(r'^justify/', justify, name="justify"),
     url(r'^justification/(?P<id>\d+)/$', justification_render, name="justification"),
-    url(r'^export/xls/$', export_users_xls, name='export_users_xls'),
+    url(r'^export/xls/$', excel, name='excel'),
 ]
