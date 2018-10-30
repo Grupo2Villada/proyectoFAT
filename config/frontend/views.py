@@ -34,8 +34,10 @@ def main(request):
 	try:
 		preceptor = Preceptor.objects.get(user=request.user)
 		results['years'] = preceptor.getYear().order_by('year_number','division')
+		print "main"
 		return render(request, 'main.html', results)
 	except:
+		print "main2"
 		return render(request, 'main.html')
 
 def prueba(request):
@@ -60,16 +62,13 @@ def list_render(request, id):
 
 	for i in faltas:
 		ausentes.append(i.student)
-	print ausentes
-	print students
-	print presentes
 	presentes = list(set(students)-set(ausentes))
-	print presentes
 	if (ausentes==[]):
 		results['students']= students
 	else:
 		results['students']= presentes
 	return render(request, 'asistencia_lista.html', results)
+
 
 def login_user(request):
 	if request.method == "POST":
