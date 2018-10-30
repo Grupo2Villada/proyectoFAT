@@ -361,13 +361,11 @@ def justify(request):
 		absence_q.update(justified=True)
 		return HttpResponse("okk")
 
-def export_users_xls(request):
+def export_users_xls(year_number,division):
 	today_date = datetime.date.today()
 	month = today_date.month
 	month_name = datetime.date(today_date.year,today_date.month, 1).strftime('%B')
-	year = 7
-	division = "c"
-	students = Student.objects.filter(year__year_number=year, year__division=division).order_by("last_name")
+	students = Student.objects.filter(year__year_number=year_number, year__division=division).order_by("last_name")
 	#response = HttpResponse(content_type='application/ms-excel')
 	#response['Content-Disposition'] = 'attachment; filename={}-{}{}.xls'.format(month_name, year, division)
 	wb = xlwt.Workbook(encoding='utf-8')	
@@ -510,8 +508,8 @@ def export_users_xls(request):
 	style.borders = borders
 	style.alignment.wrap = 1
 
-	wb.save(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year, division))
-	send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year, division))
+	wb.save(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
+	send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
 	return redirect('manage')
 
 def send_mail(file):
@@ -519,4 +517,7 @@ def send_mail(file):
 	msg.attach_file(file)
 	msg.send()
 
-
+def excel(request):
+	for i in Year.objects.all():
+		export_users_xls(i.year_number,i.division)
+	return HttpResponse("pete")
