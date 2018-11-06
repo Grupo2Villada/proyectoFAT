@@ -34,10 +34,8 @@ def main(request):
 	try:
 		preceptor = Preceptor.objects.get(user=request.user)
 		results['years'] = preceptor.getYear().order_by('year_number','division')
-		print "main"
 		return render(request, 'main.html', results)
 	except:
-		print "main2"
 		return render(request, 'main.html')
 
 def prueba(request):

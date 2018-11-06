@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'controlAsistencia',
-    'frontend'
+    'frontend',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,8 @@ EMAIL_HOST_PASSWORD = 'asistenciapass'
 EMAIL_PORT = 587
 MEDIA_ROOT=os.path.join(BASE_DIR, 'controlAsistencia/pdf/')
 MEDIA_URL='/media/'
+
+
+CRONJOBS = [
+    ('*/5 * * * *', 'frontend.views.comedor')
+]
