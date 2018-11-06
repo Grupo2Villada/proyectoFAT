@@ -25,6 +25,7 @@ from django.db.models.functions import Concat
 from django.db.models.functions import Upper
 import calendar
 from django.core.mail import send_mail, EmailMessage
+from collections import Counter
 if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
 	from controlAsistencia.forms import *
 
@@ -111,7 +112,7 @@ def register_user(request):
 					preceptor.save()
 					for i in year:
 						preceptor.year.add(i)
-				return redirect('/')
+				return redirect('manage')
 	else:
 		form = PreceptorForm()
 	return render(request, 'register.html', {'form': form})
@@ -155,7 +156,7 @@ def create_student(request):
 			except Student.DoesNotExist:
 				student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number,room_order=room_order ,birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
 				student.save()
-			return redirect('/')
+			return redirect('manage')
 	else:
 		form = CreateStudentForm()
 	return render(request, 'create_student.html', {'form': form})
@@ -187,7 +188,7 @@ def update_preceptor(request):
 			for i in year:
 				preceptor_year.year.add(i)
 			preceptor.update(internal_tel=internal_tel)
-		return redirect('/')
+		return redirect('manage')
 	else:
 		years = []
 		results= {}
@@ -233,7 +234,7 @@ def update_student(request):
 			food_obvs= form.cleaned_data.get("food_obvs")
 			student=Student.objects.filter(id=id)
 			student.update(first_name=first_name, last_name=last_name, student_tag=student_tag, list_number=list_number, room_order=room_order,birthday=birthday, dni=dni,address=address, neighbourhood=neighbourhood, city=city, year=year, status=status, food_obvs=food_obvs)
-		return redirect('/')
+		return redirect('manage')
 	else:
 		results= {}
 		id=request.GET.get('student')
@@ -277,7 +278,7 @@ def late_arrival(request):
 			absence_q.update(percentage=0.25)
 
 		
-	return HttpResponse("hola")
+	return HttpResponse("ok")
 
 def late_render(request, id):
 	results={}
@@ -310,7 +311,7 @@ def early_retirement(request):
 			Absence.objects.create(percentage=0.25,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year, justified=True)
 
 		
-	return HttpResponse("hola")
+	return HttpResponse("ok")
 
 def early_render(request, id):
 	results={}
@@ -359,7 +360,7 @@ def justification_render(request, id):
 def justify(request):
 		absence_q = Absence.objects.filter(id=request.POST['absence'])
 		absence_q.update(justified=True)
-		return HttpResponse("okk")
+		return HttpResponse("ok")
 
 def export_users_xls(year_number,division):
 	today_date = datetime.date.today()
@@ -512,12 +513,28 @@ def export_users_xls(year_number,division):
 	send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
 	return redirect('manage')
 
-def send_mail(file):
-	msg = EmailMessage('Planilla Asistencia ', '', 'test.asistencia@gmail.com', ['juli.luna1999@gmail.com','nikobazan@gmail.com'])
-	msg.attach_file(file)
+def send_mail(file,body,title,reciever):
+	msg = EmailMessage(title,body,'test.asistencia@gmail.com', reciever)
+	if file:
+		msg.attach_file(file)
 	msg.send()
 
 def excel(request):
 	for i in Year.objects.all():
 		export_users_xls(i.year_number,i.division)
-	return HttpResponse("pete")
+	return HttpResponse("ok")
+
+def comedor(request):	
+	today_date = datetime.date.today()
+	absences = Absence.objects.filter(date=today_date)
+	ausentes = str(len(absences))
+	x= []
+	observaciones=[]
+	for i in absences:
+		if i.student.food_obvs:
+			x.append(i.student.food_obvs)
+	y=Counter(x)
+	for key, value in y.iteritems():
+		observaciones.append(key+": "+str(value))
+	send_mail(file=None,body="Alumnos ausentes: " +ausentes+"\n\n<b>Observaciones:</b>\n"+"\n".join(observaciones),title="Alumnos comedor - {} ".format(today_date),reciever=['juli.luna1999@gmail.com','nikobazan@gmail.com'])
+	return redirect("manage")
