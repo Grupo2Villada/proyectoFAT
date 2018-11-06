@@ -264,4 +264,36 @@
 * View ordenar por curso - 20 minutos
 * Rediseñar como se va a elegir la posición de los alumnos al momento de tomar lista - 2 módulos
 
+### Tareas realizadas
+
+Mobile:
+* Tomar Lista
+* Llegada tarde
+* Retiro anticipado 
+* Jusitificar faltas 48hs habiles
+
+Html:
+* Preceptor
+> Buscar se desajusta
+> Comprobar que anden los botones
+> Navbar, a Bazan no le gusta
+> Ordenamiento curso_lista
+> lista = mismo formato que modif alumno
+> url: cuando creas alumno al administrar, la de main, cuando te registras
+
+Backend:
+* Logica para comedor
+* Orden de lista/curso
+
+Test:
+* Testear todo = crear comproaciones mail, fecha, nombre, utf-8
+* Crear alumno, fecha en español
+* update alumno, obser alimenticia
+
+Reveer doc:
+* Testing final
+* Cargar datos
+* Hacer presentaciones
+* Deployar
+
 ------------
