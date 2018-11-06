@@ -266,13 +266,13 @@
 
 ### Tareas realizadas
 
-Mobile:
+Mobile: - 3 módulos
 * Tomar Lista
 * Llegada tarde
 * Retiro anticipado 
 * Jusitificar faltas 48hs habiles
 
-Html:
+Html: 3 módulos
 * Preceptor
 > Buscar se desajusta
 > Comprobar que anden los botones
@@ -281,16 +281,16 @@ Html:
 > lista = mismo formato que modif alumno
 > url: cuando creas alumno al administrar, la de main, cuando te registras
 
-Backend:
+Backend: - 45 minutos
 * Logica para comedor
 * Orden de lista/curso
 
-Test:
+Test: - 1 módulo
 * Testear todo = crear comproaciones mail, fecha, nombre, utf-8
 * Crear alumno, fecha en español
 * update alumno, obser alimenticia
 
-Reveer doc:
+Reveer doc: - 1 módulo
 * Testing final
 * Cargar datos
 * Hacer presentaciones
