@@ -264,15 +264,23 @@
 * View ordenar por curso - 20 minutos
 * Rediseñar como se va a elegir la posición de los alumnos al momento de tomar lista - 2 módulos
 
-### Tareas realizadas
-
-Mobile: - 3 módulos
+### COMO aplicación QUIERO funcionar desde el celular -> 3 módulos
 * Tomar Lista
 * Llegada tarde
 * Retiro anticipado 
 * Jusitificar faltas 48hs habiles
 
-Html: 3 módulos
+
+
+### COMO comedor QUIERO recibir la cantidad de ausentes con sus especificaciones - 2 módulos
+* Logica para comedor
+
+### Tareas de testing
+* Testear todo = crear comproaciones mail, fecha, nombre, utf-8
+* Crear alumno, fecha en español
+* update alumno, obser alimenticia
+
+### Corrección errores
 * Preceptor
 > Buscar se desajusta
 > Comprobar que anden los botones
@@ -280,17 +288,9 @@ Html: 3 módulos
 > Ordenamiento curso_lista
 > lista = mismo formato que modif alumno
 > url: cuando creas alumno al administrar, la de main, cuando te registras
-
-Backend: - 45 minutos
-* Logica para comedor
 * Orden de lista/curso
 
-Test: - 1 módulo
-* Testear todo = crear comproaciones mail, fecha, nombre, utf-8
-* Crear alumno, fecha en español
-* update alumno, obser alimenticia
-
-Reveer doc: - 1 módulo
+### Detalles para finalización
 * Testing final
 * Cargar datos
 * Hacer presentaciones
