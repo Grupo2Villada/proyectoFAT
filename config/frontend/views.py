@@ -20,7 +20,7 @@ from django.contrib.auth.models import User
 import datetime
 from datetime import timedelta
 import sys
-import xlwt
+#import xlwt
 from django.db.models.functions import Concat
 from django.db.models.functions import Upper
 import calendar

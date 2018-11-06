@@ -47,16 +47,27 @@ Update preceptor
         </tr>
 
     </thead>
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nombre/edad" title="Type in a name">
+  </div>
+  <table class="table" id="myTable" style="margin-bottom: 0px;">
+     <thead>
+    <tr>
+         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nombre/edad" title="Type in a name" style="width: 270px;">
+<select class="custom-select" name= "orders" style="width: 270px;">
+  <option value="Orden A - Z">Orden A - Z </option>
+  <option value="Orden Curso"> Orden Curso</option>
+
+</select>
+    </tr>
+  </thead>
 </div>
-<table class="table">
+
   <tbody>
 {% for preceptor in preceptors%}
     <tr>
       <td>
         {{ preceptor.user }}
       </td>
-      <td>
+      <td style="width: 0px">
         <button id="btn-{{ preceptor.id }}" class="btn btn-flat" onclick="form_update({{ preceptor.id }})">Editar</button>
       </td>
   </tr>
