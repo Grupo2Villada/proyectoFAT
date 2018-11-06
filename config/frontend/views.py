@@ -20,11 +20,12 @@ from django.contrib.auth.models import User
 import datetime
 from datetime import timedelta
 import sys
-#import xlwt
+import xlwt
 from django.db.models.functions import Concat
 from django.db.models.functions import Upper
 import calendar
 from django.core.mail import send_mail, EmailMessage
+from collections import Counter
 if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
 	from controlAsistencia.forms import *
 
@@ -109,7 +110,7 @@ def register_user(request):
 					preceptor.save()
 					for i in year:
 						preceptor.year.add(i)
-				return redirect('/')
+				return redirect('manage')
 	else:
 		form = PreceptorForm()
 	return render(request, 'register.html', {'form': form})
@@ -131,13 +132,14 @@ def create_student(request):
 	print "view"
 	if request.method == "POST":
 		print "post"
-		form = StudentForm(request.POST)
+		form = CreateStudentForm(request.POST)
 		if form.is_valid():
 			print "valid"
 			first_name= form.cleaned_data.get("first_name")
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
 			list_number= form.cleaned_data.get("list_number")
+			room_order = form.cleaned_data.get("room_order")
 			birthday= form.cleaned_data.get("birthday")
 			address= form.cleaned_data.get("address")
 			dni= form.cleaned_data.get("dni")
@@ -149,15 +151,12 @@ def create_student(request):
 			year= Year.objects.get(id=yearqs)
 			try: 
 				a=Student.objects.get(dni=dni)
-				print "estudiante"
-				print a
 			except Student.DoesNotExist:
-				print "not exist"
-				student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
+				student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number,room_order=room_order ,birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
 				student.save()
-		return redirect('/')
+			return redirect('manage')
 	else:
-		form = StudentForm()
+		form = CreateStudentForm()
 	return render(request, 'create_student.html', {'form': form})
 
 def index(request):
@@ -187,7 +186,7 @@ def update_preceptor(request):
 			for i in year:
 				preceptor_year.year.add(i)
 			preceptor.update(internal_tel=internal_tel)
-		return redirect('/')
+		return redirect('manage')
 	else:
 		years = []
 		results= {}
@@ -223,6 +222,7 @@ def update_student(request):
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
 			list_number= form.cleaned_data.get("list_number")
+			room_order= form.cleaned_data.get("room_order")
 			birthday= form.cleaned_data.get("birthday")
 			address= form.cleaned_data.get("address")
 			neighbourhood= form.cleaned_data.get("neighbourhood")
@@ -231,15 +231,15 @@ def update_student(request):
 			status= form.cleaned_data.get("status")
 			food_obvs= form.cleaned_data.get("food_obvs")
 			student=Student.objects.filter(id=id)
-			student.update(first_name=first_name, last_name=last_name, student_tag=student_tag, list_number=list_number, birthday=birthday, dni=dni,address=address, neighbourhood=neighbourhood, city=city, year=year, status=status, food_obvs=food_obvs)
-		return redirect('/')
+			student.update(first_name=first_name, last_name=last_name, student_tag=student_tag, list_number=list_number, room_order=room_order,birthday=birthday, dni=dni,address=address, neighbourhood=neighbourhood, city=city, year=year, status=status, food_obvs=food_obvs)
+		return redirect('manage')
 	else:
 		results= {}
-		id=request.GET.get('id')
+		id=request.GET.get('student')
 		results["id"] = id
 		student = Student.objects.get(id=id)
 		age = student.getAge()
-		form = StudentForm(initial={'first_name':student.first_name, 'last_name':student.last_name, 'dni':student.dni, 'student_tag':student.student_tag, 'list_number':student.list_number, 'birthday':student.birthday, 'address':student.address, 'neighbourhood':student.neighbourhood, 'city':student.city, 'year':student.year.id, 'status':student.status,'food_obvs':student.food_obvs})
+		form = StudentForm(initial={'first_name':student.first_name, 'last_name':student.last_name, 'dni':student.dni, 'student_tag':student.student_tag, 'list_number':student.list_number, 'room_order':student.room_order,'birthday':student.birthday, 'address':student.address, 'neighbourhood':student.neighbourhood, 'city':student.city, 'year':student.year.id, 'status':student.status,'food_obvs':student.food_obvs})
 		results["form"]= form
 	return render(request,'update_student.html', results)
 
@@ -276,7 +276,7 @@ def late_arrival(request):
 			absence_q.update(percentage=0.25)
 
 		
-	return HttpResponse("hola")
+	return HttpResponse("ok")
 
 def late_render(request, id):
 	results={}
@@ -309,7 +309,7 @@ def early_retirement(request):
 			Absence.objects.create(percentage=0.25,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year, justified=True)
 
 		
-	return HttpResponse("hola")
+	return HttpResponse("ok")
 
 def early_render(request, id):
 	results={}
@@ -358,15 +358,13 @@ def justification_render(request, id):
 def justify(request):
 		absence_q = Absence.objects.filter(id=request.POST['absence'])
 		absence_q.update(justified=True)
-		return HttpResponse("okk")
+		return HttpResponse("ok")
 
-def export_users_xls(request):
+def export_users_xls(year_number,division):
 	today_date = datetime.date.today()
 	month = today_date.month
 	month_name = datetime.date(today_date.year,today_date.month, 1).strftime('%B')
-	year = 7
-	division = "c"
-	students = Student.objects.filter(year__year_number=year, year__division=division).order_by("last_name")
+	students = Student.objects.filter(year__year_number=year_number, year__division=division).order_by("last_name")
 	#response = HttpResponse(content_type='application/ms-excel')
 	#response['Content-Disposition'] = 'attachment; filename={}-{}{}.xls'.format(month_name, year, division)
 	wb = xlwt.Workbook(encoding='utf-8')	
@@ -509,13 +507,32 @@ def export_users_xls(request):
 	style.borders = borders
 	style.alignment.wrap = 1
 
-	wb.save(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year, division))
-	send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year, division))
+	wb.save(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
+	send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
 	return redirect('manage')
 
-def send_mail(file):
-	msg = EmailMessage('Planilla Asistencia ', '', 'test.asistencia@gmail.com', ['juli.luna1999@gmail.com','nikobazan@gmail.com'])
-	msg.attach_file(file)
+def send_mail(file,body,title,reciever):
+	msg = EmailMessage(title,body,'test.asistencia@gmail.com', reciever)
+	if file:
+		msg.attach_file(file)
 	msg.send()
 
+def excel(request):
+	for i in Year.objects.all():
+		export_users_xls(i.year_number,i.division)
+	return HttpResponse("ok")
 
+def comedor(request):	
+	today_date = datetime.date.today()
+	absences = Absence.objects.filter(date=today_date)
+	ausentes = str(len(absences))
+	x= []
+	observaciones=[]
+	for i in absences:
+		if i.student.food_obvs:
+			x.append(i.student.food_obvs)
+	y=Counter(x)
+	for key, value in y.iteritems():
+		observaciones.append(key+": "+str(value))
+	send_mail(file=None,body="Alumnos ausentes: " +ausentes+"\n\n<b>Observaciones:</b>\n"+"\n".join(observaciones),title="Alumnos comedor - {} ".format(today_date),reciever=['juli.luna1999@gmail.com','nikobazan@gmail.com'])
+	return redirect("manage")

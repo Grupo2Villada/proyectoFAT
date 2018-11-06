@@ -105,3 +105,4 @@ ENV/
 *.sublime-workspace
 
 /config/controlAsistencia/migrations
+/config/controlAsistencia/pdf

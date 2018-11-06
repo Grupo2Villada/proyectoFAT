@@ -1,4 +1,4 @@
-INSERT INTO controlAsistencia_year (year_number,division) VALUES (1,"A");
+INSERT INTO controlAsistencia_year (year_number,division) VALUES (1,"A")
 INSERT INTO controlAsistencia_year (year_number,division) VALUES (1,"B");
 INSERT INTO controlAsistencia_year (year_number,division) VALUES (1,"C");
 INSERT INTO controlAsistencia_year (year_number,division) VALUES (2,"A");
@@ -19,4 +19,6 @@ INSERT INTO controlAsistencia_year (year_number,division) VALUES (6,"C");
 INSERT INTO controlAsistencia_year (year_number,division) VALUES (7,"A");
 INSERT INTO controlAsistencia_year (year_number,division) VALUES (7,"B");
 INSERT INTO controlAsistencia_year (year_number,division) VALUES (7,"C");
+
+
 
