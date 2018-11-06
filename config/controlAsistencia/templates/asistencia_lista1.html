@@ -122,7 +122,7 @@
         top: 45px;
     }
     .hola{
-        height:247px; 
+        height:300px; 
         width:100%;
     }
 
@@ -137,18 +137,21 @@
 {% endblock style %}
 
 
-{% block bod %}
+{% block body %}
 <div>
 <div class="container" style="border-top-width: 0px;margin-top: -62px; background-color: red;">
     <div class="container divlista">
         <center>
             <div class="container titulo">
-                <strong class="aria-label">asassas</strong>
+                <strong class="aria-label">{{year|upper}}</strong>
             </div>
         </center>
         <center>
             <div class="subtitulo">
-                <pre class="subtitulo">ss</pre>
+                <pre class="subtitulo">
+                {{ student.last_name|upper }},
+                {{ student.first_name }}
+                </pre>
             </div>
         </center>
         <center>
@@ -157,21 +160,17 @@
                     <ul class="list-group hola">
                         {% for student in students %}
                         <li class="list-group-item">
+                            {{ student.list_number }} -- 
                             {{ student.last_name|upper }},
                             {{ student.first_name }}
                         </li>
                         {% endfor %}
-                        {% if %}
-                        <li class="list-group-item list-group-item-danger hide-on-large-only">Vestibulum at eros</li>
-                        {% else %}
-                        <li class="list-group-item list-group-item-success">Vestibulum at eros</li>
-                        {% endif %}
                     </ul>
                 </div>
             </lista>
         </center>
         <center>
-            <div class="container" role="group" aria-label="...">
+            <div style="margin-top: 7px" class="container" role="group" aria-label="...">
                 <div class="btn-group">
                     <button type="button" class="btn btn-success botonPresente">Presente</button>
                 </div>
@@ -205,4 +204,4 @@ function ausente(dni){
 
 </script>
 
-{% endblock bod %}
+{% endblock body %}
