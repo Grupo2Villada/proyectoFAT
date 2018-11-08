@@ -141,5 +141,5 @@ MEDIA_URL='/media/'
 
 
 CRONJOBS = [
-    ('*/5 * * * *', 'frontend.views.comedor')
+    ('20 10 * * *', 'frontend.views.crontry')
 ]

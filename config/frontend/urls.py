@@ -5,7 +5,9 @@ from .views import *
 urlpatterns = [
     url(r'^$', index, name="index"),
     url(r'^prueba/', prueba, name="prueba"),
+    url(r'^asistencia/(?P<id>\d+)/$', asistencia, name="asistencia"),
     url(r'^list/(?P<id>\d+)/$', list_render, name="list"),
+    url(r'^list2/(?P<id>\d+)/$', list_render2, name="list2"),
     url(r'^login/', login_user, name="login"),
     url(r'^logout/', logout_user, name="logout"),
     url(r'^register/', register_user, name="register"),

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block imports %}
+{% endblock imports %}
+{% block title %}
+Asistencia
+{% endblock title %}            
+{% block navbar %}
+{% endblock navbar %}
+{% block body %}
+  <thead>
+    <tr>
+<select class="custom-select" name= "orders" style="width: 270px; text-align: right;">
+  <option value="Orden A - Z" onclick="alfabetico({{ id }})">Orden A - Z </option>
+  <option value="Orden Curso" onclick="banco({{ id }})"> Orden Curso</option>
+
+</select>
+    </tr>
+  </thead>
+      <div id="card" class="col">
+
+    </div>
+<script>
+  alfabetico()
+  function alfabetico(id){
+      $.ajax({
+    url:"{% url 'list' id%}",
+
+    success:function(results){
+      $("#card").html(results)
+    },
+    error:function(request, status, error){
+      alert(request.responseText)
+    }
+  });
+  
+}
+  function banco(id){
+    $.ajax({
+    url:"{% url 'list2' id%}",
+    success:function(results){
+      $("#card").html(results)
+    },
+    error:function(request, status, error){
+      alert(request.responseText)
+    }
+  });
+
+}
+</script>
+{% endblock body %}

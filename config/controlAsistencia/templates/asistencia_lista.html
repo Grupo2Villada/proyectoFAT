@@ -1,15 +1,3 @@
-{% extends 'base.html' %}
-{% block imports %}
-{% endblock imports %}
-{% block title %}
-Asistencia
-{% endblock title %}            
-{% block navbar %}
-{% endblock navbar %}
-{% block body %}
-
-
-
 <table class="table">
   <thead>
     <tr>
@@ -20,7 +8,7 @@ Asistencia
   {% for student in students %}
     <tr>
       <td>
-        {{ student.list_number }} --    
+        {{ student.list_number }} -    
         {{ student.last_name|upper }},
         {{ student.first_name }}
       </td>
@@ -53,4 +41,3 @@ function ausente(dni){
 }
 
 </script>
-{% endblock body %}

@@ -35,17 +35,20 @@ def main(request):
 	try:
 		preceptor = Preceptor.objects.get(user=request.user)
 		results['years'] = preceptor.getYear().order_by('year_number','division')
+		print results['years']
 		return render(request, 'main.html', results)
 	except:
 		return render(request, 'main.html')
 
 def prueba(request):
-	 return render(request, 'prueba.html')
+	return render(request, 'prueba.html')
 
-def list_render(request, id):
-	
-	#results['students'] = year.getStudents().order_by('last_name','first_name')
+def asistencia(request,id):
+	results={}
+	results['id']=id
+	return render(request,'asistencia.html',results)
 
+def list_render(request,id):
 
 	results={}
 	ausentes = []
@@ -54,7 +57,7 @@ def list_render(request, id):
 	today_date = datetime.date.today()
 	year = Year.objects.get(id=id)
 	preceptor = Preceptor.objects.get(user=request.user)
-	students = year.getStudents()
+	students = year.getStudents().order_by('last_name','first_name')
 	faltas1 = Absence.objects.filter(date = today_date , percentage=1, student__year=year) 
 	faltas2 = Absence.objects.filter(date = today_date, student__year=year, origin = 2)  
 	faltas = faltas1 | faltas2
@@ -68,6 +71,32 @@ def list_render(request, id):
 		results['students']= presentes
 	return render(request, 'asistencia_lista.html', results)
 
+
+def list_render2(request,id):
+	
+	#results['students'] = year.getStudents().order_by('last_name','first_name')
+
+
+	results={}
+	ausentes = []
+	presentes=[]
+
+	today_date = datetime.date.today()
+	year = Year.objects.get(id=id)
+	preceptor = Preceptor.objects.get(user=request.user)
+	students = year.getStudents().order_by("room_order")
+	faltas1 = Absence.objects.filter(date = today_date , percentage=1, student__year=year) 
+	faltas2 = Absence.objects.filter(date = today_date, student__year=year, origin = 2)  
+	faltas = faltas1 | faltas2
+
+	for i in faltas:
+		ausentes.append(i.student)
+	presentes = list(set(students)-set(ausentes))
+	if (ausentes==[]):
+		results['students']= students
+	else:
+		results['students']= presentes
+	return render(request, 'asistencia_lista.html', results)
 
 def login_user(request):
 	if request.method == "POST":
@@ -536,3 +565,6 @@ def comedor(request):
 		observaciones.append(key+": "+str(value))
 	send_mail(file=None,body="Alumnos ausentes: " +ausentes+"\n\n<b>Observaciones:</b>\n"+"\n".join(observaciones),title="Alumnos comedor - {} ".format(today_date),reciever=['juli.luna1999@gmail.com','nikobazan@gmail.com'])
 	return redirect("manage")
+
+def crontry():
+	print "CRON_____________________"
