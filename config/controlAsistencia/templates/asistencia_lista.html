@@ -57,7 +57,7 @@ Asistencia
         {{ student.last_name|upper }},
         {{ student.first_name }}
       </td>
-      <td>
+      <td id="td-{{student.dni}}">
         <button id="btn-{{ student.dni }}" class="btn btn-flat" onclick="ausente({{ student.dni }})" style="background:lightblue">Ausente</button>
       </td>
   </tr>
@@ -78,11 +78,37 @@ function ausente(dni){
     },
     success:function(results){
       $("#btn-"+dni).remove()
+      $("#td-"+dni).append("<button class='btn btn-flat' id='btnu-"+dni+"' onclick='undo("+dni+")' style='background:lightblue'>X</button>");
+
     },
     error:function(request, status, error){
     $("body").html(request.responseText);
     }
   });
+  
+
+
+}
+
+function undo(dni){
+  $.ajax({
+    type:"POST",
+    url:"{% url 'undo_falta' %}",
+    data:{
+      'csrfmiddlewaretoken': '{{csrf_token}}',
+      student : dni,
+
+    },
+    success:function(results){
+      $("#btnu-"+dni).remove()
+      $("#td-"+dni).append("<button id='btn-"+dni+"' class='btn btn-flat' onclick='ausente("+dni+")' style='background:lightblue'>Ausente</button>");
+    },
+    error:function(request, status, error){
+    $("body").html(request.responseText);
+    }
+  });
+  
+
 
 }
 
