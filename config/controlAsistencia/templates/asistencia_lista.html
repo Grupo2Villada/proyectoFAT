@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-=======
-{% extends 'base.html' %}
-{% block imports %}
-{% endblock imports %}
-{% block title %}
-Asistencia
-{% endblock title %}            
-{% block navbar %}
-{% endblock navbar %}
-{% block style %}
+          
+<style type="text/css">
 .hola {
   border-radius: 5px;
   
@@ -33,24 +24,13 @@ Asistencia
   text-shadow: none; 
   
 }
-{% endblock style %}
-{% block body %}
 
 
+
+</style>
 <div class="hola">
 <table class="table">
- <div class="tr">  
-  <thead>
-    <tr>
-      <th scope="col">Estudiantes</th>
-    </tr>
-      <select class="custom-select" name= "orders" style="width: 270px;">
-  <option value="Orden A - Z">Orden A - Z </option>
-  <option value="Orden Curso"> Orden Curso</option>
-    
-</select>
-  </thead>
-  </div>
+
   <tbody>
   {% for student in students %}
     <tr>
@@ -115,3 +95,4 @@ function undo(dni){
 }
 
 </script>
+
