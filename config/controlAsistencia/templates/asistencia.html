@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block imports %}
+{% endblock imports %}
+{% block title %}
+Asistencia
+{% endblock title %}            
+{% block navbar %}
+{% endblock navbar %}
+{% block style %}
+              
+
+.hola {
+  border-radius: 5px;
+  
+  width:800px;
+  margin: 2% auto;
+  background-color: #008bd2;
+  overflow: hidden;
+}
+.tr {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+.tr{
+  font-size: 18px;
+  background: #008bd2 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  
+}
+
+
+
+
+{% endblock style %}
+{% block body %}
+<div  class="hola">
+	<div class="tr">
+		<thead>
+			<tr >
+				<select class="custom-select" name= "orders" style="width: 270px; text-align: right;">
+					<option value="Orden A - Z" onclick="alfabetico({{ id }})">Orden A - Z </option>
+					<option value="Orden Curso" onclick="banco({{ id }})"> Orden Curso</option>
+				</select>
+			</tr> 
+		</thead>
+	</div>
+	<div id="card" class="col">
+	</div>
+</div>
+
+
+<script>
+  alfabetico()
+  function alfabetico(id){
+      $.ajax({
+    url:"{% url 'list' id %}",
+
+    success:function(results){
+      $("#card").html(results)
+    },
+    error:function(request, status, error){
+      alert(request.responseText)
+    }
+  });
+  
+}
+  function banco(id){
+    console.log("banco")
+    $.ajax({
+    url:"{% url 'list2' id %}",
+    success:function(results){
+      $("#card").html(results)
+    },
+    error:function(request, status, error){
+      alert(request.responseText)
+    }
+  });
+
+}
+</script>
+{% endblock body %}

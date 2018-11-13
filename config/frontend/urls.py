@@ -5,11 +5,14 @@ from .views import *
 urlpatterns = [
     url(r'^$', index, name="index"),
     url(r'^prueba/', prueba, name="prueba"),
+    url(r'^asistencia/(?P<id>\d+)/$', asistencia, name="asistencia"),
     url(r'^list/(?P<id>\d+)/$', list_render, name="list"),
+    url(r'^list2/(?P<id>\d+)/$', list_render2, name="list2"),
     url(r'^login/', login_user, name="login"),
     url(r'^logout/', logout_user, name="logout"),
     url(r'^register/', register_user, name="register"),
     url(r'^ausente/', ausente, name="ausente"),
+    url(r'^undo_falta/', undo_falta, name="undo_falta"),
     url(r'^create_student/', create_student, name="create_student"),
     url(r'^main/', main, name="main"),
     url(r'^manage/', manage, name="manage"),
@@ -23,5 +26,5 @@ urlpatterns = [
     url(r'^early/(?P<id>\d+)/$', early_render, name="early"),
     url(r'^justify/', justify, name="justify"),
     url(r'^justification/(?P<id>\d+)/$', justification_render, name="justification"),
-    url(r'^export/xls/$', excel, name='excel'),
+    url(r'^export/xls/$', comedor, name='comedor'),
 ]
