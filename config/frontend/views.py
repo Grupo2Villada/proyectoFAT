@@ -20,7 +20,7 @@ from django.contrib.auth.models import User
 import datetime
 from datetime import timedelta
 import sys
-import xlwt
+#import xlwt
 from django.db.models.functions import Concat
 from django.db.models.functions import Upper
 import calendar
@@ -156,6 +156,19 @@ def ausente(request):
 		except Absence.DoesNotExist:
 			absence=Absence.objects.create(date=today_date,time=today_time, preceptor=preceptor, year=year, student=student, percentage=1, origin=0)
 	return HttpResponse("ok")
+
+def undo_falta(request):
+	if request.method == "POST":
+		today_date = datetime.date.today()
+		preceptor = Preceptor.objects.get(user=request.user)
+		student = Student.objects.get(dni=request.POST['student'])
+		year= Student.objects.get(dni=request.POST['student']).year
+		try:
+			abse=Absence.objects.get(date=today_date, preceptor=preceptor, year=year,student=student)
+			abse.delete()
+		except Absence.DoesNotExist:
+			pass
+		return HttpResponse("ok")
 
 def create_student(request):
 	print "view"

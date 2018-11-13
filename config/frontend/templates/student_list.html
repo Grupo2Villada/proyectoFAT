@@ -50,18 +50,22 @@ Update preceptor
     </thead>
 </div>
 
+
       <table class="table" id="myTable" style="margin-bottom: 0px;">
+
+
 
   <thead>
     <tr>
          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nombre/edad" title="Type in a name" style="width: 270px;">
-<select class="custom-select" name= "orders" style="width: 270px; text-align: right;">
+<select class="custom-select" name= "orders" style="width: 270px;">
   <option value="Orden A - Z">Orden A - Z </option>
   <option value="Orden Curso"> Orden Curso</option>
 
 </select>
     </tr>
   </thead>
+
   <tbody>
 {% for student in students%}
     <tr>
