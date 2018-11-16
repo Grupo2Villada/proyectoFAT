@@ -129,6 +129,19 @@ def ausente(request):
 			absence=Absence.objects.create(date=today_date,time=today_time, preceptor=preceptor, year=year, student=student, percentage=1, origin=0)
 	return HttpResponse("ok")
 
+def undo_falta(request):
+	if request.method == "POST":
+		today_date = datetime.date.today()
+		preceptor = Preceptor.objects.get(user=request.user)
+		student = Student.objects.get(dni=request.POST['student'])
+		year= Student.objects.get(dni=request.POST['student']).year
+		try:
+			abse=Absence.objects.get(date=today_date, preceptor=preceptor, year=year,student=student)
+			abse.delete()
+		except Absence.DoesNotExist:
+			pass
+		return HttpResponse("ok")
+
 def create_student(request):
 	print "view"
 	if request.method == "POST":

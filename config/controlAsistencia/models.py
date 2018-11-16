@@ -50,8 +50,10 @@ ORIGIN_CHOICES = (
 class Year(models.Model):
 	year_number = models.IntegerField(choices=YEAR_CHOICES)
 	division = models.CharField(choices=DIVISION_CHOICES, max_length=1)
-
+    
 	def getStudents(self):
+        
+        
 		results = Student.objects.filter(year=self)
 		return results
 
