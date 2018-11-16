@@ -301,17 +301,21 @@ $(document).ready(function(){
             <option>Sos enfermo?</option>
             <option>Celiaco</option>
             <option>Vegetariano</option>
-            <option>Hipoalergenico vario</option>
-            <option>hepatoprotector</option>
+            <option value="hipoaler">Hipoalergenico</option>
+            <option>Hepatoprotector</option>
             <option>Hipocalorico</option>
             <option>Gastroprotector</option>
             <option>Diabetico</option>
             <option>Kosher</option>
             <option>Adventista (Sin Cerdo)</option>
-            <option value="red">Otros:</option>
+            <option value="otro">Otros:</option>
         </select>
     </div>
-    <div class="red box">      <span class="icon-case"><i class="fa fa-search"></i></span>
+    <div class="otro box">      <span class="icon-case"><i class="fa fa-search"></i></span>
+      {{form.food_obvs}}
+      <div class="validation"></div></div>
+
+    <div class="hipoaler box">      <span class="icon-case"><i class="fa fa-search"></i></span>
       {{form.food_obvs}}
       <div class="validation"></div></div>
 </div>
