@@ -305,13 +305,13 @@ def late_arrival(request):
 		tres_cuartos = now.replace(hour=11, minute= 00 , second= 0) 
 		completa = now.replace(hour=13, minute= 0 , second= 0) 
 
-		if now > a15am:
+		if now > completa:
 			absence_q.update(percentage=1)
 			
-		elif now > a12am:
+		elif now > tres_cuartos:
 			absence_q.update(percentage=0.75)
 
-		elif now > a10_30am:
+		elif now > media:
 			absence_q.update(percentage=0.5)
 
 		elif now > cuarto:
