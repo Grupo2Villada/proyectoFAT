@@ -56,7 +56,7 @@ Justificar Faltas
         {{ absence.percentage }}
 
       </td>
-      <td>
+      <td id="td-{{absence.id}}">
         <button id="btn-{{ absence.id }}" class="btn btn-flat" onclick="ajax_justify({{ absence.id }})" style="background:lightblue">Justificar</button>
       </td>
   </tr>
@@ -76,6 +76,8 @@ function ajax_justify(id){
     },
     success:function(results){
       $("#btn-"+id).remove()
+      $("#td-"+id).append("<button class='btn btn-flat' id='btnu-"+id+"' onclick='undo("+id+")' style='background:lightblue'>X</button>");
+
     },
     error:function(request, status, error){
     $("body").html(request.responseText);
@@ -83,6 +85,26 @@ function ajax_justify(id){
   });
 
 }
+
+function undo(id){
+  $.ajax({
+    type:"POST",
+    url:"{% url 'undo_justify' %}",
+    data:{
+      'csrfmiddlewaretoken': '{{csrf_token}}',
+      
+
+    },
+    success:function(results){
+      $("#btnu-"+id).remove()
+      $("#td-"+id).append("<button id='btn-"+id+"' class='btn btn-flat' onclick='ajax_justify("+id+")' style='background:lightblue'>Justificar</button>");
+    },
+    error:function(request, status, error){
+    $("body").html(request.responseText);
+    }
+  });
+}
+
 
 </script>
 {% endblock body %}

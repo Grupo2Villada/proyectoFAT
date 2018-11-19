@@ -52,7 +52,7 @@ Llegadas Tarde
         {{ absence.student.first_name }}
 
       </td>
-      <td>
+      <td id="td-{{absence.id}}">
         <button id="btn-{{ absence.id }}" class="btn btn-flat" onclick="arrival({{ absence.id}})" style="background:lightblue">Llegada tarde</button>
       </td>
   </tr>
@@ -72,13 +72,34 @@ function arrival(id){
     },
     success:function(results){
       $("#btn-"+id).remove()
+      $("#td-"+id).append("<button class='btn btn-flat' id='btnu-"+id+"' onclick='undo("+id+")' style='background:lightblue'>X</button>");
+
     },
     error:function(request, status, error){
     $("body").html(request.responseText);
     }
   });
-
 }
+
+function undo(id){
+  $.ajax({
+    type:"POST",
+    url:"{% url 'undo_latearrival' %}",
+    data:{
+      'csrfmiddlewaretoken': '{{csrf_token}}',
+      
+
+    },
+    success:function(results){
+      $("#btnu-"+id).remove()
+      $("#td-"+id).append("<button id='btn-"+id+"' class='btn btn-flat' onclick='arrival("+id+")' style='background:lightblue'>Llegada tarde</button>");
+    },
+    error:function(request, status, error){
+    $("body").html(request.responseText);
+    }
+  });
+}
+
 
 </script>
 {% endblock body %}

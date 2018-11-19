@@ -20,7 +20,7 @@ from django.contrib.auth.models import User
 import datetime
 from datetime import timedelta
 import sys
-#import xlwt
+import xlwt
 from django.db.models.functions import Concat
 from django.db.models.functions import Upper
 import calendar
@@ -28,7 +28,7 @@ from django.core.mail import send_mail, EmailMessage
 from collections import Counter
 if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
 	from controlAsistencia.forms import *
-
+from pdfrw import PdfWriter
 # Create your views here.
 def main(request):
 	results={}
@@ -305,13 +305,13 @@ def late_arrival(request):
 		tres_cuartos = now.replace(hour=11, minute= 00 , second= 0) 
 		completa = now.replace(hour=13, minute= 0 , second= 0) 
 
-		if now > a15am:
+		if now > completa:
 			absence_q.update(percentage=1)
 			
-		elif now > a12am:
+		elif now > tres_cuartos:
 			absence_q.update(percentage=0.75)
 
-		elif now > a10_30am:
+		elif now > media:
 			absence_q.update(percentage=0.5)
 
 		elif now > cuarto:
@@ -319,6 +319,11 @@ def late_arrival(request):
 
 		
 	return HttpResponse("ok")
+
+def undo_latearrival(request):
+	pass
+	return HttpResponse("ok")
+
 
 def late_render(request, id):
 	results={}
@@ -380,6 +385,11 @@ def early_render(request, id):
 
 	return render(request, 'retiro_anticipado.html', results)
 
+def undo_retirement(request):
+	pass
+	return HttpResponse("ok")
+
+
 def justification_render(request, id):
 	results={}
 	year = Year.objects.get(id=id)
@@ -401,6 +411,10 @@ def justify(request):
 		absence_q = Absence.objects.filter(id=request.POST['absence'])
 		absence_q.update(justified=True)
 		return HttpResponse("ok")
+
+def undo_justify(request):
+	pass
+	return HttpResponse("ok")
 
 def export_users_xls(year_number,division):
 	today_date = datetime.date.today()
@@ -511,9 +525,6 @@ def export_users_xls(year_number,division):
 			else:
 				for alumno in range(1,cantidadAlumnos+1):
 					ws.write(alumno,dia+1," ",style3)
-
-
-
 			nro=0
 			for student in students:
 				nro+=1
@@ -549,8 +560,26 @@ def export_users_xls(year_number,division):
 	style.borders = borders
 	style.alignment.wrap = 1
 
+	pw = PdfWriter('fruits2.pdf')
+	pw.setFont('Courier', 12)
+	pw.setHeader('XLSXtoPDF.py - convert XLSX data to PDF')
+	pw.setFooter('Generated using openpyxl and xtopdf')		
+	
+	ws_range = ws.iter_rows('A1:H13')
+	for row in ws_range:
+	    s = ''
+	    for cell in row:
+	        if cell.value is None:
+	            s += ' ' * 11
+	        else:
+	            s += str(cell.value).rjust(10) + ' '
+	    pw.writeLine(s)
+	pw.savePage()
+	pw.close()
+
 	wb.save(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
-	send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
+	#send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
+	send_mail(file='fruits2.pdf',body='body',title='title',reciever=['nikobazan@gmail.com'])
 	return redirect('manage')
 
 def send_mail(file,body,title,reciever):
@@ -576,7 +605,7 @@ def comedor(request):
 	y=Counter(x)
 	for key, value in y.iteritems():
 		observaciones.append(key+": "+str(value))
-	send_mail(file=None,body="Alumnos ausentes: " +ausentes+"\n\n<b>Observaciones:</b>\n"+"\n".join(observaciones),title="Alumnos comedor - {} ".format(today_date),reciever=['juli.luna1999@gmail.com','nikobazan@gmail.com'])
+	send_mail(file=None,body="Alumnos ausentes: " +ausentes+"\n\nObservaciones:\n"+"\n".join(observaciones),title="Alumnos comedor - {} ".format(today_date),reciever=['juli.luna1999@gmail.com','nikobazan@gmail.com'])
 	return redirect("manage")
 
 def crontry():
