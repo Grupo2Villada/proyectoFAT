@@ -87,6 +87,7 @@ function undo(id){
     url:"{% url 'undo_latearrival' %}",
     data:{
       'csrfmiddlewaretoken': '{{csrf_token}}',
+      student : id
       
 
     },

@@ -92,7 +92,7 @@ function undo(id){
     url:"{% url 'undo_justify' %}",
     data:{
       'csrfmiddlewaretoken': '{{csrf_token}}',
-      
+       absence : id,
 
     },
     success:function(results){
