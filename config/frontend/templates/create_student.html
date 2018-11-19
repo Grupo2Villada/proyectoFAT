@@ -39,7 +39,7 @@ form {
 border-radius: 5px;
 max-width:700px;
 width:100%;
-margin: 2% auto;
+margin: 5% auto;
 background-color: #FFFFFF;
 overflow: hidden;
 }
@@ -221,13 +221,12 @@ width:93%;
       <div class="validation"></div>
     </div>
 
-      <div class="form-group">
-      <p>Nacimiento:<span></span></p>
-      <span class="icon-case"><i class="fa fa-institution"></i></span>
-               {{form.birthday}}
-                <div class="validation"></div>
-      </div>
-
+    <div class="form-group">
+      <label>Fecha de Nacimiento</label>
+      <input class="form-control" id="exampleInputDOB1" placeholder="Date of Birth" type="date">
+        {{form.birthday}}
+      <div class="validation"></div>
+    </div>
 
 
 <div class="well"> 
@@ -280,22 +279,46 @@ width:93%;
 
     <div class="form-group">
       <p>Observacion Alimenticia:<span></span></p>
-      
- 
-<div class="form-group">   
-      <span class="icon-case"><i class="fa fa-search"></i></span>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("select").change(function(){
+        $(this).find("option:selected").each(function(){
+            var optionValue = $(this).attr("value");
+            if(optionValue){
+                $(".box").not("." + optionValue).hide();
+                $("." + optionValue).show();
+            } else{
+                $(".box").hide();
+            }
+        });
+    }).change();
+});
+</script>
+    <div>
+        <select multiple>
+            <option>Celiaco</option>
+            <option>Vegetariano</option>
+            <option value="hipoaler">Hipoalergenico</option>
+            <option>Hepatoprotector</option>
+            <option>Hipocalorico</option>
+            <option>Gastroprotector</option>
+            <option>Diabetico</option>
+            <option>Kosher</option>
+            <option>Adventista</option>
+            <option value="otro">Otros:</option>
+        </select>
+    </div>
+    <div class="otro box">      <span class="icon-case"><i class="fa fa-search"></i></span>
       {{form.food_obvs}}
-      <div class="validation"></div>
-    </div></div>
+      <div class="validation"></div></div>
 
-
-
+    <div class="hipoaler box">      <span class="icon-case"><i class="fa fa-search"></i></span>
+      {{form.food_obvs}}
+      <div class="validation"></div></div>
 </div>
-  
-
-
-  
-  <button type="submit" class="bouton-contact" value="Create student">Crear Alumno</button>
+    <button type="submit" class="bouton-contact" value="Create student">Crear Alumno</button>
 
 </form>
 
