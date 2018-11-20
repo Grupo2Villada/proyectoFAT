@@ -289,9 +289,33 @@
 * Orden de lista/curso
 
 ------------
+# Sprint 6
 
-### Detalles para finalización - 3 módulos
-* Testing final
-* Cargar datos
-* Hacer presentaciones
-* Deployar
+### COMO directivo QUIERO poder elegir múltiples opciones para los casos alimenticios especiales
+* Modificación en el html para poder elegir varias opciones, y aparte, si no están, poder tipear la especificación
+* View para que todas las opciones sean un solo String
+* View para comparar el String al momento de mandar el mail
+
+### COMO preceptor QUIERO tener soporte mobil
+* Terminar de adaptar los htmls para que puedan verse correctamente desde un celular
+
+### COMO preceptor QUIERO cancelar una llegada tarde o retiro 
+* View para que si se clickea un botón de lo mencionado por equivcación se pueda cancelar
+* Mejorar el html de lo correspondiente a lo mencionado
+
+### COMO preceptor QUIERO poder justificar adjuntando un archivo y certificado médico
+* Modificar base de datos para que haya un campo que acepte archivos
+* Realizar un html 
+
+### Testing Final complementario - 2 módulos
+* Tener en cuenta todo el proceso de los clientes y fijarse que todo ande correctamente
+
+### Presentación Final - 2 módulos
+* Filminas
+* Preparación de la charla
+
+--------
+
+### Carga de datos y Deploy
+
+
