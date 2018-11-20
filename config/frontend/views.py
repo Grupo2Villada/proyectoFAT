@@ -158,13 +158,17 @@ def ausente(request):
 	return HttpResponse("ok")
 
 def undo_falta(request):
+	print "undo falta"
 	if request.method == "POST":
 		today_date = datetime.date.today()
 		preceptor = Preceptor.objects.get(user=request.user)
 		student = Student.objects.get(dni=request.POST['student'])
 		year= Student.objects.get(dni=request.POST['student']).year
+		print student
+		print year
 		try:
-			abse=Absence.objects.get(date=today_date, preceptor=preceptor, year=year,student=student,origin=1)
+			abse=Absence.objects.get(date=today_date, preceptor=preceptor, year=year,student=student,origin=0)
+			print abse
 			abse.delete()
 		except Absence.DoesNotExist:
 			pass
@@ -331,7 +335,7 @@ def undo_latearrival(request):
 		now = datetime.datetime.now().time()
 		try:
 			abse=Absence.objects.filter(id=id,date=today_date, preceptor=preceptor,origin=1)
-			abse.update(origin=0)
+			abse.update(origin=0,percentage=1)
 		except Absence.DoesNotExist:
 			pass
 		return HttpResponse("ok")
