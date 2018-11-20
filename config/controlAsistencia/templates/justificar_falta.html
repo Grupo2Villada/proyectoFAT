@@ -104,10 +104,19 @@ body{
 
       </td>
       <td style="width: 70px">
-        <button id="btn-{{ absence.id }}" class="button_size btn btn-flat" onclick="ajax_justify({{ absence.id }})" style="background:lightblue">Justificar</button>
+        <button class="button_size btn btn-flat" style="background:lightblue" data-toggle="collapse" data-target="#{{ absence.id }}">Justificar</button>
       </td>
   </tr>
-
+<tr>
+    <td style="padding-top: 0px; padding-bottom: 0px;">
+        <div id="{{ absence.id }}">
+            <form action="/action_page.php">
+                <input type="file" name="pic" accept="image/*">
+            </form>
+            
+        </div>
+      </td>
+</tr>
   {% endfor %}          
   </tbody>
 </table>
@@ -133,3 +142,4 @@ function ajax_justify(id){
 
 </script>
 {% endblock body %}
+<!--        <button id="btn-{{ absence.id }}" class="button_size btn btn-flat" onclick="ajax_justify({{ absence.id }})" style="background:lightblue">Justificar</button>-->
