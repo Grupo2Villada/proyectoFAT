@@ -1,0 +1,13 @@
+Corregir estimación
+Ajustar velocidad teniendo en cuenta los módulos totales
+
+Tener en cuenta la elección y metodología de la representación del tiempo de el sprint retrospective
+
+Cambiar el fondo rojo
+
+Hacer correctamente el burndownchart
+
+Poder filtrar las enfermedades correctamente, como si fueran tags
+Listar las enfermedades
+
+Terminar de modificar el mail del comedor
