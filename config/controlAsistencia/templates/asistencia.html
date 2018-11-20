@@ -41,16 +41,29 @@ Asistencia
 {% block body %}
 <div  class="hola">
 	<div class="tr">
-		<thead>
+        
+        
+    <thead class="">
+    
+        <tr class="">
+            <th scope="col">Alumnos</th>
+            
+        </tr>
+
+
+    </thead>
+</div>
+        
+		
 			<tr >
-				<select class="custom-select" name= "orders" style="width: 270px; text-align: right;">
+				<select class="custom-select juan" name= "orders" style="height: 60px">
 					<option value="Orden A - Z" onclick="alfabetico({{ id }})">Orden A - Z </option>
 					<option value="Orden Curso" onclick="banco({{ id }})"> Orden Curso</option>
 				</select>
 			</tr> 
-		</thead>
-	</div>
-	<div id="card" class="col">
+		
+
+	<div id="card" class="col" style="padding-left: 0px; padding-right: 0px; top: -16px">
 	</div>
 </div>
 
