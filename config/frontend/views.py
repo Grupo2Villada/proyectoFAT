@@ -173,10 +173,8 @@ def undo_falta(request):
 def create_student(request):
 	print "view"
 	if request.method == "POST":
-		print "post"
 		form = CreateStudentForm(request.POST)
 		if form.is_valid():
-			print "valid"
 			first_name= form.cleaned_data.get("first_name")
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
@@ -190,6 +188,7 @@ def create_student(request):
 			yearqs= form.cleaned_data.get("year")
 			status= form.cleaned_data.get("status")
 			food_obvs= form.cleaned_data.get("food_obvs")
+			print "------------------" +food_obvs
 			year= Year.objects.get(id=yearqs)
 			try: 
 				a=Student.objects.get(dni=dni)

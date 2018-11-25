@@ -253,203 +253,226 @@ width:93%;
   {% csrf_token %}
 
   <div style="margin-left: 12px">
-    <div class="form-group">
-      <p>Nombre:<span>*</span></p>
-      <span class="icon-case"><i class="fa fa-user"></i></span>
-      {{form.first_name}}
-      <div class="validation"></div>
-    </div>
+	<div class="form-group">
+	  <p>Nombre:<span>*</span></p>
+	  <span class="icon-case"><i class="fa fa-user"></i></span>
+	  {{form.first_name}}
+	  <div class="validation"></div>
+	</div>
 
-    <div class="form-group">
-      <p>Apellido:<span>*</span></p>
-      <span class="icon-case"><i class="fa fa-user"></i></span>
-      {{form.last_name}}
-      <div class="validation"></div>
-    </div>
+	<div class="form-group">
+	  <p>Apellido:<span>*</span></p>
+	  <span class="icon-case"><i class="fa fa-user"></i></span>
+	  {{form.last_name}}
+	  <div class="validation"></div>
+	</div>
 
-    <div class="form-group">
-      <p>Dni: <span>*</span></p>
-      <span class="icon-case"><i class="fa fa-address-card"></i></span>
-      {{form.dni}}
-      <div class="validation"></div>
-    </div>
+	<div class="form-group">
+	  <p>Dni: <span>*</span></p>
+	  <span class="icon-case"><i class="fa fa-address-card"></i></span>
+	  {{form.dni}}
+	  <div class="validation"></div>
+	</div>
 
-    <div class="form-group">
-      <p>Nº de Legajo:<span>*</span></p>
-      <span class="icon-case"><i class="fa fa-home"></i></span>
-      {{form.student_tag}}
-      <div class="validation"></div>
-    </div>
+	<div class="form-group">
+	  <p>Nº de Legajo:<span>*</span></p>
+	  <span class="icon-case"><i class="fa fa-home"></i></span>
+	  {{form.student_tag}}
+	  <div class="validation"></div>
+	</div>
 
-    <div class="form-group">
-      <p>Nº de lista:<span>*</span></p>
-      <span class="icon-case"><i class="fa fa-sort-numeric-asc"></i></span>
-      {{form.list_number}}
-      <div class="validation"></div>
-    </div>
+	<div class="form-group">
+	  <p>Nº de lista:<span>*</span></p>
+	  <span class="icon-case"><i class="fa fa-sort-numeric-asc"></i></span>
+	  {{form.list_number}}
+	  <div class="validation"></div>
+	</div>
 
-    <div class="form-group">
-      <p>Nº de banco:<span>*</span></p>
-      <span class="icon-case"><i class="fa fa-sort-numeric-asc"></i></span>
-      {{form.room_order}}
-      <div class="validation"></div>
-    </div>
+	<div class="form-group">
+	  <p>Nº de banco:<span>*</span></p>
+	  <span class="icon-case"><i class="fa fa-sort-numeric-asc"></i></span>
+	  {{form.room_order}}
+	  <div class="validation"></div>
+	</div>
 
-    <div class="form-group">
-      <label>Fecha de Nacimiento</label>
-      <input class="form-control" id="exampleInputDOB1" placeholder="Date of Birth" type="date">
-        {{form.birthday}}
-      <div class="validation"></div>
-    </div>
+	<div class="form-group">
+	  <label>Fecha de Nacimiento</label>
+		{{form.birthday}}
+	  <div class="validation"></div>
+	</div>
 
 
 <div class="well"> 
 </div>
-    <div class="form-group">
-      <p>Dirección:<span>*</span></p>
-      <span class="icon-case"><i class="fa fa-map-marker"></i></span>
-      {{form.address}}
-      <div class="validation"></div>
-    </div>
+	<div class="form-group">
+	  <p>Dirección:<span>*</span></p>
+	  <span class="icon-case"><i class="fa fa-map-marker"></i></span>
+	  {{form.address}}
+	  <div class="validation"></div>
+	</div>
 
-    <div class="form-group">
-      <p>Barrio:<span>*</span></p>
-      <span class="icon-case"><i class="fa fa-map-marker"></i></span>
-      {{form.neighbourhood}}
-      <div class="validation"></div>
-    </div>
+	<div class="form-group">
+	  <p>Barrio:<span>*</span></p>
+	  <span class="icon-case"><i class="fa fa-map-marker"></i></span>
+	  {{form.neighbourhood}}
+	  <div class="validation"></div>
+	</div>
 
-    <div class="form-group">
-      <p>Ciudad:<span>*</span></p>
-      <span class="icon-case"><i class="fa fa-map-marker"></i></span>
-      {{form.city}}
-      <div class="validation"></div>
-    </div>
+	<div class="form-group">
+	  <p>Ciudad:<span>*</span></p>
+	  <span class="icon-case"><i class="fa fa-map-marker"></i></span>
+	  {{form.city}}
+	  <div class="validation"></div>
+	</div>
 
-    <div class="form-group">
-      <p>Curso:<span>*</span></p>
-      <span class="icon-case"><i class="fa fa-institution"></i></span>
-      <select class="form-control year" id="id_year" name="year">
-        {% for year in form.year %}
-        {{year}}
-        {% endfor %}
-      </select>
-      <div class="validation"></div>
-    </div>
+	<div class="form-group">
+	  <p>Curso:<span>*</span></p>
+	  <span class="icon-case"><i class="fa fa-institution"></i></span>
+	  <select class="form-control year" id="id_year" name="year">
+		{% for year in form.year %}
+		{{year}}
+		{% endfor %}
+	  </select>
+	  <div class="validation"></div>
+	</div>
 
-    <div class="form-group">
-      <p>Estado:<span>*</span></p>
-      <span class="icon-case"><i class="fa fa-check"></i></span>
-      <!-- {{form.status}}-->
 
-      <select class="form-control year" id="id_status" name="status">
-        {% for status in form.status %}
-        {{status}}
-        {% endfor %}
-      </select>
-
-      <div class="validation"></div>
-    </div>
-
-    <div class="form-group">
-      <p>Observacion Alimenticia:<span></span></p>
-
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-    $("select").change(function(){
-        $(this).find("option:selected").each(function(){
-            var optionValue = $(this).attr("value");
-            if(optionValue){
-                $(".box").not("." + optionValue).hide();
-                $("." + optionValue).show();
-            } else{
-                $(".box").hide();
-            }
-        });
-    }).change();
-});
-</script>
-
-    <table class="table">
+		<table class="table">
 
 
   <tbody>
   
-    <tr>
-      <td class="pepe">
-    <label class="container" >Celiaco
-  <input type="checkbox">
+	<tr>
+	  <td class="pepe">
+
+
+	<label class="container" >Celiaco
+  <input class="cbox" type="checkbox" id="Celiaco" >
   <span class="checkmark"></span>
 </label>    
 </label><label class="container">Diabetico
-  <input type="checkbox">
+  <input class="cbox" type="checkbox" id="Diabetico" >
   <span class="checkmark"></span>
 </label>
 <label class="container">Astringente
-  <input type="checkbox">
+  <input class="cbox" type="checkbox" id="Astringente" >
   <span class="checkmark"></span>
 </label>
 <label class="container" >Hipatoprotector
-  <input type="checkbox">
+  <input class="cbox" type="checkbox" id="Hipatoprotector" >
   <span class="checkmark"></span>
 </label>
-       
-      </td>
-      <td >
+</td>
+
+
+<td >
   <label class="container">Vegetariano
-  <input type="checkbox">
+  <input class="cbox" type="checkbox" id="Vegetariano" >
   <span class="checkmark"></span>
   </label>
   <label class="container">Hipocalorica
-  <input type="checkbox">
+  <input class="cbox" type="checkbox" id="Hipocalorica" >
   <span class="checkmark"></span>
 </label>
 <label class="container">Gastoprotector
-  <input type="checkbox">
-  <span class="checkmark"></span>
-</label><label class="container">Diabetico
-  <input type="checkbox">
+  <input class="cbox" type="checkbox" id="Gastoprotector" >
   <span class="checkmark"></span>
 </label>
-      </td>
-  </tr>
+	  </td>
+  </tr> 
 <td>
-<label class="container">Kosher
-  <input type="checkbox">
+<label class="container" >Kosher
+  <input class="cbox" type="checkbox" id="Kosher">
   <span class="checkmark"></span>
 </label>
-<label class="container">Adventista
-  <input type="checkbox">
+<label class="container" >Adventista
+  <input class="cbox" type="checkbox" id="Adventista">
   <span class="checkmark"></span>
 </label><label class="container">Hipoalergenico
-  <input type="checkbox">
+  <input class="cbox" type="checkbox" id="Hipoalergenico" >
+  <span class="checkmark"></span>
+</label>
+<label class="container">Otros
+  <input class="cbox" type="checkbox" id="Otros">
   <span class="checkmark"></span>
 </label>
 
-</label><label class="container">Otros
-  <input type="checkbox">
-  <span class="checkmark"></span>
-</label>
+	  <div class="form-group" id="hipobox">
+	  <input type="text" placeholder="Hipoalergenico a: (Separar por comas)" id="hipoinput">
+	  </div>
+
+	  <div class="form-group" id="otrosbox">
+	  <input type="text" placeholder="Otros: (Separar por comas)" id="otrosinput">
+	  </div>
+
+
 </td>
   
   </tbody>
 </table>
-      
-
- 
-
-
+<div id ="obvs" class="form-group">
+	  <p>Observacion Alimenticia:</p>
+	  {{form.food_obvs}}
 
 
-  
+</div>  
 
+	<div class="form-group">
+	  <p>Estado:<span>*</span></p>
+	  <span class="icon-case"><i class="fa fa-check"></i></span>
+	  <!-- {{form.status}}-->
 
+	  <select class="form-control year" id="id_status" name="status">
+		{% for status in form.status %}
+		{{status}}
+		{% endfor %}
+	  </select>
 
-    <button type="submit" class="bouton-contact" value="Create student">Crear Alumno</button>
+	  <div class="validation"></div>
+	</div>
+<button type="submit" class="bouton-contact" value="Create student">Crear Alumno</button>
 
 
 </form>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		document.getElementById("id_food_obvs").readOnly = true;
+		$("#otrosbox").hide()
+		$("#hipobox").hide()
+		$("#obvs").hide()
+	});
+
+	$(document).change(function () {
+		var elements = document.getElementsByClassName('cbox'); 
+		var checkeds = [];
+
+		for (var i = 0;elements[i];i++){
+			if (elements[i].checked == true) {
+				if (elements[i].id=="Otros"){
+					$("#otrosbox").show()
+					var otr = document.getElementById("otrosinput").value
+					checkeds.push(elements[i].id +": "+"("+ otr+")")
+				}
+				if (elements[i].id=="Hipoalergenico"){
+					$("#hipobox").show()
+					var hip = document.getElementById("hipoinput").value
+					checkeds.push(elements[i].id +": "+"("+ hip+")")
+				}
+				if(elements[i].id !="Hipoalergenico" &&  elements[i].id!="Otros"){
+					$("#otrosbox").hide()
+					$("#hipobox").hide()
+					checkeds.push(elements[i].id)}	
+				} 
+			}
+			document.getElementById("id_food_obvs").value = checkeds.join(';'); 
+
+		});
+
+
+
+</script>
+
 
 
 {% endblock body %}
