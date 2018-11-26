@@ -109,11 +109,20 @@ body{
   </tr>
 <tr>
     <td style="padding-top: 0px; padding-bottom: 0px;">
-        <div id="{{ absence.id }}">
+        <div id="{{ absence.id }}" class="collapse">
+            <h8>Agregar Justificativo:</h8>
             <form action="/action_page.php">
                 <input type="file" name="pic" accept="image/*">
             </form>
-            
+            <div>
+                <h8>¿Adjunta certificado medico?</h8>
+                <form>
+                <label class="radio-inline"><input type="radio" name="optradio" id="myChecksi" onclick="myFunction()">Si</label>
+                <label class="radio-inline"><input type="radio" name="optradio" id="myCheckno" onclick="myFunction()">No</label>
+                <p id="text" style="display:none">Checkbox is CHECKED!</p>
+                <button id="{{ absence.id }}" class="button_size btn btn-flat" onclick="ajax_justify({{ absence.id }})" style="background:lightblue; display:none">Justificar</button>
+                </form>
+            </div>
         </div>
       </td>
 </tr>
@@ -138,6 +147,23 @@ function ajax_justify(id){
     }
   });
 
+}
+
+function myFunction() {
+  // Get the checkbox
+  var checkBoxsi = document.getElementById("myChecksi");
+  var checkBoxno = document.getElementById("myCheckno");
+  // Get the output text
+  var text = document.getElementById("text");
+
+  // If the checkbox is checked, display the output text
+  if (checkBoxsi.checked == true){
+    text.style.display = "block";
+  } else if (checkBoxno.checked == true) {
+    {{ absence.id }}.style.display = "block";
+  } else {
+      text.style.display = "none";
+  }
 }
 
 </script>
