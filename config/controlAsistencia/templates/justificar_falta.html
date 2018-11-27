@@ -31,9 +31,7 @@ Justificar Faltas
   
 }
 @media only screen and (max-width: 720px){
-body{
-    background-color: green;
-}
+
 .hola {
   border-radius: 5px;
   
@@ -64,7 +62,7 @@ body{
     }
     .pepe{
         width: 47%;
-        font-size: 150%;
+        
     }
     .juan{
         width: 400px;
@@ -72,6 +70,9 @@ body{
     }
     .button_size{
         height: 70px;
+    }
+    .noruega{
+        width: 250px;
     }
 
 }
@@ -103,26 +104,46 @@ body{
         {{ absence.percentage }}
 
       </td>
+      <td style="width: 70px">
+        <button class="button_size btn btn-flat" id="btn" style="background:lightblue" data-toggle="collapse" data-target="#{{ absence.id }}">Justificar</button>
 
-      <td style="width: 70px" id="td-{{absence.id}}">
-        <button class="button_size btn btn-flat" id="btn-{{absence.id}}" style="background:lightblue" onclick="ajax_justify({{absence.id}})" data-toggle="collapse" data-target="#{{ absence.id }}">Justificar</button>
       </td>
   </tr>
 <tr>
     <td style="padding-top: 0px; padding-bottom: 0px;">
-        <div id="{{ absence.id }}">
-             <form id="form" action="{% url 'upload' absence.id %}" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-     <td style="padding-top: 0px; padding-bottom: 0px;">
-         <div id="{{ absence.id }}">
+
+        <div id="{{ absence.id }}" class="collapse noruega">
+         
+                <div>
+                <div id="td-{{absence.id}}">
+                <button id="btn-{{absence.id}}" class="button_size btn btn-flat" onclick="ajax_justify({{ absence.id }})" style="background:lightblue;">Aceptar</button>
+                </div>
+            <h8>Agregar Justificativo:</h8>
+
+            <div>
+                <h8>¿Adjunta certificado medico?</h8>
+                <form>
+     
+                <label class="radio-inline"><input type="radio" name="optradio" id="myChecksi" onclick="myFunction({{absence.id}})">Si</label>
+                <label class="radio-inline"><input type="radio" name="optradio" id="myCheckno" onclick="myFunction({{absence.id}})">No</label>
+                </div>
+                <p id="text" style="display:none">Checkbox is CHECKED!</p>
+                
+                </form>
+              <form id="form" action="{% url 'upload' absence.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+     
+             <div id="{{ absence.id }}">
               <div class="file-container">
+                  
                   <input type="file" name="file" id="file"  />
                   <input type="submit" name="submit">
               </div>
+
          </div>
-       </td>
-</form>
-            
+
+          </form>
+            </div>
         </div>
       </td>
 </tr>
@@ -164,12 +185,30 @@ function undo(id){
     },
     success:function(results){
       $("#btnu-"+id).remove()
-      $("#td-"+id).append("<button id='btn-"+id+"' class='btn btn-flat' onclick='ajax_justify("+id+")' style='background:lightblue'>Justificar</button>");
+      $("#td-"+id).append("<button id='btn-"+id+"' class='btn btn-flat' onclick='ajax_justify("+id+")' style='background:lightblue'>Aceptar</button>");
     },
     error:function(request, status, error){
     $("body").html(request.responseText);
     }
   });
+}
+
+
+function myFunction(id) {
+  // Get the checkbox
+  var checkBoxsi = document.getElementById("myChecksi");
+  var checkBoxno = document.getElementById("myCheckno");
+  // Get the output text
+  var text = document.getElementById("text");
+
+  // If the checkbox is checked, display the output text
+  if (checkBoxsi.checked == true){
+    text.style.display = "block";
+  } else if (checkBoxno.checked == true) {
+    id.style.display = "block";
+  } else {
+      text.style.display = "none";
+  }
 }
 
 

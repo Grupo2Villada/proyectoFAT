@@ -33,6 +33,38 @@ Update preceptor
   text-shadow: none; 
   
 }
+@media only screen and (max-width: 720px){
+.hola {
+  border-radius: 5px;
+  
+  width: 114%;
+  margin: 2% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+.tr {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+.tr{
+  font-size: 18px;
+  background: #008bd2 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  
+}
+.scroll{
+    width:380px; 
+    height:190px; 
+    overflow:auto;
+}
+
+}
 {% endblock style %}
 {% block body %}
 
@@ -52,8 +84,8 @@ Update preceptor
     </thead>
 </div>
 
-
-      <table class="table" id="myTable" style="margin-bottom: 0px;">
+<div class="scroll">
+      <table cellspacing="0" cellpadding="1" border="1" width="300px" class="table" id="myTable" style="margin-bottom: 0px; ">
 
 
 
@@ -64,7 +96,7 @@ Update preceptor
       <td>
         {{ student }}
       </td>
-      <td style="width: 0px">
+      <td style="width: 90px">
         <button id="btn-{{ student.id }}" class="btn btn-flat" onclick="form_update({{ student.id }})">Editar</button>
       </td>
   </tr>
@@ -72,6 +104,7 @@ Update preceptor
   {% endfor %}          
   </tbody>
 </table>
+</div>
         </div>
     </div>
     <div id="card" class="col">
