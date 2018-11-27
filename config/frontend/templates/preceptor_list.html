@@ -28,8 +28,48 @@ Update preceptor
   padding: 22px 25px;
   border-radius: 5px 5px 0px 0px;
   margin: auto;
+  text-shadow: none;
+  
+}
+input {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #eee;
+  margin-bottom: 15px;
+  width: 93%;
+  height: 40px;
+  float: left;
+  padding: 0px 15px;
+}
+@media only screen and (max-width: 720px){
+.hola {
+  border-radius: 5px;
+  
+  width:114%;
+  margin: 2% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+.tr {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+.tr{
+  font-size: 18px;
+  background: #008bd2 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
   text-shadow: none; 
   
+}
+.scroll{
+    width:380px; 
+    height:190px; 
+    overflow:auto;
+}
 }
 {% endblock style %}
 {% block body %}
@@ -38,7 +78,7 @@ Update preceptor
   <div class="row">
     <div class="col">
         <div class="hola">
-<div class="tr">  
+<div class="tr" style="height: 65px;">  
     <thead class="">
     
         <tr class="">
@@ -48,14 +88,17 @@ Update preceptor
 
     </thead>
   </div>
-  <table class="table" id="myTable" style="margin-bottom: 0px;">
      <thead>
     <tr>
-         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nombre/edad" title="Type in a name" style="width: 270px;">
+         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nombre" title="Type in a name" style="width: 545px;margin-bottom: 0px;">
 
     </tr>
   </thead>
-</div>
+<div class="scroll">
+  <table cellspacing="0" cellpadding="1" border="1" width="300px" class="table" id="myTable" style="margin-bottom: 0px;">
+
+
+
 
   <tbody>
 {% for preceptor in preceptors%}
@@ -63,7 +106,7 @@ Update preceptor
       <td>
         {{ preceptor.user }}
       </td>
-      <td style="width: 0px">
+      <td style="width: 12px">
         <button id="btn-{{ preceptor.id }}" class="btn btn-flat" onclick="form_update({{ preceptor.id }})">Editar</button>
       </td>
   </tr>
@@ -71,6 +114,7 @@ Update preceptor
   {% endfor %}          
   </tbody>
 </table>
+            </div>
         </div>
     </div>
     <div id="card" class="col">

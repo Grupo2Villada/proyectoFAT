@@ -64,7 +64,7 @@ body{
     }
     .pepe{
         width: 47%;
-        font-size: 150%;
+        
     }
     .juan{
         width: 400px;
@@ -72,6 +72,9 @@ body{
     }
     .button_size{
         height: 70px;
+    }
+    .noruega{
+        width: 250px;
     }
 
 }
@@ -104,12 +107,12 @@ body{
 
       </td>
       <td style="width: 70px">
-        <button class="button_size btn btn-flat" style="background:lightblue" data-toggle="collapse" data-target="#{{ absence.id }}">Justificar</button>
+        <button class="btn btn-flat" style="background:lightblue" data-toggle="collapse" data-target="#{{ absence.id }}">Justificar</button>
       </td>
   </tr>
 <tr>
     <td style="padding-top: 0px; padding-bottom: 0px;">
-        <div id="{{ absence.id }}" class="collapse">
+        <div id="{{ absence.id }}" class="collapse noruega">
             <h8>Agregar Justificativo:</h8>
             <form action="/action_page.php">
                 <input type="file" name="pic" accept="image/*">

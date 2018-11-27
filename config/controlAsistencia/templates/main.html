@@ -14,6 +14,23 @@ Menu
     width:400px;
     margin-top: 20px;
     }
+    .main_button{
+        width: 18rem;
+    }
+    @media only screen and (max-width: 720px){
+            .card {
+                width:100%;
+                margin-top: 20px;
+                margin-left: 20px;
+            }
+        .main_button{
+            width: auto;
+            margin-right: auto
+        }
+        .card-body{
+            margin-right: 12px;
+        }
+        }
 
     </style>
 
@@ -24,21 +41,21 @@ Menu
                <div class="card text-white bg-primary mb-3" >
   <div class="card-body">
      <span class="card-title activator grey-text text-darken-4">{{year|upper}} </span>
-    <div class="card text-center" style="width: 18rem;">      
+    <div class="card text-center main_button">      
   
         <a href="{% url 'asistencia' year.id %}" class="btn btn-primary">   Tomar Asistencia</a>
     </div>
         
       <p> </p>
-    <div class="card text-center" style="width: 18rem;">
+    <div class="card text-center main_button">  
          <a href="{% url 'late' year.id %}" class="btn btn-primary">Llegadas Tardes</a>
         </div>
       <p> </p>
-    <div class="card text-center" style="width: 18rem;">
+    <div class="card text-center main_button">  
         <a href="{% url 'early' year.id %}" class="btn btn-primary">Retiro Anticipado</a>
       </div>
         <p> </p>
-    <div class="card text-center" style="width: 18rem;">
+   <div class="card text-center main_button"> 
         <a href="{% url 'justification' year.id %}" class="btn btn-primary">Justificar faltas</a>
                                                          
         </div>
