@@ -104,8 +104,8 @@ body{
 
       </td>
 
-      <td style="width: 70px">
-        <button class="button_size btn btn-flat" style="background:lightblue" data-toggle="collapse" data-target="#{{ absence.id }}">Justificar</button>
+      <td style="width: 70px" id="td-{{absence.id}}">
+        <button class="button_size btn btn-flat" id="btn-{{absence.id}}" style="background:lightblue" onclick="ajax_justify({{absence.id}})" data-toggle="collapse" data-target="#{{ absence.id }}">Justificar</button>
       </td>
   </tr>
 <tr>

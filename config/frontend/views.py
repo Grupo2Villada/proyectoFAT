@@ -444,12 +444,13 @@ def upload(request,id):
 	print "view"
 	if request.method == 'POST':
 		falta = Absence.objects.get(id=id)
+		yearid= falta.getYear()
 		form = ImageUploadForm(request.POST, request.FILES)
 		print request.POST.get('file')
 		newPic = Image(image = request.FILES['file'], falta=falta)
 		newPic.save()
 		print "save"
-		return HttpResponse('image upload success')
+		return redirect('/justification/'+str(yearid)+'/')
 	else:
 		form = ImageUploadForm()
 	return HttpResponse('nose')

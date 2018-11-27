@@ -125,6 +125,9 @@ class Absence(models.Model):
 	origin = models.IntegerField(choices=ORIGIN_CHOICES)
 	justified = models.BooleanField(default=False)
 
+	def getYear(self):
+		return self.year.id
+
 	def __str__(self):
 		return "{} {} {} {}".format(self.student, self.date, self.percentage, self.justified)
 
