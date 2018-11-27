@@ -89,6 +89,7 @@ Asistencia
 			<div class="modal-header">				
 				<h4 class="modal-title">Iniciar Sesion</h4>
 			</div>
+
 			<div class="modal-body">
 				<form action="{% url 'login' %}" method="post">
 					{% csrf_token %}
@@ -105,7 +106,15 @@ Asistencia
 					</div>
 				</form>				
 			</div>
+			{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 		</div>
+
 	</div>
 {% endif %}
 {% endblock body %}

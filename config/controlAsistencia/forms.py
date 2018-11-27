@@ -46,4 +46,6 @@ class CreateStudentForm(forms.Form):
 	status = forms.ChoiceField(widget=forms.Select, choices=STATUS_CHOICES)
 	food_obvs = forms.CharField(required=False)
     
-    
+class ImageUploadForm(forms.Form):
+    """Image upload form."""
+    image = forms.ImageField()

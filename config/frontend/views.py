@@ -107,6 +107,7 @@ def login_user(request):
 			login(request, user)
 			return redirect('main')
 		else:
+			messages.error(request, 'Password or Username incorrect, please try again.')
 			return render(request, 'index.html')
 
 
@@ -139,7 +140,10 @@ def register_user(request):
 					preceptor.save()
 					for i in year:
 						preceptor.year.add(i)
-				return redirect('manage')
+			else:
+				messages.error(request, 'Passwords do not match.')
+
+				return redirect('register')
 	else:
 		form = PreceptorForm()
 	return render(request, 'register.html', {'form': form})
@@ -177,10 +181,8 @@ def undo_falta(request):
 def create_student(request):
 	print "view"
 	if request.method == "POST":
-		print "post"
 		form = CreateStudentForm(request.POST)
 		if form.is_valid():
-			print "valid"
 			first_name= form.cleaned_data.get("first_name")
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
@@ -194,6 +196,7 @@ def create_student(request):
 			yearqs= form.cleaned_data.get("year")
 			status= form.cleaned_data.get("status")
 			food_obvs= form.cleaned_data.get("food_obvs")
+			print "------------------" +food_obvs
 			year= Year.objects.get(id=yearqs)
 			try: 
 				a=Student.objects.get(dni=dni)
@@ -433,9 +436,24 @@ def justification_render(request, id):
 
 
 def justify(request):
-		absence_q = Absence.objects.filter(id=request.POST['absence'])
-		absence_q.update(justified=True)
-		return HttpResponse("ok")
+	absence_q = Absence.objects.filter(id=request.POST['absence'])
+	absence_q.update(justified=True)
+	return HttpResponse("ok")
+
+def upload(request,id):
+	print "view"
+	if request.method == 'POST':
+		falta = Absence.objects.get(id=id)
+		yearid= falta.getYear()
+		form = ImageUploadForm(request.POST, request.FILES)
+		print request.POST.get('file')
+		newPic = Image(image = request.FILES['file'], falta=falta)
+		newPic.save()
+		print "save"
+		return redirect('/justification/'+str(yearid)+'/')
+	else:
+		form = ImageUploadForm()
+	return HttpResponse('nose')
 
 def undo_justify(request):
 	if request.method == "POST":
@@ -447,6 +465,8 @@ def undo_justify(request):
 		now = datetime.datetime.now().time()
 		try:
 			abse=Absence.objects.filter(id=id,date=today_date, preceptor=preceptor,justified=True)
+			img=Image.objects.filter(falta=abse)
+			img.update(image=None)
 			abse.update(justified=False)
 		except Absence.DoesNotExist:
 			pass

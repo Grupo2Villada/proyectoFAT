@@ -8,10 +8,10 @@ from django.db.models.functions import Upper
 
 # Create your models here.
 STATUS_CHOICES = (
-    ('1', "REGULAR"),
-    ('2', "PRIMERA REINCORPORACION"),
-    ('3', "SEGUNDA REINCORPORACION"),
-    ('4', "LIBRE"),
+    ('1', "PRIMERA REINCORPORACION"),
+    ('2', "SEGUNDA REINCORPORACION"),
+    ('3', "LIBRE"),
+    ('4', "REGULAR"),
 
 )
 DIVISION_CHOICES = (
@@ -90,9 +90,9 @@ class Student(models.Model):
 	city = models.CharField(max_length=50,blank=False, null=False)
 	year = models.ForeignKey(Year)
 	status = models.CharField(choices=STATUS_CHOICES, max_length= 1)
-	food_obvs = models.CharField(max_length=50, null=True, blank=True)
+	food_obvs = models.CharField(max_length=255, null=True, blank=True)
 
-	def __str__(self):
+	def __unicode__(self):
 		return "{} {}".format(self.first_name, self.last_name)
 
 	def getAge(self):
@@ -123,9 +123,14 @@ class Absence(models.Model):
 	student = models.ForeignKey(Student, on_delete=models.CASCADE)
 	percentage = models.FloatField(choices=PERCENTAGE_CHOICES)
 	origin = models.IntegerField(choices=ORIGIN_CHOICES)
-	justified = models.BooleanField(default=False)	
+	justified = models.BooleanField(default=False)
+
+	def getYear(self):
+		return self.year.id
 
 	def __str__(self):
 		return "{} {} {} {}".format(self.student, self.date, self.percentage, self.justified)
 
-
+class Image(models.Model):
+	image = models.ImageField(upload_to='imagenes/',null=True,blank=True)
+	falta= models.ForeignKey(Absence)

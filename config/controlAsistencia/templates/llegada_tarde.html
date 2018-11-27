@@ -31,29 +31,76 @@ Llegadas Tarde
   text-shadow: none; 
 
 }
+
+@media only screen and (max-width: 720px){
+body{
+    background-color: green;
+}
+.hola {
+  border-radius: 5px;
+  
+  width:400px;
+  margin: 2% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+    
+}
+.tr {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+.tr{
+  font-size: 20px;
+  background: #008bd2 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  
+}
+    .table{
+       width: 610px; 
+    }
+    .pepe{
+        width: 40%;
+        font-size: 130%;
+    }
+    .juan{
+        width: 400px;
+        text-align: right;
+    }
+    .button_size{
+        height: 70px;
+    }
+
+}
 {% endblock style %}
 {% block body %}
 
 
 <div class="hola">
-<table class="table">
+
   <div class="tr">
   <thead>
     <tr>
-      <th scope="col">Estudiantes</th>
+      <th scope="col">Llegadas Tardes</th>
     </tr>
   </thead>
   </div>
+<table class="table">
   <tbody>
   {% for absence in absences %}
     <tr>
-      <td>
+      <td class="pepe">
         {{ absence.student.last_name | upper}},
         {{ absence.student.first_name }}
 
       </td>
-      <td id="td-{{absence.id}}">
-        <button id="btn-{{ absence.id }}" class="btn btn-flat" onclick="arrival({{ absence.id}})" style="background:lightblue">Llegada tarde</button>
+      <td style="width: 100px">
+        <button id="btn-{{ absence.id }}" class="button_size btn btn-flat" onclick="arrival({{ absence.id}})" style="background:lightblue;">Llegada tarde</button>
       </td>
   </tr>
 
