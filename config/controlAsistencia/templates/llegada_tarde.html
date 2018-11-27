@@ -99,7 +99,7 @@ body{
         {{ absence.student.first_name }}
 
       </td>
-      <td style="width: 100px">
+      <td style="width: 100px" id="td-{{ absence.id }}">
         <button id="btn-{{ absence.id }}" class="button_size btn btn-flat" onclick="arrival({{ absence.id}})" style="background:lightblue;">Llegada tarde</button>
       </td>
   </tr>
