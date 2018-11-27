@@ -49,7 +49,7 @@ def asistencia(request,id):
 	return render(request,'asistencia.html',results)
 
 def list_render(request,id):
-
+	print "list"
 	results={}
 	ausentes = []
 	presentes=[]
@@ -76,7 +76,7 @@ def list_render2(request,id):
 	
 	#results['students'] = year.getStudents().order_by('last_name','first_name')
 
-
+	print "list2"
 	results={}
 	ausentes = []
 	presentes=[]
