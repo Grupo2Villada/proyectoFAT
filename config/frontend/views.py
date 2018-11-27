@@ -107,6 +107,7 @@ def login_user(request):
 			login(request, user)
 			return redirect('main')
 		else:
+			messages.error(request, 'Password or Username incorrect, please try again.')
 			return render(request, 'index.html')
 
 
@@ -139,7 +140,10 @@ def register_user(request):
 					preceptor.save()
 					for i in year:
 						preceptor.year.add(i)
-				return redirect('manage')
+			else:
+				messages.error(request, 'Passwords do not match.')
+
+				return redirect('register')
 	else:
 		form = PreceptorForm()
 	return render(request, 'register.html', {'form': form})
@@ -433,9 +437,23 @@ def justification_render(request, id):
 
 
 def justify(request):
-		absence_q = Absence.objects.filter(id=request.POST['absence'])
-		absence_q.update(justified=True)
-		return HttpResponse("ok")
+	absence_q = Absence.objects.filter(id=request.POST['absence'])
+	absence_q.update(justified=True)
+	return HttpResponse("ok")
+
+def upload(request,id):
+	print "view"
+	if request.method == 'POST':
+		falta = Absence.objects.get(id=id)
+		form = ImageUploadForm(request.POST, request.FILES)
+		print request.POST.get('file')
+		newPic = Image(image = request.FILES['file'], falta=falta)
+		newPic.save()
+		print "save"
+		return HttpResponse('image upload success')
+	else:
+		form = ImageUploadForm()
+	return HttpResponse('nose')
 
 def undo_justify(request):
 	if request.method == "POST":
@@ -447,6 +465,8 @@ def undo_justify(request):
 		now = datetime.datetime.now().time()
 		try:
 			abse=Absence.objects.filter(id=id,date=today_date, preceptor=preceptor,justified=True)
+			img=Image.objects.filter(falta=abse)
+			img.update(image=None)
 			abse.update(justified=False)
 		except Absence.DoesNotExist:
 			pass

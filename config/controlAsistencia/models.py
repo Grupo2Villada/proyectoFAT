@@ -123,9 +123,11 @@ class Absence(models.Model):
 	student = models.ForeignKey(Student, on_delete=models.CASCADE)
 	percentage = models.FloatField(choices=PERCENTAGE_CHOICES)
 	origin = models.IntegerField(choices=ORIGIN_CHOICES)
-	justified = models.BooleanField(default=False)	
+	justified = models.BooleanField(default=False)
 
 	def __str__(self):
 		return "{} {} {} {}".format(self.student, self.date, self.percentage, self.justified)
 
-
+class Image(models.Model):
+	image = models.ImageField(upload_to='imagenes/',null=True,blank=True)
+	falta= models.ForeignKey(Absence)

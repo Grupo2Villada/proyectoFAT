@@ -137,6 +137,7 @@ EMAIL_HOST_USER = 'test.asistencia@gmail.com'
 EMAIL_HOST_PASSWORD = 'asistenciapass'
 EMAIL_PORT = 587
 MEDIA_ROOT=os.path.join(BASE_DIR, 'controlAsistencia/pdf/')
+#MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
 MEDIA_URL='/media/'
 
 

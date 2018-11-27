@@ -60,12 +60,27 @@ Justificar Faltas
         <button id="btn-{{ absence.id }}" class="btn btn-flat" onclick="ajax_justify({{ absence.id }})" style="background:lightblue">Justificar</button>
       </td>
   </tr>
+  <tr>
+  <form id="form" action="{% url 'upload' absence.id %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+     <td style="padding-top: 0px; padding-bottom: 0px;">
+         <div id="{{ absence.id }}">
+              <div class="file-container">
+                  <input type="file" name="file" id="file"  />
+                  <input type="submit" name="submit">
+              </div>
+         </div>
+       </td>
+</form>
 
+ </tr>
   {% endfor %}          
   </tbody>
 </table>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
+
 function ajax_justify(id){
   $.ajax({
     type:"POST",
@@ -83,8 +98,8 @@ function ajax_justify(id){
     $("body").html(request.responseText);
     }
   });
-
 }
+
 
 function undo(id){
   $.ajax({

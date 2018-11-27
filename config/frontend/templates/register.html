@@ -223,7 +223,13 @@ width:93%;
       {{ form.internal_tel }}
       <div class="validation"></div>
     </div>
-
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
     <div class="form-group">
       <p>Contraseña:<span>*</span></p>
       <span class="icon-case"><i class="fa fa-lock"></i></span>

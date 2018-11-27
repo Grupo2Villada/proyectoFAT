@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.contrib import admin
 from .views import *
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', index, name="index"),
@@ -27,7 +28,8 @@ urlpatterns = [
     url(r'^undo_retirement/', undo_retirement, name="undo_retirement"),
     url(r'^early/(?P<id>\d+)/$', early_render, name="early"),
     url(r'^justify/', justify, name="justify"),
+    url(r'^upload/(?P<id>\d+)/$', upload, name="upload"),
     url(r'^undo_justify/', undo_justify, name="undo_justify"),
     url(r'^justification/(?P<id>\d+)/$', justification_render, name="justification"),
     url(r'^export/xls/$', excel , name='comedor'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
