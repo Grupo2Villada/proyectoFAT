@@ -12,16 +12,30 @@ Administrar
         width: 300px;
 
       }
+    .div_margin{
+        margin-top: 100px
+    }
+    @media only screen and (max-width: 720px){
+    .a {
+        width: 350px;
+        margin-left: 7%;
+        height: 60px;
+
+      }
+    .div_margin{
+        margin-top: 60px;
+    }
+}
 
 {% endblock style %}
 {% block body %}
 <center>
-<div style="margin-top: 100px">
+<div class="div_margin">
 <a style="margin-top: 8px;" href="{% url 'register' %}" class="btn btn-primary btn-block btn-lg a">Registrar Preceptor</a>
 <a href="{% url 'create_student' %}" class="btn btn-primary btn-block btn-lg a">Crear Estudiante</a>
 <a href="{% url 'preceptor_list' %}" class="btn btn-primary btn-block btn-lg a">Modificar preceptores</a>
 <a href="{% url 'student_list' %}" class="btn btn-primary btn-block btn-lg a">Modificar Estudiantes</a>
-<a style="width:300px" href="{% url 'comedor' %}" class="btn btn-primary btn-block btn-lg">Excel y mail</a>
+<a href="{% url 'comedor' %}" class="btn btn-primary btn-block btn-lg a">Excel y mail</a>
 </div>
 </center>
 
