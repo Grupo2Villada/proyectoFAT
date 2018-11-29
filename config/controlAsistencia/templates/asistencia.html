@@ -56,7 +56,7 @@ Asistencia
         
 		
 			<tr >
-				<select class="custom-select juan" name= "orders">
+				<select class="custom-select juan" name= "orders" onchange="alfabetico(),banco()">
 					<option value="Orden A - Z" onclick="alfabetico({{ id }})">Orden A - Z </option>
 					<option value="Orden Curso" onclick="banco({{ id }})"> Orden Curso</option>
 				</select>
@@ -70,7 +70,9 @@ Asistencia
 
 <script>
   alfabetico()
+  onchange();
   function alfabetico(id){
+    
       $.ajax({
     url:"{% url 'list' id %}",
 
