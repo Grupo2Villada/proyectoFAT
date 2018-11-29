@@ -105,51 +105,56 @@ Justificar Faltas
 
       </td>
       <td style="width: 70px">
-        <button class="button_size btn btn-flat" id="btn" style="background:lightblue" data-toggle="collapse" data-target="#{{ absence.id }}">Justificar</button>
+        <button class="button_size btn btn-flat" id="btn" style="background:lightblue" data-toggle="collapse" data-target="#{{ absence.id }}">▽</button>
 
       </td>
   </tr>
-<tr>
+  <tr>
     <td style="padding-top: 0px; padding-bottom: 0px;">
+      <div id="{{ absence.id }}" class="collapse noruega">
+      
+        <h8>Agregar Justificativo:</h8><br>
+      <h8>¿Adjunta certificado medico?</h8>
 
-        <div id="{{ absence.id }}" class="collapse noruega">
-         
-                <div>
-                <div id="td-{{absence.id}}">
-                <button id="btn-{{absence.id}}" class="button_size btn btn-flat" onclick="ajax_justify({{ absence.id }})" style="background:lightblue;">Aceptar</button>
-                </div>
-            <h8>Agregar Justificativo:</h8>
 
-            <div>
-                <h8>¿Adjunta certificado medico?</h8>
-                <form>
-     
-                <label class="radio-inline"><input type="radio" name="optradio" id="myChecksi" onclick="myFunction({{absence.id}})">Si</label>
-                <label class="radio-inline"><input type="radio" name="optradio" id="myCheckno" onclick="myFunction({{absence.id}})">No</label>
-                </div>
-                <p id="text" style="display:none">Checkbox is CHECKED!</p>
-                
-                </form>
-              <form id="form" action="{% url 'upload' absence.id %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-     
-             <div id="{{ absence.id }}">
-              <div class="file-container">
-                  
-                  <input type="file" name="file" id="file"  />
-                  <input type="submit" name="submit">
-              </div>
+  <div class="row">
+    <div class="col-sm">
+        <form>
+         <label class="radio-inline"><input type="radio" name="optradio" id="myChecksi" onclick="myFunction({{absence.id}})">Si</label>
+         <label class="radio-inline"><input type="radio" name="optradio" id="myCheckno" onclick="myFunction({{absence.id}})">No</label>
+        </form>
 
-         </div>
+    </div>
+    <div class="col-sm" align="right" id="td-{{absence.id}}">
+      <button id="btn-{{absence.id}}" class="button_size btn btn-flat" onclick="ajax_justify({{ absence.id }})" style="background:lightblue;">Justificar</button>
+    </div>
 
-          </form>
+  </div><br>
+
+
+      
+
+        <form id="form" action="{% url 'upload' absence.id %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div id="divs{{absence.id}}" style="display: none;">
+            <div class="file-container">
+              <input type="file" name="file" id="file"  />
+              <input type="submit" value="Enviar" name="submit">
             </div>
-        </div>
-      </td>
-</tr>
-  {% endfor %}          
+            <br>
+          </div>
+        </form>
+
+      </div>
+      
+    </td>
+  </tr>
+    {% endfor %}          
+
   </tbody>
+
 </table>
+
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
@@ -185,7 +190,7 @@ function undo(id){
     },
     success:function(results){
       $("#btnu-"+id).remove()
-      $("#td-"+id).append("<button id='btn-"+id+"' class='btn btn-flat' onclick='ajax_justify("+id+")' style='background:lightblue'>Aceptar</button>");
+      $("#td-"+id).append("<button id='btn-"+id+"' class='btn btn-flat' onclick='ajax_justify("+id+")' style='background:lightblue'>Justificar</button>");
     },
     error:function(request, status, error){
     $("body").html(request.responseText);
@@ -198,16 +203,20 @@ function myFunction(id) {
   // Get the checkbox
   var checkBoxsi = document.getElementById("myChecksi");
   var checkBoxno = document.getElementById("myCheckno");
+  var div = document.getElementById("divs"+id);
   // Get the output text
   var text = document.getElementById("text");
 
   // If the checkbox is checked, display the output text
   if (checkBoxsi.checked == true){
-    text.style.display = "block";
+    console.log("SI");
+    div.style.display = "block";
   } else if (checkBoxno.checked == true) {
-    id.style.display = "block";
+    console.log("NO");
+    div.style.display='none'; 
   } else {
-      text.style.display = "none";
+      console.log("else");
+      div.style.style.visibility = 'hidden';  
   }
 }
 
