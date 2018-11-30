@@ -20,32 +20,36 @@ from django.contrib.auth.models import User
 import datetime
 from datetime import timedelta
 import sys
-#import xlwt
+import xlwt
 from django.db.models.functions import Concat
 from django.db.models.functions import Upper
 import calendar
 from django.core.mail import send_mail, EmailMessage
+from collections import Counter
 if 'makemigrations' not in sys.argv and 'migrate' not in sys.argv:
 	from controlAsistencia.forms import *
-
+#from pdfrw import PdfWriter
 # Create your views here.
 def main(request):
 	results={}
 	try:
 		preceptor = Preceptor.objects.get(user=request.user)
 		results['years'] = preceptor.getYear().order_by('year_number','division')
+		print results['years']
 		return render(request, 'main.html', results)
 	except:
 		return render(request, 'main.html')
 
 def prueba(request):
-	 return render(request, 'prueba.html')
+	return render(request, 'prueba.html')
 
-def list_render(request, id):
-	
-	#results['students'] = year.getStudents().order_by('last_name','first_name')
+def asistencia(request,id):
+	results={}
+	results['id']=id
+	return render(request,'asistencia.html',results)
 
-
+def list_render(request,id):
+	print "list"
 	results={}
 	ausentes = []
 	presentes=[]
@@ -53,18 +57,41 @@ def list_render(request, id):
 	today_date = datetime.date.today()
 	year = Year.objects.get(id=id)
 	preceptor = Preceptor.objects.get(user=request.user)
-	students = year.getStudents()
+	students = year.getStudents().order_by('last_name','first_name')
 	faltas1 = Absence.objects.filter(date = today_date , percentage=1, student__year=year) 
 	faltas2 = Absence.objects.filter(date = today_date, student__year=year, origin = 2)  
 	faltas = faltas1 | faltas2
 
 	for i in faltas:
 		ausentes.append(i.student)
-	print ausentes
-	print students
-	print presentes
 	presentes = list(set(students)-set(ausentes))
-	print presentes
+	if (ausentes==[]):
+		results['students']= students
+	else:
+		results['students']= presentes
+	return render(request, 'asistencia_lista.html', results)
+
+
+def list_render2(request,id):
+	
+	#results['students'] = year.getStudents().order_by('last_name','first_name')
+
+	print "list2"
+	results={}
+	ausentes = []
+	presentes=[]
+
+	today_date = datetime.date.today()
+	year = Year.objects.get(id=id)
+	preceptor = Preceptor.objects.get(user=request.user)
+	students = year.getStudents().order_by("room_order")
+	faltas1 = Absence.objects.filter(date = today_date , percentage=1, student__year=year) 
+	faltas2 = Absence.objects.filter(date = today_date, student__year=year, origin = 2)  
+	faltas = faltas1 | faltas2
+
+	for i in faltas:
+		ausentes.append(i.student)
+	presentes = list(set(students)-set(ausentes))
 	if (ausentes==[]):
 		results['students']= students
 	else:
@@ -80,6 +107,7 @@ def login_user(request):
 			login(request, user)
 			return redirect('main')
 		else:
+			messages.error(request, 'Password or Username incorrect, please try again.')
 			return render(request, 'index.html')
 
 
@@ -112,7 +140,10 @@ def register_user(request):
 					preceptor.save()
 					for i in year:
 						preceptor.year.add(i)
-				return redirect('/')
+			else:
+				messages.error(request, 'Passwords do not match.')
+
+				return redirect('register')
 	else:
 		form = PreceptorForm()
 	return render(request, 'register.html', {'form': form})
@@ -130,17 +161,33 @@ def ausente(request):
 			absence=Absence.objects.create(date=today_date,time=today_time, preceptor=preceptor, year=year, student=student, percentage=1, origin=0)
 	return HttpResponse("ok")
 
+def undo_falta(request):
+	print "undo falta"
+	if request.method == "POST":
+		today_date = datetime.date.today()
+		preceptor = Preceptor.objects.get(user=request.user)
+		student = Student.objects.get(dni=request.POST['student'])
+		year= Student.objects.get(dni=request.POST['student']).year
+		print student
+		print year
+		try:
+			abse=Absence.objects.get(date=today_date, preceptor=preceptor, year=year,student=student,origin=0)
+			print abse
+			abse.delete()
+		except Absence.DoesNotExist:
+			pass
+		return HttpResponse("ok")
+
 def create_student(request):
 	print "view"
 	if request.method == "POST":
-		print "post"
-		form = StudentForm(request.POST)
+		form = CreateStudentForm(request.POST)
 		if form.is_valid():
-			print "valid"
 			first_name= form.cleaned_data.get("first_name")
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
 			list_number= form.cleaned_data.get("list_number")
+			room_order = form.cleaned_data.get("room_order")
 			birthday= form.cleaned_data.get("birthday")
 			address= form.cleaned_data.get("address")
 			dni= form.cleaned_data.get("dni")
@@ -149,18 +196,16 @@ def create_student(request):
 			yearqs= form.cleaned_data.get("year")
 			status= form.cleaned_data.get("status")
 			food_obvs= form.cleaned_data.get("food_obvs")
+			print "------------------" +food_obvs
 			year= Year.objects.get(id=yearqs)
 			try: 
 				a=Student.objects.get(dni=dni)
-				print "estudiante"
-				print a
 			except Student.DoesNotExist:
-				print "not exist"
-				student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number, birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
+				student = Student(first_name = first_name ,last_name = last_name, dni=dni , student_tag=student_tag ,list_number=list_number,room_order=room_order ,birthday=birthday, address=address, neighbourhood=neighbourhood, year=year,city=city,status=status, food_obvs=food_obvs)
 				student.save()
-		return redirect('/')
+			return redirect('manage')
 	else:
-		form = StudentForm()
+		form = CreateStudentForm()
 	return render(request, 'create_student.html', {'form': form})
 
 def index(request):
@@ -190,7 +235,7 @@ def update_preceptor(request):
 			for i in year:
 				preceptor_year.year.add(i)
 			preceptor.update(internal_tel=internal_tel)
-		return redirect('/')
+		return redirect('manage')
 	else:
 		years = []
 		results= {}
@@ -226,6 +271,7 @@ def update_student(request):
 			last_name= form.cleaned_data.get("last_name")
 			student_tag= form.cleaned_data.get("student_tag")
 			list_number= form.cleaned_data.get("list_number")
+			room_order= form.cleaned_data.get("room_order")
 			birthday= form.cleaned_data.get("birthday")
 			address= form.cleaned_data.get("address")
 			neighbourhood= form.cleaned_data.get("neighbourhood")
@@ -234,15 +280,15 @@ def update_student(request):
 			status= form.cleaned_data.get("status")
 			food_obvs= form.cleaned_data.get("food_obvs")
 			student=Student.objects.filter(id=id)
-			student.update(first_name=first_name, last_name=last_name, student_tag=student_tag, list_number=list_number, birthday=birthday, dni=dni,address=address, neighbourhood=neighbourhood, city=city, year=year, status=status, food_obvs=food_obvs)
-		return redirect('/')
+			student.update(first_name=first_name, last_name=last_name, student_tag=student_tag, list_number=list_number, room_order=room_order,birthday=birthday, dni=dni,address=address, neighbourhood=neighbourhood, city=city, year=year, status=status, food_obvs=food_obvs)
+		return redirect('manage')
 	else:
 		results= {}
-		id=request.GET.get('id')
+		id=request.GET.get('student')
 		results["id"] = id
 		student = Student.objects.get(id=id)
 		age = student.getAge()
-		form = StudentForm(initial={'first_name':student.first_name, 'last_name':student.last_name, 'dni':student.dni, 'student_tag':student.student_tag, 'list_number':student.list_number, 'birthday':student.birthday, 'address':student.address, 'neighbourhood':student.neighbourhood, 'city':student.city, 'year':student.year.id, 'status':student.status,'food_obvs':student.food_obvs})
+		form = StudentForm(initial={'first_name':student.first_name, 'last_name':student.last_name, 'dni':student.dni, 'student_tag':student.student_tag, 'list_number':student.list_number, 'room_order':student.room_order,'birthday':student.birthday, 'address':student.address, 'neighbourhood':student.neighbourhood, 'city':student.city, 'year':student.year.id, 'status':student.status,'food_obvs':student.food_obvs})
 		results["form"]= form
 	return render(request,'update_student.html', results)
 
@@ -266,20 +312,37 @@ def late_arrival(request):
 		tres_cuartos = now.replace(hour=11, minute= 00 , second= 0) 
 		completa = now.replace(hour=13, minute= 0 , second= 0) 
 
-		if now > a15am:
+		if now > completa:
 			absence_q.update(percentage=1)
 			
-		elif now > a12am:
+		elif now > tres_cuartos:
 			absence_q.update(percentage=0.75)
 
-		elif now > a10_30am:
+		elif now > media:
 			absence_q.update(percentage=0.5)
 
 		elif now > cuarto:
 			absence_q.update(percentage=0.25)
+		absence_q.update(origin=1)
 
 		
-	return HttpResponse("hola")
+	return HttpResponse("ok")
+
+def undo_latearrival(request):
+	if request.method == "POST":
+		today_date = datetime.date.today()
+		preceptor = Preceptor.objects.get(user=request.user)
+		id=request.POST['absence']
+		student = Absence.objects.get(id=id).student
+		year = Year.objects.get(id=student.year.id)
+		now = datetime.datetime.now().time()
+		try:
+			abse=Absence.objects.filter(id=id,date=today_date, preceptor=preceptor,origin=1)
+			abse.update(origin=0,percentage=1)
+		except Absence.DoesNotExist:
+			pass
+		return HttpResponse("ok")
+
 
 def late_render(request, id):
 	results={}
@@ -300,7 +363,7 @@ def early_retirement(request):
 		now = datetime.datetime.now().time()
 		a9am = now.replace(hour=9, minute= 0 , second= 0) 
 		a12_30am = now.replace(hour=12, minute= 30 , second= 0) 
-		a15_20am = now.replace(hour=15, minute= 20 , second= 0) 
+		a15_20am = now.replace(hour=20, minute= 20 , second= 0) 
 
 		if now < a9am:
 			Absence.objects.create(percentage=0.75,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year, justified=True)
@@ -312,7 +375,7 @@ def early_retirement(request):
 			Absence.objects.create(percentage=0.25,student=student,origin=2,date=today_date,time=now,preceptor=preceptor,year=year, justified=True)
 
 		
-	return HttpResponse("hola")
+	return HttpResponse("ok")
 
 def early_render(request, id):
 	results={}
@@ -341,6 +404,20 @@ def early_render(request, id):
 
 	return render(request, 'retiro_anticipado.html', results)
 
+def undo_retirement(request):
+	if request.method == "POST":
+		today_date = datetime.date.today()
+		preceptor = Preceptor.objects.get(user=request.user)
+		student = Student.objects.get(dni=request.POST['student'])
+		year= Student.objects.get(dni=request.POST['student']).year
+		try:
+			abse=Absence.objects.get(date=today_date, preceptor=preceptor, year=year,student=student,origin=2)
+			abse.delete()
+		except Absence.DoesNotExist:
+			pass
+		return HttpResponse("ok")
+
+
 def justification_render(request, id):
 	results={}
 	year = Year.objects.get(id=id)
@@ -359,17 +436,47 @@ def justification_render(request, id):
 
 
 def justify(request):
-		absence_q = Absence.objects.filter(id=request.POST['absence'])
-		absence_q.update(justified=True)
-		return HttpResponse("okk")
+	absence_q = Absence.objects.filter(id=request.POST['absence'])
+	absence_q.update(justified=True)
+	return HttpResponse("ok")
 
-def export_users_xls(request):
+def upload(request,id):
+	print "view"
+	if request.method == 'POST':
+		falta = Absence.objects.get(id=id)
+		yearid= falta.getYear()
+		form = ImageUploadForm(request.POST, request.FILES)
+		print request.POST.get('file')
+		newPic = Image(image = request.FILES['file'], falta=falta)
+		newPic.save()
+		print "save"
+		return redirect('/justification/'+str(yearid)+'/')
+	else:
+		form = ImageUploadForm()
+	return HttpResponse('nose')
+
+def undo_justify(request):
+	if request.method == "POST":
+		today_date = datetime.date.today()
+		preceptor = Preceptor.objects.get(user=request.user)
+		id=request.POST['absence']
+		student = Absence.objects.get(id=id).student
+		year = Year.objects.get(id=student.year.id)
+		now = datetime.datetime.now().time()
+		try:
+			abse=Absence.objects.filter(id=id,date=today_date, preceptor=preceptor,justified=True)
+			img=Image.objects.filter(falta=abse)
+			img.update(image=None)
+			abse.update(justified=False)
+		except Absence.DoesNotExist:
+			pass
+		return HttpResponse("ok")
+
+def export_users_xls(year_number,division):
 	today_date = datetime.date.today()
 	month = today_date.month
 	month_name = datetime.date(today_date.year,today_date.month, 1).strftime('%B')
-	year = 7
-	division = "c"
-	students = Student.objects.filter(year__year_number=year, year__division=division).order_by("last_name")
+	students = Student.objects.filter(year__year_number=year_number, year__division=division).order_by("last_name")
 	#response = HttpResponse(content_type='application/ms-excel')
 	#response['Content-Disposition'] = 'attachment; filename={}-{}{}.xls'.format(month_name, year, division)
 	wb = xlwt.Workbook(encoding='utf-8')	
@@ -474,9 +581,6 @@ def export_users_xls(request):
 			else:
 				for alumno in range(1,cantidadAlumnos+1):
 					ws.write(alumno,dia+1," ",style3)
-
-
-
 			nro=0
 			for student in students:
 				nro+=1
@@ -512,13 +616,53 @@ def export_users_xls(request):
 	style.borders = borders
 	style.alignment.wrap = 1
 
-	wb.save(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year, division))
-	send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year, division))
+	pw = PdfWriter('fruits2.pdf')
+	pw.setFont('Courier', 12)
+	pw.setHeader('XLSXtoPDF.py - convert XLSX data to PDF')
+	pw.setFooter('Generated using openpyxl and xtopdf')		
+	
+	ws_range = ws.iter_rows('A1:H13')
+	for row in ws_range:
+	    s = ''
+	    for cell in row:
+	        if cell.value is None:
+	            s += ' ' * 11
+	        else:
+	            s += str(cell.value).rjust(10) + ' '
+	    pw.writeLine(s)
+	pw.savePage()
+	pw.close()
+
+	wb.save(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
+	#send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
+	send_mail(file='fruits2.pdf',body='body',title='title',reciever=['nikobazan@gmail.com'])
 	return redirect('manage')
 
-def send_mail(file):
-	msg = EmailMessage('Planilla Asistencia ', '', 'test.asistencia@gmail.com', ['juli.luna1999@gmail.com','nikobazan@gmail.com'])
-	msg.attach_file(file)
+def send_mail(file,body,title,reciever):
+	msg = EmailMessage(title,body,'test.asistencia@gmail.com', reciever)
+	if file:
+		msg.attach_file(file)
 	msg.send()
 
+def excel(request):
+	for i in Year.objects.all():
+		export_users_xls(i.year_number,i.division)
+	return HttpResponse("ok")
 
+def comedor(request):	
+	today_date = datetime.date.today()
+	absences = Absence.objects.filter(date=today_date)
+	ausentes = str(len(absences))
+	x= []
+	observaciones=[]
+	for i in absences:
+		if i.student.food_obvs:
+			x.append(i.student.food_obvs)
+	y=Counter(x)
+	for key, value in y.iteritems():
+		observaciones.append(key+": "+str(value))
+	send_mail(file=None,body="Alumnos ausentes: " +ausentes+"\n\nObservaciones:\n"+"\n".join(observaciones),title="Alumnos comedor - {} ".format(today_date),reciever=['juli.luna1999@gmail.com','nikobazan@gmail.com'])
+	return redirect("manage")
+
+def crontry():
+	print "CRON_____________________"
