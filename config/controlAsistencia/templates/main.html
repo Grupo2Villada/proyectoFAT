@@ -9,16 +9,19 @@ ITS Villada
 {% block navbar %}
 {% endblock navbar %}
 {% block body %}
-{% for year in years %}
     <style>
     .card {
-    width:400px;
+    width: 95%;
     margin-top: 20px;
     }
     .main_button{
         width: 18rem;
     }
-    @media only screen and (max-width: 720px){
+        .margin_correction{
+            margin-right: 0px;
+            margin-left: 23px
+        }
+    @media (max-device-width: 1000px){
             .card {
                 width:100%;
                 margin-top: 20px;
@@ -34,12 +37,12 @@ ITS Villada
         }
 
     </style>
+<div class="row margin_correction">
+{% for year in years %} 
 
+<div class="col-md-4">
+<div class="card text-white  bg-primary mb-3">
 <center>
-    
-
-        
-               <div class="card text-white bg-primary mb-3" >
   <div class="card-body">
      <span class="card-title activator grey-text text-darken-4">{{year|upper}} </span>
     <div class="card text-center main_button">      
@@ -61,8 +64,10 @@ ITS Villada
                                                          
         </div>
   </div>
-      </div>
-
-</center>
-{% endfor %}    
+    </center>
+</div>
+</div>
+{% endfor %}
+    </div>
+    
 {% endblock body %}
