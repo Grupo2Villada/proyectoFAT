@@ -96,14 +96,13 @@ Asistencia
 </div>
         
 		
-			<tr >
 				<select class="custom-select juan" name= "orders" onchange="alfabetico(), banco()">
 					<option value="Orden A - Z" onclick="alfabetico({{ id }})">Orden A - Z </option>
 					<option value="Orden Curso" onclick="banco({{ id }})"> Orden Curso</option>
 				</select>
-			</tr> 
+			
 		
-
+    
 	<div id="card" class="col" style="padding-left: 0px; padding-right: 0px; top: -16px">
 	</div>
 </div>
@@ -111,7 +110,7 @@ Asistencia
 
 <script>
   alfabetico()
-  onchange()
+  onchange();
   function alfabetico(id){
       $.ajax({
     url:"{% url 'list' id %}",
