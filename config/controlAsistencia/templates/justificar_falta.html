@@ -120,8 +120,8 @@ Justificar Faltas
   <div class="row">
     <div class="col-sm">
         <form>
-         <label class="radio-inline"><input type="radio" name="optradio" id="myChecksi" onclick="myFunction({{absence.id}})">Si</label>
-         <label class="radio-inline"><input type="radio" name="optradio" id="myCheckno" onclick="myFunction({{absence.id}})">No</label>
+         <label class="radio-inline"><input type="radio" name="optradio" id="myChecksi{{absence.id}}" onclick="myFunction({{absence.id}})">Si</label>
+         <label class="radio-inline"><input type="radio" name="optradio" id="myCheckno{{absence.id}}" onclick="myFunction({{absence.id}})">No</label>
         </form>
 
     </div>
@@ -201,8 +201,8 @@ function undo(id){
 
 function myFunction(id) {
   // Get the checkbox
-  var checkBoxsi = document.getElementById("myChecksi");
-  var checkBoxno = document.getElementById("myCheckno");
+  var checkBoxsi = document.getElementById("myChecksi"+id);
+  var checkBoxno = document.getElementById("myCheckno"+id);
   var div = document.getElementById("divs"+id);
   // Get the output text
   var text = document.getElementById("text");
