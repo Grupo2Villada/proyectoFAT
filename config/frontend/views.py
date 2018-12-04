@@ -20,7 +20,7 @@ from django.contrib.auth.models import User
 import datetime
 from datetime import timedelta
 import sys
-#import xlwt
+import xlwt
 from django.db.models.functions import Concat
 from django.db.models.functions import Upper
 import calendar
@@ -477,8 +477,9 @@ def export_users_xls(year_number,division):
 	month = today_date.month
 	month_name = datetime.date(today_date.year,today_date.month, 1).strftime('%B')
 	students = Student.objects.filter(year__year_number=year_number, year__division=division).order_by("last_name")
-	#response = HttpResponse(content_type='application/ms-excel')
-	#response['Content-Disposition'] = 'attachment; filename={}-{}{}.xls'.format(month_name, year, division)
+	response = HttpResponse(content_type='application/ms-excel')
+	year= Student.objects.filter(year__year_number=year_number, year__division=division)
+	response['Content-Disposition'] = 'attachment; filename={}-{}{}.xls'.format(month_name, year, division)
 	wb = xlwt.Workbook(encoding='utf-8')	
 
 	ws = wb.add_sheet("{}".format(today_date.month), cell_overwrite_ok=True)
@@ -616,26 +617,8 @@ def export_users_xls(year_number,division):
 	style.borders = borders
 	style.alignment.wrap = 1
 
-	pw = PdfWriter('fruits2.pdf')
-	pw.setFont('Courier', 12)
-	pw.setHeader('XLSXtoPDF.py - convert XLSX data to PDF')
-	pw.setFooter('Generated using openpyxl and xtopdf')		
-	
-	ws_range = ws.iter_rows('A1:H13')
-	for row in ws_range:
-	    s = ''
-	    for cell in row:
-	        if cell.value is None:
-	            s += ' ' * 11
-	        else:
-	            s += str(cell.value).rjust(10) + ' '
-	    pw.writeLine(s)
-	pw.savePage()
-	pw.close()
-
 	wb.save(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
-	#send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division))
-	send_mail(file='fruits2.pdf',body='body',title='title',reciever=['nikobazan@gmail.com'])
+	send_mail(settings.MEDIA_ROOT+'{}-{}{}.xls'.format(month_name, year_number, division),body="",title="Reporte de asistencia",reciever=['juli.luna1999@gmail.com','nikobazan@gmail.com'])
 	return redirect('manage')
 
 def send_mail(file,body,title,reciever):
@@ -647,7 +630,7 @@ def send_mail(file,body,title,reciever):
 def excel(request):
 	for i in Year.objects.all():
 		export_users_xls(i.year_number,i.division)
-	return HttpResponse("ok")
+	return redirect(manage)
 
 def comedor(request):	
 	today_date = datetime.date.today()

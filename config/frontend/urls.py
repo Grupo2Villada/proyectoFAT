@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^upload/(?P<id>\d+)/$', upload, name="upload"),
     url(r'^undo_justify/', undo_justify, name="undo_justify"),
     url(r'^justification/(?P<id>\d+)/$', justification_render, name="justification"),
-    url(r'^export/xls/$', excel , name='comedor'),
+    url(r'^export/xls/$', excel , name='excel'),
+    url(r'^comedor/$', comedor , name='comedor'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

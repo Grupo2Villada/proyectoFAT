@@ -1,23 +1,27 @@
 {% extends 'base.html' %}
 {% block imports %}
-    <meta charset="utf-8"> {% load static %}
 {% endblock imports %}
 {% block title %}
-Menu
-{% endblock title %}      
+ITS Villada
+
+{% endblock title %}  
+
 {% block navbar %}
 {% endblock navbar %}
 {% block body %}
-{% for year in years %}
     <style>
     .card {
-    width:400px;
+    width: 95%;
     margin-top: 20px;
     }
     .main_button{
         width: 18rem;
     }
-    @media only screen and (max-width: 720px){
+        .margin_correction{
+            margin-right: 0px;
+            margin-left: 23px
+        }
+    @media (max-device-width: 1000px){
             .card {
                 width:100%;
                 margin-top: 20px;
@@ -33,35 +37,41 @@ Menu
         }
 
     </style>
+    <div class="row margin_correction">
+      {% for year in years %} 
 
-<center>
-    
+      <div class="col-md-4">
+        <div class="card text-white  bg-primary mb-3">
+          <center>
 
-        
+
+
             <div class="card text-white bg-primary mb-3" >
-  <div class="card-body">
-     <span class="card-title activator grey-text text-darken-4">{{year|upper}} </span>
-    <div class="card text-center main_button">      
-  
-        <a href="{% url 'asistencia' year.id %}" class="btn btn-primary">   Tomar Asistencia</a>
-    </div>
-        
-      <p> </p>
-    <div class="card text-center main_button">  
-         <a href="{% url 'late' year.id %}" class="btn btn-primary">Llegadas Tardes</a>
-        </div>
-      <p> </p>
-    <div class="card text-center main_button">  
-        <a href="{% url 'early' year.id %}" class="btn btn-primary">Retiro Anticipado</a>
-      </div>
-        <p> </p>
-   <div class="card text-center main_button"> 
-        <a href="{% url 'justification' year.id %}" class="btn btn-primary">Justificar faltas</a>
-                                                         
-        </div>
-  </div>
-      </div>
+              <div class="card-body">
+                <span class="card-title activator grey-text text-darken-4">{{year|upper}} </span>
+                <div class="card text-center main_button">      
 
-</center>
-{% endfor %}    
+                  <a href="{% url 'asistencia' year.id %}" class="btn btn-primary">   Tomar Asistencia</a>
+                </div>
+
+                <p> </p>
+                <div class="card text-center main_button">  
+                  <a href="{% url 'late' year.id %}" class="btn btn-primary">Llegadas Tardes</a>
+                </div>
+                <p> </p>
+                <div class="card text-center main_button">  
+                  <a href="{% url 'early' year.id %}" class="btn btn-primary">Retiro Anticipado</a>
+                </div>
+                <p> </p>
+                <div class="card text-center main_button"> 
+                  <a href="{% url 'justification' year.id %}" class="btn btn-primary">Justificar faltas</a>
+                  
+                </div>
+              </div>
+            </center>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    
 {% endblock body %}
